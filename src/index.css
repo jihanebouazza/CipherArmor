@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-blanc-100: #fafbfd;
+  --color-butter-100: #fff6e5;
+  --color-butter-500: #ffce73;
+  --color-butter-900: #4d3304;
+
+  --color-mauve-100: #dddaf2;
+  --color-mauve-200: #c4beec;
+  --color-mauve-300: #a49ae4;
+  --color-mauve-400: #897dd9;
+  --color-mauve-500: #6c5dd3;
+  --color-mauve-600: #5c4fbb;
+  --color-mauve-700: #493da3;
+  --color-mauve-800: #352a81;
+  --color-mauve-900: #23196b;
+
+  --color-ocean-100: #fafcff;
+  --color-ocean-200: #b8cdf1;
+  --color-ocean-300: #749ee6;
+  --color-ocean-400: #306cd3;
+  --color-ocean-500: #0049c6;
+  --color-ocean-600: #003ca4;
+  --color-ocean-700: #03358c;
+  --color-ocean-800: #022b72;
+  --color-ocean-900: #022155;
+
+  --color-ruby-100: #fbe9e9;
+  --color-ruby-200: #f2b9ba;
+  --color-ruby-300: #e97b7d;
+  --color-ruby-400: #d83436;
+  --color-ruby-500: #c60003;
+  --color-ruby-600: #b00609;
+  --color-ruby-700: #970508;
+  --color-ruby-800: #8d080a;
+  --color-ruby-900: #760607;
+
+  --color-mint-100: #e1fae8;
+  --color-mint-200: #b0eec2;
+  --color-mint-300: #6edf8e;
+  --color-mint-400: #36d563;
+  --color-mint-500: #00c638;
+  --color-mint-600: #01aa32;
+  --color-mint-700: #018c29;
+  --color-mint-800: #007020;
+  --color-mint-900: #004915;
+
+  --color-rust-100: #fcefe3;
+  --color-rust-200: #efd1b5;
+  --color-rust-300: #e5ad78;
+  --color-rust-400: #e18e40;
+  --color-rust-500: #d66d0b;
+  --color-rust-600: #bb6311;
+  --color-rust-700: #a45409;
+  --color-rust-800: #8a4709;
+  --color-rust-900: #6e3601;
+
+  --color-charcoal-100: #dddfe2;
+  --color-charcoal-200: #c6c7ca;
+  --color-charcoal-300: #abadb1;
+  --color-charcoal-400: #8d9094;
+  --color-charcoal-500: #676a6f;
+  --color-charcoal-600: #3d3f42;
+  --color-charcoal-700: #24272c;
+  --color-charcoal-800: #1a1c21;
+  --color-charcoal-900: #0b0f14;
+
+  --font-heading: "Space Grotesk", serif;
+  --font-body: "Work Sans", serif;
+
+  /* --breakpoint-2xl: 100rem;
+  --breakpoint-3xl: 120rem; */
+}
+
+:root {
+  color: #0b0f14;
+  font-family: "Work Sans", serif;
+}
+
+.input {
+  @apply dark:border-charcoal-300 border-charcoal-700 placeholder:text-charcoal-300 dark:focus:border-charcoal-600 dark:focus:ring-charcoal-600/40 focus:ring-ocean-300/40 my-1 block w-full rounded-lg border px-3 py-1.5 outline-none focus:ring-3;
+}
+
+.label {
+  @apply text-charcoal-800 font-medium;
+}
