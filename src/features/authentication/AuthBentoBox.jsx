@@ -2,8 +2,11 @@ import { HiOutlineArrowTopRightOnSquare, HiOutlineHome } from "react-icons/hi2";
 import Button from "../../ui/Button";
 import LockIcon from "../../ui/LockIcon";
 import ThemeSwitch from "../../ui/ThemeSwitch";
+import { useNavigate } from "react-router";
 
 function AuthBentoBox() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="bg-ocean-100 dark:bg-charcoal-100 dark:border-charcoal-100 col-span-5 rounded-3xl p-4 dark:border">
@@ -101,7 +104,7 @@ function AuthBentoBox() {
       </div>
       <div className="col-span-1 flex flex-col justify-between gap-4">
         <div className="bg-ocean-100 dark:bg-charcoal-100 dark:border-charcoal-700 flex grow items-center justify-center rounded-3xl p-2 dark:border">
-          <Button type="primarysm">
+          <Button type="primarysm" onClick={() => navigate("/")}>
             <HiOutlineHome size={16} className="mb-1 inline" /> Home
           </Button>
         </div>
