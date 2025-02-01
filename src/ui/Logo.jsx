@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 function Logo() {
   return (
-    <Link to='/' className="flex items-baseline justify-between gap-1">
+    <Link to="/" className="flex items-baseline gap-1">
       <svg
         height="30px"
         width="30px"
@@ -55,7 +55,9 @@ function Logo() {
           />
         </g>
       </svg>
-      <p className="font-heading dark:text-charcoal-100 text-[24px] font-bold">CipherArmor</p>
+      <p className="font-heading dark:text-charcoal-100 text-[24px] font-bold 2xl:text-4xl">
+        CipherArmor
+      </p>
     </Link>
   );
 }

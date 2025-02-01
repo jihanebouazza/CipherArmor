@@ -6,7 +6,7 @@
   --color-blanc-100: #fafbfd;
   --color-butter-100: #fff6e5;
   --color-butter-500: #ffce73;
-  --color-butter-600: #F4BF5D;
+  --color-butter-600: #f4bf5d;
   --color-butter-900: #4d3304;
 
   --color-mauve-100: #dddaf2;
@@ -72,8 +72,8 @@
   --font-heading: "Space Grotesk", serif;
   --font-body: "Work Sans", serif;
 
-  /* --breakpoint-2xl: 100rem;
-  --breakpoint-3xl: 120rem; */
+  /* --breakpoint-2xl: 100rem;*/
+  --breakpoint-3xl: 1535px;
 }
 
 :root {
@@ -88,3 +88,9 @@
 .label {
   @apply text-charcoal-800 font-medium;
 }
+
+/* sm: 640px
+md: 768px
+lg: 1024px
+xl: 1280px
+2xl: 1536px */

@@ -4,7 +4,7 @@ function Button({
   children,
   onClick = () => {},
 }) {
-  const base = `${extraStyles} font-heading cursor-pointer `;
+  const base = `${extraStyles} font-heading cursor-pointer 2xl:text-[18px] `;
 
   const styles = {
     primary:

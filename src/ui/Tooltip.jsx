@@ -53,9 +53,9 @@ function Content({ children }) {
   return (
     <div
       role="tooltip"
-      className={`bg-blanc-100 dark:bg-charcoal-800 dark:border-charcoal-300 border-ocean-300 absolute top-[${triggerHeight}] ${isVisibleTooltip ? "visible" : "invisible"} inline rounded-xl border p-3 shadow-md`}
+      className={`bg-ocean-100 dark:bg-charcoal-800 dark:border-charcoal-300 border-ocean-300 absolute top-[${triggerHeight}] ${isVisibleTooltip ? "visible" : "invisible"} inline rounded-xl border p-3 shadow-md`}
     >
-      <div className="border-ocean-300 dark:border-charcoal-300 dark:bg-charcoal-800 bg-blanc-100 absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 transform border-t border-l"></div>
+      <div className="border-ocean-300 dark:border-charcoal-300 dark:bg-charcoal-800 bg-ocean-100 absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 transform border-t border-l"></div>
       {children}
     </div>
   );

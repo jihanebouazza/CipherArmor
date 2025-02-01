@@ -29,7 +29,7 @@ function SignupForm() {
         </label>
         <input id="email" type="text" placeholder="Email" className="input" />
         <div className="mb-2 flex items-center justify-between gap-2">
-          <div>
+          <div className="w-full">
             <label htmlFor="password" className="label">
               Passowrd
             </label>
@@ -41,7 +41,7 @@ function SignupForm() {
               setValue={setValue}
             />
           </div>
-          <div>
+          <div className="w-full">
             <label htmlFor="confirmPassword" className="label">
               Confirm Passowrd
             </label>

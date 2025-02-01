@@ -4,10 +4,10 @@ import Button from "../../ui/Button";
 function LoginForm() {
   return (
     <>
-      <h2 className="font-heading text-center text-[32px] leading-10 font-bold">
+      <h2 className="font-heading text-center text-[32px] leading-10 font-bold 2xl:text-4xl">
         Welcome Back
       </h2>
-      <h4 className="font-heading text-charcoal-600 dark:text-charcoal-300 pb-2 text-center text-xl">
+      <h4 className="font-heading text-charcoal-600 dark:text-charcoal-300 pb-2 text-center text-xl 2xl:text-2xl">
         Securely access your account <br />
         and manage your data.
       </h4>
