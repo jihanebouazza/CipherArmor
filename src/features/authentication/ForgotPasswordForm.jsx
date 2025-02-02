@@ -1,7 +1,16 @@
 import { Link } from "react-router";
 import Button from "../../ui/Button";
+import ErrorMessage from "../../ui/ErrorMessage";
+import { useForm } from "react-hook-form";
 
 function ForgotPasswordForm() {
+  const { register, formState, handleSubmit } = useForm();
+  const { errors } = formState;
+
+  function onSubmit(data) {
+    console.log(data);
+  }
+
   // If this email exists, a reset link has been sent to your inbox.
   return (
     <>
@@ -12,16 +21,33 @@ function ForgotPasswordForm() {
         Enter your email, and we&apos;ll send you <br />a link to reset your
         password.
       </h4>
-      <form action="">
+      <form action="" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="email" className="label">
           Email
         </label>
-        <input id="email" type="text" placeholder="Email" className="input" />
+        <input
+          id="email"
+          type="text"
+          placeholder="Email"
+          className="input"
+          {...register("email", {
+            required: "This field is required.",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Please provide a valid email address.",
+            },
+          })}
+        />
+        <ErrorMessage
+          condition={errors?.email?.message}
+          message={errors?.email?.message}
+        />
+
         <Button extraStyles="w-full mt-3">Send Reset Link</Button>
 
         <Link
           to="/login"
-          className="text-charcoal-600 dark:text-charcoal-300 hover:text-ocean-500 block mt-1 text-center underline"
+          className="text-charcoal-600 dark:text-charcoal-300 hover:text-ocean-500 mt-1 block text-center underline"
         >
           Back to login?
         </Link>

@@ -1,7 +1,17 @@
 import { Link } from "react-router";
 import Button from "../../ui/Button";
+import { useForm } from "react-hook-form";
+import ErrorMessage from "../../ui/ErrorMessage";
 
 function LoginForm() {
+  const { register, formState, handleSubmit } = useForm();
+  const { errors } = formState;
+
+  function onSubmit(data) {
+    
+    console.log(data);
+  }
+
   return (
     <>
       <h2 className="font-heading text-center text-[32px] leading-10 font-bold 2xl:text-4xl">
@@ -11,11 +21,23 @@ function LoginForm() {
         Securely access your account <br />
         and manage your data.
       </h4>
-      <form action="">
+      <form action="" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="email" className="label">
           Email
         </label>
-        <input id="email" type="text" placeholder="Email" className="input" />
+        <input
+          id="email"
+          type="text"
+          placeholder="Email"
+          className="input"
+          {...register("email", {
+            required: "This field is required.",
+          })}
+        />
+        <ErrorMessage
+          condition={errors?.email?.message}
+          message={errors?.email?.message}
+        />
 
         <label htmlFor="password" className="label">
           Password
@@ -25,6 +47,11 @@ function LoginForm() {
           className="input"
           id="password"
           placeholder="Password"
+          {...register("password", { required: "This field is required." })}
+        />
+        <ErrorMessage
+          condition={errors?.password?.message}
+          message={errors?.password?.message}
         />
 
         <Link

@@ -1,12 +1,23 @@
 import PasswordValidator from "./PasswordValidator";
 
-function PasswordStrength({ strengthScore, passwordValidation }) {
+function PasswordStrength({ password }) {
+  const passwordValidation = {
+    isLongEnough: password.length >= 8,
+    hasUppercase: /[A-Z]/.test(password),
+    hasNumber: /[0-9]/.test(password),
+    hasSpecialChar: /[!@#$%^&*]/.test(password),
+  };
+
+  const strengthScore =
+    Object.values(passwordValidation).filter(Boolean).length;
+
   function getStrengthColor(score) {
     if (score <= 1) return "bg-ruby-500 dark:bg-ruby-600";
     if (score <= 2) return "bg-rust-500 dark:bg-rust-600";
     if (score === 3) return "bg-yellow-500 dark:bg-yellow-600";
     return "bg-mint-500 dark:bg-mint-600";
   }
+
   return (
     <div>
       <div

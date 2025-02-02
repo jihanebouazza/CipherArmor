@@ -3,24 +3,33 @@ import { useState } from "react";
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 import PasswordStrength from "./PasswordStrength";
 
-function PasswordInput({ id, placeholder, register, setValue }) {
+function PasswordInput({ id, placeholder, register }) {
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
-  const passwordValidation = {
-    isLongEnough: password.length >= 8,
-    hasUppercase: /[A-Z]/.test(password),
-    hasNumber: /[0-9]/.test(password),
-    hasSpecialChar: /[!@#$%^&*]/.test(password),
+
+  const { onChange, ...restRegister } = register(id, {
+    required: "This field is required.",
+    validate: (value) => {
+      if (
+        value.length < 8 ||
+        !/[A-Z]/.test(value) ||
+        !/[0-9]/.test(value) ||
+        !/[!@#$%^&*]/.test(value)
+      ) {
+        return "Invalid password.";
+      }
+      return true;
+    },
+  });
+
+  // Merge register's onChange with your state update
+  // because if I don't my custom onChange will override register's onChange
+  // which is responsible of handling form state and triggering validation
+  const handleChange = (e) => {
+    onChange(e); // Let React Hook Form handle validation
+    setPassword(e.target.value); // Update local state
   };
 
-  const strengthScore =
-    Object.values(passwordValidation).filter(Boolean).length;
-
-  const handlePasswordChange = (e) => {
-    const newValue = e.target.value;
-    setPassword(newValue); // Update local state
-    setValue(id, newValue); // Update React Hook Form's state
-  };
   return (
     <Tooltip>
       <Tooltip.Trigger>
@@ -30,11 +39,11 @@ function PasswordInput({ id, placeholder, register, setValue }) {
             type={isVisible ? "text" : "password"}
             placeholder={placeholder}
             className="input"
-            {...register(id)}
-            onChange={handlePasswordChange}
+            {...restRegister} // Spread remaining register props
+            onChange={handleChange} // Use merged handler
           />
           <div
-            className="absolute top-2 right-2.5"
+            className="bg-ocean-100 dark:bg-charcoal-800 absolute top-2 right-2.5"
             onClick={() => setIsVisible((is) => !is)}
           >
             {isVisible ? <RxEyeClosed size={20} /> : <RxEyeOpen size={20} />}
@@ -42,10 +51,7 @@ function PasswordInput({ id, placeholder, register, setValue }) {
         </div>
       </Tooltip.Trigger>
       <Tooltip.Content>
-        <PasswordStrength
-          strengthScore={strengthScore}
-          passwordValidation={passwordValidation}
-        />
+        <PasswordStrength password={password} />
       </Tooltip.Content>
     </Tooltip>
   );

@@ -1,9 +1,16 @@
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import PasswordInput from "../../ui/PasswordInput";
+import ErrorMessage from "../../ui/ErrorMessage";
 
 function ResetPasswordForm() {
-  const { register, setValue } = useForm();
+  const { register, setValue, formState, getValues, handleSubmit } = useForm();
+  const { errors } = formState;
+
+  function onSubmit(data) {
+    console.log(data);
+  }
+
   // Your password has been successfully reset. Please log in.
   return (
     <>
@@ -14,7 +21,7 @@ function ResetPasswordForm() {
         Set a new password to regain <br />
         access to your account.
       </h4>
-      <form action="">
+      <form action="" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="newPassword" className="label">
           New password
         </label>
@@ -24,14 +31,27 @@ function ResetPasswordForm() {
           register={register}
           setValue={setValue}
         />
+        <ErrorMessage
+          condition={errors?.password?.message}
+          message={errors?.password?.message}
+        />
         <label htmlFor="confirmPassword" className="label">
           Confirm password
         </label>
         <input
           id="confirmPassword"
-          type="text"
+          type="password"
           placeholder="Confirm password"
           className="input"
+          {...register("confirmPassword", {
+            required: "This field is required.",
+            validate: (value) =>
+              value === getValues().password || "Passwords do not match.",
+          })}
+        />
+        <ErrorMessage
+          condition={errors?.confirmPassword?.message}
+          message={errors?.confirmPassword?.message}
         />
         <Button extraStyles="w-full mt-3">Reset password</Button>
       </form>
