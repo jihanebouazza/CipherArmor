@@ -5,7 +5,7 @@ export async function signup({ fullName, email, password }) {
     email,
     password,
     options: {
-      data: { fullName, avatar: "" },
+      data: { fullName },
     },
   });
 
@@ -27,8 +27,11 @@ export async function login({ email, password }) {
 export async function getCurrentUser() {
   // to get data from localStorage
   const { data: session } = await supabase.auth.getSession();
+
+  //  if the session doesn't exist return
   if (!session.session) return null;
 
+  // if the session exists get the user data
   const { data, error } = await supabase.auth.getUser();
 
   if (error) throw new Error(error.message);
@@ -41,6 +44,21 @@ export async function logout() {
   if (error) throw new Error(error.message);
 }
 
-export async function forgotPassword() {}
+export async function forgotPassword(email) {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email);
 
-export async function resetPassword() {}
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function resetPassword({ token, password }) {
+  // Update user with the password reset token
+  const { data, error } = await supabase.auth.updateUser(
+    { password },
+    { accessToken: token },
+  );
+
+  if (error) throw new Error(error.message);
+  return data;
+}

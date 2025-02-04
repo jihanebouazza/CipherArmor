@@ -3,19 +3,22 @@ import Button from "../../ui/Button";
 import PasswordInput from "../../ui/PasswordInput";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../../ui/ErrorMessage";
+import { useSignup } from "./useSignup";
+import Loader from "../../ui/Loader";
 
 function SignupForm() {
-  const { register, setValue, handleSubmit, formState, getValues } = useForm();
+  const { register, setValue, handleSubmit, formState, getValues, reset } =
+    useForm();
   const { errors } = formState;
+  const { signup, isSigningUp } = useSignup();
 
-  function onSubmit(data) {
-    console.log(data);
-  }
-
-  function onError(data) {
-    console.log(getValues().password);
-
-    console.log(data);
+  function onSubmit({ fullName, email, password }) {
+    signup(
+      { fullName, email, password },
+      {
+        onSettled: () => reset(),
+      },
+    );
   }
 
   return (
@@ -26,7 +29,7 @@ function SignupForm() {
       <h4 className="font-heading text-charcoal-600 dark:text-charcoal-300 pb-2 text-center text-xl">
         Sign up and protect your digital world.
       </h4>
-      <form action="" onSubmit={handleSubmit(onSubmit, onError)}>
+      <form action="" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="fullName" className="label">
           Full name
         </label>
@@ -35,6 +38,7 @@ function SignupForm() {
           type="text"
           placeholder="Full name"
           className="input"
+          disabled={isSigningUp}
           {...register("fullName", {
             required: "This field is required.",
             pattern: {
@@ -56,6 +60,7 @@ function SignupForm() {
           type="text"
           placeholder="Email"
           className="input"
+          disabled={isSigningUp}
           {...register("email", {
             required: "This field is required.",
             pattern: {
@@ -77,6 +82,7 @@ function SignupForm() {
             <PasswordInput
               id="password"
               placeholder="Password"
+              disabled={isSigningUp}
               register={register}
               setValue={setValue}
             />
@@ -94,6 +100,7 @@ function SignupForm() {
               type="password"
               placeholder="Confirm password"
               className="input"
+              disabled={isSigningUp}
               {...register("confirmPassword", {
                 required: "This field is required.",
                 validate: (value) =>
@@ -106,7 +113,13 @@ function SignupForm() {
             />
           </div>
         </div>
-        <Button extraStyles="w-full mt-1">Sign up</Button>
+        <Button extraStyles="w-full mt-3">
+          {isSigningUp ? (
+            <Loader secondColor="#fafbfd" borderWidth="5" width="22" />
+          ) : (
+            "Sign up"
+          )}
+        </Button>
         <p className="mt-1 text-center">
           Already have an account?{" "}
           <Link

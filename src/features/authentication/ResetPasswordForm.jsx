@@ -2,16 +2,31 @@ import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import PasswordInput from "../../ui/PasswordInput";
 import ErrorMessage from "../../ui/ErrorMessage";
+import { useResetPassword } from "./useResetPassword";
+import { useEffect, useState } from "react";
+import Loader from "../../ui/Loader";
 
 function ResetPasswordForm() {
   const { register, setValue, formState, getValues, handleSubmit } = useForm();
   const { errors } = formState;
 
-  function onSubmit(data) {
-    console.log(data);
+  const { resetPassword, isResetingPassword } = useResetPassword();
+
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const accessToken = new URLSearchParams(
+      window.location.hash.substring(1),
+    ).get("access_token");
+    setToken(accessToken);
+  }, []);
+
+  function onSubmit({ password }) {
+    console.log(token);
+    if (!token) return;
+    resetPassword({ token, password });
   }
 
-  // Your password has been successfully reset. Please log in.
   return (
     <>
       <h2 className="font-heading text-center text-[32px] leading-10 font-bold">
@@ -28,6 +43,7 @@ function ResetPasswordForm() {
         <PasswordInput
           id="password"
           placeholder="Password"
+          disabled={isResetingPassword}
           register={register}
           setValue={setValue}
         />
@@ -53,7 +69,13 @@ function ResetPasswordForm() {
           condition={errors?.confirmPassword?.message}
           message={errors?.confirmPassword?.message}
         />
-        <Button extraStyles="w-full mt-3">Reset password</Button>
+        <Button extraStyles="w-full mt-3">
+          {isResetingPassword ? (
+            <Loader secondColor="#fafbfd" borderWidth="5" width="22" />
+          ) : (
+            "Reset password"
+          )}
+        </Button>
       </form>
     </>
   );

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 import PasswordStrength from "./PasswordStrength";
 
-function PasswordInput({ id, placeholder, register }) {
+function PasswordInput({ id, placeholder, register, disabled }) {
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
 
@@ -39,6 +39,7 @@ function PasswordInput({ id, placeholder, register }) {
             type={isVisible ? "text" : "password"}
             placeholder={placeholder}
             className="input"
+            disabled={disabled}
             {...restRegister} // Spread remaining register props
             onChange={handleChange} // Use merged handler
           />

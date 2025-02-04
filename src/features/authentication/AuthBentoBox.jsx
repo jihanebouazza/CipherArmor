@@ -104,16 +104,27 @@ function AuthBentoBox() {
           <div className="relative">
             <LockIcon />
           </div>
-          <Button type="secondarysm">
-            Check password health{" "}
-            <HiOutlineArrowTopRightOnSquare size={16} className="mb-1 inline" />
+          <Button
+            type="secondarysm"
+            extraStyles="focus:ring-offset-ocean-100 dark:focus:ring-offset-charcoal-700 space-x-1"
+          >
+            <p>Check password health</p>
+
+            <HiOutlineArrowTopRightOnSquare
+              size={16}
+              className="mb-0.5 inline"
+            />
           </Button>
         </div>
       </div>
       <div className="hidden md:col-span-1 md:flex md:flex-col md:justify-between md:gap-4">
         <div className="bg-ocean-100 dark:bg-charcoal-100 dark:border-charcoal-700 flex grow items-center justify-center rounded-3xl p-2 dark:border">
-          <Button type="primarysm" onClick={() => navigate("/")}>
-            <HiOutlineHome size={16} className="mb-1 inline" /> Home
+          <Button
+            extraStyles="space-x-1 dark:focus:ring-offset-charcoal-100"
+            type="primarysm"
+            onClick={() => navigate("/")}
+          >
+            <HiOutlineHome size={16} className="mb-0.5 inline" /> <p>Home</p>
           </Button>
         </div>
         <div className="bg-ocean-100 dark:bg-charcoal-100 dark:border-charcoal-700 flex grow items-center justify-center rounded-3xl p-2 dark:border">

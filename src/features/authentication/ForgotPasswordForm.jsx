@@ -2,13 +2,16 @@ import { Link } from "react-router";
 import Button from "../../ui/Button";
 import ErrorMessage from "../../ui/ErrorMessage";
 import { useForm } from "react-hook-form";
+import { useForgotPassword } from "./useForgotPassword";
+import Loader from "../../ui/Loader";
 
 function ForgotPasswordForm() {
-  const { register, formState, handleSubmit } = useForm();
+  const { register, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
+  const { forgotPassword, isPending } = useForgotPassword();
 
-  function onSubmit(data) {
-    console.log(data);
+  function onSubmit({ email }) {
+    forgotPassword(email, { onSettled: reset() });
   }
 
   // If this email exists, a reset link has been sent to your inbox.
@@ -30,6 +33,7 @@ function ForgotPasswordForm() {
           type="text"
           placeholder="Email"
           className="input"
+          disabled={isPending}
           {...register("email", {
             required: "This field is required.",
             pattern: {
@@ -43,7 +47,13 @@ function ForgotPasswordForm() {
           message={errors?.email?.message}
         />
 
-        <Button extraStyles="w-full mt-3">Send Reset Link</Button>
+        <Button extraStyles="w-full mt-3">
+          {isPending ? (
+            <Loader secondColor="#fafbfd" borderWidth="5" width="22" />
+          ) : (
+            "Send Reset Link"
+          )}
+        </Button>
 
         <Link
           to="/login"
