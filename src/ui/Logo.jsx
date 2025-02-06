@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-function Logo() {
+function Logo({ textVisible = true }) {
   return (
     <Link to="/" className="flex items-baseline gap-1">
       <svg
@@ -55,7 +55,9 @@ function Logo() {
           />
         </g>
       </svg>
-      <p className="font-heading dark:text-charcoal-100 text-[24px] font-bold 2xl:text-4xl">
+      <p
+        className={`font-heading dark:text-charcoal-100 ${textVisible ? "block" : "hidden"} text-[24px] font-bold 2xl:text-4xl leading-none`}
+      >
         CipherArmor
       </p>
     </Link>

@@ -1,10 +1,27 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import Logo from "../../ui/Logo";
 import AuthFooter from "./AuthFooter";
 import AuthBentoBox from "./AuthBentoBox";
 import ThemeSwitch from "../../ui/ThemeSwitch";
+import { useUser } from "./useUser";
+import { useEffect } from "react";
+import ContainerLoader from "../../ui/ContainerLoader";
 
 function AuthLayout() {
+  const { isAuthenticated, isPending } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(
+    function () {
+      if (isAuthenticated && !isPending) navigate("/", { replace: true });
+    },
+    [isAuthenticated, isPending, navigate],
+  );
+
+  if (isPending) return <ContainerLoader />;
+
+  if (isAuthenticated && !isPending) return null;
+
   return (
     <main className="dark:bg-charcoal-800 bg-ocean-100 3xl:justify-center flex h-fit flex-col xl:h-screen xl:flex-row xl:items-start xl:justify-between 2xl:text-[18px]">
       <section className="3xl:w-full flex h-auto items-center justify-center lg:mx-auto lg:w-[70%] xl:h-screen xl:w-1/2">
