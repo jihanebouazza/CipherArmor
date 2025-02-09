@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useUser } from "../features/authentication/useUser";
 import { useNavigate } from "react-router";
+import ContainerLoader from "./ContainerLoader";
 
 function ProtectedRoute({ children }) {
   const { isPending, isAuthenticated } = useUser();
@@ -10,7 +11,7 @@ function ProtectedRoute({ children }) {
     if (!isAuthenticated && !isPending) navigate("/login");
   }, [isAuthenticated, isPending, navigate]);
 
-  if (isPending) return <p>is loading...</p>;
+  if (isPending) return <ContainerLoader />;
 
   if (isAuthenticated) return children;
 }

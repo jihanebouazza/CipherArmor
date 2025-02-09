@@ -9,6 +9,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
+import Dashboard from "./pages/Dashboard";
+import Passwords from "./pages/Passwords";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import Vaults from "./pages/Vaults";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,11 +36,21 @@ function App() {
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="reset-password" element={<ResetPassword />} />
           </Route>
-          <Route path="dashboard" element={<DashboardLayout />} />
+          <Route
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="passwords" element={<Passwords />} />
+            <Route path="vaults" element={<Vaults />} />
+          </Route>
           <Route path="/" element={<p>Hello</p>} />
         </Routes>
       </BrowserRouter>
-      
+
       <Toaster
         position="top-center"
         gutter={12}

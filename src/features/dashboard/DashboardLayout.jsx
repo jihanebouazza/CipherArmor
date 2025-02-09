@@ -11,6 +11,7 @@ import { useState } from "react";
 import DashboardSidebarItem from "./DashboardSidebarItem";
 import { useLogout } from "../authentication/useLogout";
 import ContainerLoader from "../../ui/ContainerLoader";
+import { Outlet } from "react-router";
 
 function DashboardLayout() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -23,11 +24,9 @@ function DashboardLayout() {
   if (isLogingout) return <ContainerLoader />;
 
   return (
-    <main
-      className={`bg-ocean-100 dark:bg-charcoal-800 dark:text-blanc-100 flex h-fit w-full justify-between ${isExpanded ? "bg-black/50 backdrop-blur-md" : ""}`}
-    >
+    <main className="bg-ocean-100 dark:bg-charcoal-800 dark:text-blanc-100 flex h-fit w-full justify-between">
       <nav
-        className={`dark:shadow-charcoal-700 bg-ocean-100 dark:bg-charcoal-800 text-charcoal-800 dark:text-charcoal-100 flex h-screen transition-all duration-300 ${isExpanded ? "fixed z-99 w-68 px-6 py-4" : "relative w-16 items-center p-4"} flex-col justify-between shadow-md`}
+        className={`dark:shadow-charcoal-700 bg-ocean-100 dark:bg-charcoal-800 text-charcoal-800 dark:text-charcoal-100 flex h-screen transition-all duration-300 ${isExpanded ? "fixed z-99 w-68 px-6 py-4" : "fixed w-16 items-center p-4"} flex-col justify-between shadow-md`}
       >
         <div className="space-y-4">
           <div
@@ -82,8 +81,8 @@ function DashboardLayout() {
           onClick={handleSidebarExpansion}
         />
       )}
-      <section className={`h-[2000px] w-full p-4 ${isExpanded && "ml-16"}`}>
-        Hello World
+      <section className="ml-16 h-[2000px] w-full px-6 py-4">
+        <Outlet />
       </section>
     </main>
   );
