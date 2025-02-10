@@ -1,9 +1,6 @@
-import { HiOutlinePlusCircle } from "react-icons/hi2";
-import Button from "./Button";
+import { createContext, useContext } from "react";
 
-function Table({ children }) {
-  return <table className="w-full text-left">{children}</table>;
-}
+const TableContext = createContext();
 
 function Container({ children, width = "100%", title, count, action }) {
   return (
@@ -14,7 +11,7 @@ function Container({ children, width = "100%", title, count, action }) {
       <div className="flex justify-between">
         <h4 className="font-heading text-[24px] font-bold">
           {title}{" "}
-          {count && <span className="text-sm font-medium">({count})</span>}
+          {count > 0 && <span className="text-sm font-medium">({count})</span>}
         </h4>
         {action}
       </div>
@@ -23,14 +20,17 @@ function Container({ children, width = "100%", title, count, action }) {
   );
 }
 
-Container.Action = function ContainerAction({ title }) {
+function Table({
+  children,
+  emptyErrorMessage = "No data found!",
+  columnsCount = 1,
+}) {
   return (
-    <Button>
-      <HiOutlinePlusCircle size={18} className="mr-1 mb-0.5 inline" />
-      <p>{title}</p>
-    </Button>
+    <TableContext.Provider value={{ emptyErrorMessage, columnsCount }}>
+      <table className="w-full text-left">{children}</table>
+    </TableContext.Provider>
   );
-};
+}
 
 function Head({ children }) {
   return (
@@ -47,8 +47,9 @@ function HeadCell({ children, width }) {
   );
 }
 
-function Body({ children }) {
-  return <tbody>{children}</tbody>;
+function Body({ data, render }) {
+  if (!data.length) return <Error />;
+  return <tbody>{data.map(render)}</tbody>;
 }
 
 function Row({ children }) {
@@ -61,6 +62,19 @@ function Row({ children }) {
 
 function Cell({ children }) {
   return <td className="p-2">{children}</td>;
+}
+
+function Error() {
+  const { emptyErrorMessage, columnsCount } = useContext(TableContext);
+  return (
+    <tbody>
+      <tr className="border-charcoal-400 border border-r-0 border-b-0 border-l-0">
+        <td colSpan={columnsCount} className="pt-3 text-center">
+          {emptyErrorMessage}
+        </td>
+      </tr>
+    </tbody>
+  );
 }
 
 Table.Container = Container;

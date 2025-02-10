@@ -1,7 +1,7 @@
 import { getVaultIcon } from "../../utils/iconUtils";
 
-function VaultIcon({ title = "", icon = "Default" }) {
-  const Icon = getVaultIcon(icon);
+function VaultIcon({ title = "" }) {
+  const Icon = getVaultIcon(title);
 
   return (
     <div className="flex items-end gap-2">

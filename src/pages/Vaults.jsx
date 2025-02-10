@@ -1,7 +1,7 @@
-import VaultsTable from "../features/vaults/VaultsTable";
+import VaultTable from "../features/vaults/VaultTable";
 
 function Vaults() {
-  return <VaultsTable />;
+  return <VaultTable />;
 }
 
 export default Vaults;

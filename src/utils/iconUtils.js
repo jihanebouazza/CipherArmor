@@ -3,9 +3,11 @@ import {
   HiOutlineBanknotes,
   HiOutlineBriefcase,
   HiOutlineBuildingLibrary,
+  HiOutlineComputerDesktop,
   HiOutlineCreditCard,
   HiOutlineFolder,
   HiOutlineGlobeEuropeAfrica,
+  HiOutlineIdentification,
   HiOutlineShoppingBag,
 } from "react-icons/hi2";
 import { IoGameControllerOutline, IoPulseOutline } from "react-icons/io5";
@@ -21,6 +23,8 @@ const vaultIcons = {
   medical: IoPulseOutline,
   education: HiOutlineAcademicCap,
   default: HiOutlineFolder,
+  streaming: HiOutlineComputerDesktop,
+  personal: HiOutlineIdentification,
 };
 
 export function getVaultIcon(category) {

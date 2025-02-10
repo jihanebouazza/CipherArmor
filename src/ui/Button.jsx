@@ -3,9 +3,10 @@ function Button({
   extraStyles = "",
   children,
   disabled,
+  reset = false,
   onClick = () => {},
 }) {
-  const base = `${extraStyles} font-heading cursor-pointer 2xl:text-[18px] flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-offset-2 dark:ring-offset-charcoal-800 transition duration-300 `;
+  const base = `${extraStyles} font-heading cursor-pointer 2xl:text-[18px] flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-offset-2 focus:dark:ring-offset-charcoal-800 transition duration-300 `;
 
   const styles = {
     primary:
@@ -20,10 +21,21 @@ function Button({
     secondarysm:
       base +
       "px-2 py-0.5 border bg-transparent rounded-xl dark:border-charcoal-100 dark:text-charcoal-100 hover:bg-charcoal-800 hover:text-charcoal-100 dark:hover:bg-charcoal-100 dark:hover:text-charcoal-800",
+    raw:
+      base +
+      "rounded-lg focus:ring-charcoal-100 focus:ring-offset-ocean-100 dark:focus:ring-charcoal-700 border border-charcoal-100 px-4 py-1.5",
+    rawsm:
+      base +
+      "rounded-lg focus:ring-charcoal-100 focus:ring-offset-ocean-100 dark:focus:ring-charcoal-700 border border-charcoal-100",
   };
 
   return (
-    <button className={styles[type]} onClick={onClick} disabled={disabled}>
+    <button
+      className={styles[type]}
+      onClick={onClick}
+      disabled={disabled}
+      type={reset ? "reset" : undefined}
+    >
       {children}
     </button>
   );
