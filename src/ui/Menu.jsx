@@ -56,7 +56,7 @@ function List({ id, children }) {
 
   return createPortal(
     <ul
-      className="bg-ocean-100 dark:bg-charcoal-800 dark:text-charcoal-100 border-charcoal-100 dark:shadow-charcoal-700 divide-charcoal-100 fixed z-50 flex flex-col divide-y-1 rounded-xl border px-3 py-2 shadow-md"
+      className="bg-ocean-100 dark:bg-charcoal-800 dark:text-charcoal-100 border-charcoal-100 dark:shadow-charcoal-700 divide-charcoal-100 fixed z-50 flex flex-col divide-y-1 rounded-xl border shadow-md"
       style={{
         top: `${position.y}px`,
         left: `${position.x}px`,
@@ -80,10 +80,10 @@ function ListButton({ Icon, children, onClick }) {
   return (
     <button
       onClick={handleClick}
-      className="text-charcoal-800 dark:text-charcoal-100 cursor-pointer"
+      className="text-charcoal-800 dark:text-charcoal-100 cursor-pointer px-3 py-1"
     >
       <div className="flex items-start gap-1 py-1">
-        {cloneElement(Icon, {size:18 ,className:"mt-[1px]"})}
+        {cloneElement(Icon, { size: 18, className: "mt-[1px]" })}
         <p className="">{children}</p>
       </div>
     </button>

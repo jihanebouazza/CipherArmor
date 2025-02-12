@@ -31,4 +31,17 @@ export async function deleteVault({ id, user_id }) {
   return data;
 }
 
-export async function editVault() {}
+export async function editVault({ id, user_id, vault }) {
+  console.log(vault)
+  const { data, error } = await supabase
+    .from("vaults")
+    .update(vault)
+    .eq("id", id)
+    .eq("user_id", user_id)
+    .select();
+
+  // if (error) throw new Error("Vault could not be updated.");
+  if (error) throw new Error(error.message);
+
+  return data;
+}

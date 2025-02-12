@@ -1,19 +1,21 @@
 import { useForm } from "react-hook-form";
-import Button from "../../ui/Button";
 import ErrorMessage from "../../ui/ErrorMessage";
-import { useAddVault } from "./useAddVault";
+import Button from "../../ui/Button";
 import { useUser } from "../authentication/useUser";
+import { useEditVault } from "./useEditVault";
 
-function AddVaultForm({ onCloseModal }) {
+function EditVaultForm({ onCloseModal, vault }) {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
-  const { addVault, isCreating } = useAddVault();
   const { isPending, user } = useUser();
+  const { editVault, isEditing } = useEditVault();
+  const { id, name, description } = vault;
 
   function onSubmit(data) {
+    console.log("data: ", data);
     if (isPending || !user) return;
-    addVault(
-      { vault: data, user_id: user?.id },
+    editVault(
+      { id, user_id: user?.id, vault: data },
       {
         onSettled: () => {
           reset();
@@ -33,7 +35,8 @@ function AddVaultForm({ onCloseModal }) {
         type="text"
         placeholder="Vault name"
         className="input"
-        disabled={isCreating}
+        defaultValue={name}
+        disabled={isEditing}
         {...register("name", {
           required: "This field is required.",
           minLength: {
@@ -55,7 +58,8 @@ function AddVaultForm({ onCloseModal }) {
         type="text"
         placeholder="Description"
         className="input"
-        disabled={isCreating}
+        defaultValue={description}
+        disabled={isEditing}
         {...register("description", {
           maxLength: {
             value: 500,
@@ -71,18 +75,18 @@ function AddVaultForm({ onCloseModal }) {
       <div className="mt-3 flex justify-end gap-2">
         <Button
           type="raw"
-          disabled={isCreating}
+          disabled={isEditing}
           onClick={() => onCloseModal?.()}
           reset
         >
           Cancel
         </Button>
-        <Button type="primary" disabled={isCreating}>
-          Add
+        <Button type="primary" disabled={isEditing}>
+          Edit
         </Button>
       </div>
     </form>
   );
 }
 
-export default AddVaultForm;
+export default EditVaultForm;

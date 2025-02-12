@@ -8,6 +8,7 @@ import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../pages/ConfirmDelete";
 import { useDeleteVault } from "./useDeleteVault";
 import { useUser } from "../authentication/useUser";
+import EditVaultForm from "./EditVaultForm";
 
 function VaultRow({ vault }) {
   const { deleteVault, isDeleting } = useDeleteVault();
@@ -28,9 +29,11 @@ function VaultRow({ vault }) {
             <Menu>
               <Menu.Toggle id={id} />
               <Menu.List id={id}>
-                <Menu.ListButton Icon={<HiOutlinePencilSquare />}>
-                  Edit
-                </Menu.ListButton>
+                <Modal.Open opens="edit-vault">
+                  <Menu.ListButton Icon={<HiOutlinePencilSquare />}>
+                    Edit
+                  </Menu.ListButton>
+                </Modal.Open>
 
                 <Modal.Open opens="delete-vault">
                   <Menu.ListButton Icon={<IoTrashOutline />}>
@@ -47,6 +50,9 @@ function VaultRow({ vault }) {
               disabled={isPending || isDeleting}
               onConfirm={() => deleteVault({ id, user_id: user?.id })}
             />
+          </Modal.Window>
+          <Modal.Window name="edit-vault">
+            <EditVaultForm vault={vault} />
           </Modal.Window>
         </Modal>
       </Table.Cell>

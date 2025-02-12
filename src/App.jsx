@@ -69,7 +69,7 @@ function App() {
           style: {
             fontSize: "16px",
             maxWidth: "500px",
-            backgroundColor: !isDarkMode ? "#fafcff" : "#0b0f14",
+            backgroundColor: !isDarkMode ? "#fafcff" : "#1a1c21",
             color: !isDarkMode ? "#0b0f14" : "#fafcff",
           },
         }}
