@@ -69,7 +69,6 @@ function AddVaultForm({ onCloseModal }) {
       />
 
       <div className="mt-3 flex justify-end gap-2">
-        <Button type="primary">Add</Button>
         <Button
           type="raw"
           disabled={isCreating}
@@ -78,6 +77,7 @@ function AddVaultForm({ onCloseModal }) {
         >
           Cancel
         </Button>
+        <Button type="primary">Add</Button>
       </div>
     </form>
   );

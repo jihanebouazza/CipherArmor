@@ -31,9 +31,10 @@ function VaultTable() {
           >
             <Table.Head>
               <Table.HeadCell width="20%">Name</Table.HeadCell>
-              <Table.HeadCell width="20%">Number of items</Table.HeadCell>
+              <Table.HeadCell width="15%">Number of items</Table.HeadCell>
               <Table.HeadCell width="40%">Description</Table.HeadCell>
               <Table.HeadCell width="20%">Added On</Table.HeadCell>
+              <Table.HeadCell width="5%"></Table.HeadCell>
             </Table.Head>
             <Table.Body
               data={vaults}

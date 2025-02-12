@@ -27,6 +27,9 @@ function Button({
     rawsm:
       base +
       "rounded-lg focus:ring-charcoal-100 focus:ring-offset-ocean-100 dark:focus:ring-charcoal-700 border border-charcoal-100",
+    danger:
+      base +
+      "bg-ruby-500 dark:bg-ruby-600 px-4 py-1.5 text-blanc-100 rounded-lg focus:ring-ruby-600 dark:focus:ring-ruby-900",
   };
 
   return (
