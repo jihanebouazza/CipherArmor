@@ -1,7 +1,7 @@
-import PasswordsTable from "../features/passwords/PasswordsTable";
+import PasswordTable from "../features/passwords/PasswordTable";
 
 function Passwords() {
-  return <PasswordsTable />;
+  return <PasswordTable />;
 }
 
 export default Passwords;

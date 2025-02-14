@@ -40,26 +40,27 @@
   --color-ruby-800: #8d080a;
   --color-ruby-900: #760607;
 
-  --color-mint-100: #e1fae8;
-  --color-mint-200: #b0eec2;
-  --color-mint-300: #6edf8e;
-  --color-mint-400: #36d563;
-  --color-mint-500: #00c638;
-  --color-mint-600: #01aa32;
-  --color-mint-700: #018c29;
-  --color-mint-800: #007020;
-  --color-mint-900: #004915;
+  --color-mint-100: #E1FAE6;
+  --color-mint-200: #B0EEBD;
+  --color-mint-300: #6EDF85;
+  --color-mint-400: #36D556;
+  --color-mint-500: #00C628;
+  --color-mint-600: #01AA23;
+  --color-mint-700: #018C1D;
+  --color-mint-800: #007016;
+  --color-mint-900: #00490F;
 
-  --color-rust-100: #fcefe3;
-  --color-rust-200: #efd1b5;
-  --color-rust-300: #e5ad78;
-  --color-rust-400: #e18e40;
-  --color-rust-500: #d66d0b;
-  --color-rust-600: #bb6311;
-  --color-rust-700: #a45409;
-  --color-rust-800: #8a4709;
-  --color-rust-900: #6e3601;
+  --color-rust-100: #FCEDE3;
+  --color-rust-200: #EFCDB5;
+  --color-rust-300: #E5A578;
+  --color-rust-400: #E18340;
+  --color-rust-500: #D6600B;
+  --color-rust-600: #BB5711;
+  --color-rust-700: #A44A09;
+  --color-rust-800: #8A3F09;
+  --color-rust-900: #6E2E01;
 
+  --color-charcoal-50: #EDEEEE;
   --color-charcoal-100: #dddfe2;
   --color-charcoal-200: #c6c7ca;
   --color-charcoal-300: #abadb1;

@@ -31,3 +31,19 @@ export function getVaultIcon(category) {
   const normalizedCategory = category.toLowerCase().replace(/\s+/g, "");
   return vaultIcons[normalizedCategory] || vaultIcons.default;
 }
+
+export function formatPlatformName(platformName) {
+  return platformName
+    .toLowerCase() // Convert to lowercase
+    .replace(/\s+/g, "") // Remove all whitespace
+    .replace(/[^a-z0-9]/g, ""); // Remove special characters
+}
+
+export function convertBlobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}

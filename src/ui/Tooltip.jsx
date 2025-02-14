@@ -2,6 +2,7 @@ import {
   cloneElement,
   createContext,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -20,12 +21,17 @@ function Tooltip({ children }) {
     setIsVisibleTooltip(false);
   }
 
+  function handleTooltipClick() {
+    setIsVisibleTooltip((is) => !is);
+  }
+
   return (
     <TooltipContext.Provider
       value={{
         triggerRef,
         handleTooltipOnFocus,
         handleTooltipOnFocusLoss,
+        handleTooltipClick,
         isVisibleTooltip,
       }}
       className="relative"
@@ -35,25 +41,46 @@ function Tooltip({ children }) {
   );
 }
 
-function Trigger({ children }) {
-  const { triggerRef, handleTooltipOnFocus, handleTooltipOnFocusLoss } =
-    useContext(TooltipContext);
+function Trigger({ children, isButton = false }) {
+  const {
+    triggerRef,
+    handleTooltipOnFocus,
+    handleTooltipOnFocusLoss,
+    handleTooltipClick,
+  } = useContext(TooltipContext);
 
   return cloneElement(children, {
     ref: triggerRef,
-    onFocus: handleTooltipOnFocus,
-    onBlur: handleTooltipOnFocusLoss,
+    onFocus: !isButton ? handleTooltipOnFocus : undefined,
+    onBlur: !isButton ? handleTooltipOnFocusLoss : undefined,
+    onClick: isButton ? handleTooltipClick : undefined,
   });
 }
 
 function Content({ children }) {
   const { triggerRef, isVisibleTooltip } = useContext(TooltipContext);
-  const triggerHeight = triggerRef.offsetHeight;
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+
+  useEffect(() => {
+    if (triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      setPosition({
+        top: rect.bottom + window.scrollY + 8,
+        left: rect.left + window.scrollX + rect.width / 2,
+      });
+    }
+  }, [triggerRef, isVisibleTooltip]);
 
   return (
     <div
       role="tooltip"
-      className={`bg-ocean-100 dark:bg-charcoal-800 dark:border-charcoal-300 border-ocean-300 absolute z-99 top-[${triggerHeight}] ${isVisibleTooltip ? "pointer-events-auto opacity-100 delay-200" : "pointer-events-none opacity-0 delay-200"} inline rounded-xl border p-3 shadow-md transition-opacity duration-300`}
+      className={`bg-ocean-100 dark:bg-charcoal-800 border-charcoal-400 absolute z-99 ${isVisibleTooltip ? "pointer-events-auto opacity-100 delay-200" : "pointer-events-none opacity-0 delay-200"} inline rounded-xl border p-3 shadow-md transition-opacity duration-300`}
+      style={{
+        top: `${position.top}px`,
+        left: `${position.left}px`,
+        transform: "translateX(-50%)",
+        pointerEvents: isVisibleTooltip ? "auto" : "none",
+      }}
     >
       <div className="border-ocean-300 dark:border-charcoal-300 dark:bg-charcoal-800 bg-ocean-100 absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 transform border-t border-l"></div>
       {children}

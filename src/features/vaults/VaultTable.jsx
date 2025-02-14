@@ -25,7 +25,7 @@ function VaultTable() {
           action={<AddVault />}
         >
           <Table
-            columnsCount={4}
+            columnsCount={5}
             emptyErrorMessage="No vaults found. Start organizing your passwords by creating your
       first vault!"
           >
@@ -33,7 +33,7 @@ function VaultTable() {
               <Table.HeadCell width="20%">Name</Table.HeadCell>
               <Table.HeadCell width="15%">Number of items</Table.HeadCell>
               <Table.HeadCell width="40%">Description</Table.HeadCell>
-              <Table.HeadCell width="20%">Added On</Table.HeadCell>
+              <Table.HeadCell width="20%">Added on</Table.HeadCell>
               <Table.HeadCell width="5%"></Table.HeadCell>
             </Table.Head>
             <Table.Body
