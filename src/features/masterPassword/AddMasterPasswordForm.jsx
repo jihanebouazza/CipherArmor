@@ -2,12 +2,35 @@ import { useForm } from "react-hook-form";
 import ErrorMessage from "../../ui/ErrorMessage";
 import Button from "../../ui/Button";
 import PasswordInput from "../../ui/PasswordInput";
+import { useUser } from "../authentication/useUser";
+import ContainerLoader from "../../ui/ContainerLoader";
+import { useAddMasterPassword } from "./useAddMasterPassword";
+import { deriveKey, generateSalt } from "../../services/cryptoServices";
 
 function AddMasterPasswordForm({ onCloseModal }) {
   const { handleSubmit, formState, register, getValues } = useForm();
   const { errors } = formState;
+  const { isPending: isPendingUser, user } = useUser();
+  const { addMasterPassword, isCreating } = useAddMasterPassword();
 
-  function onSubmit() {}
+  async function onSubmit(data) {
+    const { masterPassword } = data;
+
+    const salt = generateSalt();
+    const { keyVerifier, kdfParams } = await deriveKey(masterPassword, salt);
+
+    addMasterPassword(
+      {
+        user_id: user?.id,
+        salt,
+        kdf_params: kdfParams,
+        key_verifier: keyVerifier,
+      },
+      { onSettled: onCloseModal?.() },
+    );
+  }
+
+  if (isPendingUser) return <ContainerLoader />;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -17,7 +40,7 @@ function AddMasterPasswordForm({ onCloseModal }) {
       <PasswordInput
         id="masterPassword"
         placeholder="Master password"
-        disabled={false}
+        disabled={isCreating}
         register={register}
       />
       <ErrorMessage
@@ -46,13 +69,13 @@ function AddMasterPasswordForm({ onCloseModal }) {
       <div className="mt-3 flex justify-end gap-2">
         <Button
           type="raw"
-          disabled={false}
+          disabled={isCreating}
           onClick={() => onCloseModal?.()}
           reset
         >
           Cancel
         </Button>
-        <Button type="primary" disabled={false}>
+        <Button type="primary" disabled={isCreating}>
           Create
         </Button>
       </div>

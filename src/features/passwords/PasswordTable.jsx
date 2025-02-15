@@ -2,8 +2,6 @@ import AddButton from "../../ui/AddButton";
 import Table from "../../ui/Table";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import PasswordRow from "./PasswordRow";
-import AddMasterPassword from "../masterPassword/AddMasterPassword";
-import MasterPassword from "../masterPassword/MasterPassword";
 
 function PasswordTable() {
   return (
@@ -35,9 +33,6 @@ function PasswordTable() {
           </Table>
         </Table.Container>
       </div>
-
-      {/* <AddMasterPassword /> */}
-      {/* <MasterPassword /> */}
     </>
   );
 }
