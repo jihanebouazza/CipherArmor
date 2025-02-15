@@ -81,7 +81,7 @@ function DashboardLayout() {
           onClick={handleSidebarExpansion}
         />
       )}
-      <section className="ml-16 h-[2000px] w-full px-6 py-4">
+      <section className="ml-16 flex min-h-screen w-full flex-col bg-inherit px-6 py-4">
         <Outlet />
       </section>
     </main>

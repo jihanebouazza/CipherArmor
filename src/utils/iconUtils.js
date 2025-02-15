@@ -9,6 +9,7 @@ import {
   HiOutlineGlobeEuropeAfrica,
   HiOutlineIdentification,
   HiOutlineShoppingBag,
+  HiOutlineWifi,
 } from "react-icons/hi2";
 import { IoGameControllerOutline, IoPulseOutline } from "react-icons/io5";
 
@@ -25,6 +26,7 @@ const vaultIcons = {
   default: HiOutlineFolder,
   streaming: HiOutlineComputerDesktop,
   personal: HiOutlineIdentification,
+  wifi: HiOutlineWifi,
 };
 
 export function getVaultIcon(category) {

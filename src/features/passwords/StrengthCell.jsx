@@ -41,7 +41,7 @@ function StrengthCell({ analysis, strength, description }) {
         type={analysis.isBreached ? "danger" : "safe"}
       />
       <p className="dark:text-charcoal-100 text-charcoal-600 flex gap-1 text-sm font-light italic">
-        <HiOutlineInformationCircle size={14} className="mt-0.5" />
+        <HiOutlineInformationCircle size={14} className="mt-[2.5px]" />
         <span>{description}</span>
       </p>
     </>

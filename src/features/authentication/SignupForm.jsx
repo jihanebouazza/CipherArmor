@@ -7,7 +7,7 @@ import { useSignup } from "./useSignup";
 import Loader from "../../ui/Loader";
 
 function SignupForm() {
-  const { register, setValue, handleSubmit, formState, getValues, reset } =
+  const { register, handleSubmit, formState, getValues, reset } =
     useForm();
   const { errors } = formState;
   const { signup, isSigningUp } = useSignup();
@@ -84,7 +84,6 @@ function SignupForm() {
               placeholder="Password"
               disabled={isSigningUp}
               register={register}
-              setValue={setValue}
             />
             <ErrorMessage
               condition={errors?.password?.message}

@@ -52,11 +52,6 @@ function Body({ data, render }) {
   return <tbody>{data.map(render)}</tbody>;
 }
 
-function CustomBody({ data, children }) {
-  if (!data.length) return <Error />;
-  return <tbody>{children}</tbody>;
-}
-
 function Row({ children }) {
   return (
     <tr className="border-charcoal-400 border border-r-0 border-b-0 border-l-0">
@@ -86,7 +81,6 @@ Table.Container = Container;
 Table.Head = Head;
 Table.HeadCell = HeadCell;
 Table.Body = Body;
-Table.CustomBody = CustomBody;
 Table.Row = Row;
 Table.Cell = Cell;
 

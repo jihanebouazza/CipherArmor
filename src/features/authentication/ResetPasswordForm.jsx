@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Loader from "../../ui/Loader";
 
 function ResetPasswordForm() {
-  const { register, setValue, formState, getValues, handleSubmit } = useForm();
+  const { register, formState, getValues, handleSubmit } = useForm();
   const { errors } = formState;
 
   const { resetPassword, isResetingPassword } = useResetPassword();
@@ -37,7 +37,7 @@ function ResetPasswordForm() {
         access to your account.
       </h4>
       <form action="" onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="newPassword" className="label">
+        <label htmlFor="password" className="label">
           New password
         </label>
         <PasswordInput
@@ -45,7 +45,6 @@ function ResetPasswordForm() {
           placeholder="Password"
           disabled={isResetingPassword}
           register={register}
-          setValue={setValue}
         />
         <ErrorMessage
           condition={errors?.password?.message}

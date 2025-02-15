@@ -8,7 +8,7 @@ function PasswordCell({ password }) {
     <div className="flex items-center justify-between">
       <p>{isVisible ?  password  : "••••••••••••••"}</p>
       <div
-        className="text-charcoal-800 dark:text-charcoal-100 cursor-pointer"
+        className="text-charcoal-600 dark:text-charcoal-100 cursor-pointer"
         onClick={() => setIsVisible((is) => !is)}
       >
         {isVisible ? <RxEyeClosed size={20} /> : <RxEyeOpen size={20} />}
