@@ -1,10 +1,17 @@
 export function generateSalt() {
-  return window.crypto.getRandomValues(new Uint8Array(16)).toString();
+  return bufferToHex(crypto.getRandomValues(new Uint8Array(32)));
 }
 
-export async function deriveKey(password, salt, kdfParams = { iterations: 100000 }) {
+export async function deriveKey(password, salt, kdfParams = {
+  algorithm: 'PBKDF2',
+  hash: 'SHA-256',
+  iterations: 310000,
+  version: 'v2'
+}) {
   const encoder = new TextEncoder();
-  const keyMaterial = await window.crypto.subtle.importKey(
+  const saltBuffer = hexToBuffer(salt);
+  
+  const keyMaterial = await crypto.subtle.importKey(
     'raw',
     encoder.encode(password),
     'PBKDF2',
@@ -12,26 +19,30 @@ export async function deriveKey(password, salt, kdfParams = { iterations: 100000
     ['deriveBits']
   );
 
-  const derivedKey = await window.crypto.subtle.deriveBits(
+  const derivedKey = await crypto.subtle.deriveBits(
     {
-      name: 'PBKDF2',
-      salt: encoder.encode(salt),
+      name: kdfParams.algorithm,
+      salt: saltBuffer,
       iterations: kdfParams.iterations,
-      hash: 'SHA-256',
+      hash: { name: kdfParams.hash },
     },
     keyMaterial,
-    256
+    512
   );
 
+  const keyBytes = new Uint8Array(derivedKey);
   return {
-    key: derivedKey,
-    keyVerifier: bufferToHex(derivedKey.slice(0, 32)),
+    encryptionKey: keyBytes.slice(0, 32),
+    verificationKey: bufferToHex(keyBytes.slice(32)),
     kdfParams
   };
 }
 
-function bufferToHex(buffer) {
-  return [...new Uint8Array(buffer)]
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
+export function bufferToHex(buffer) {
+  return Array.from(new Uint8Array(buffer))
+    .reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
+}
+
+export function hexToBuffer(hexString) {
+  return new Uint8Array(hexString.match(/[\da-f]{2}/gi).map(h => parseInt(h, 16)));
 }

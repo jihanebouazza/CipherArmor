@@ -3,34 +3,42 @@ import ErrorMessage from "../../ui/ErrorMessage";
 import Button from "../../ui/Button";
 import PasswordInput from "../../ui/PasswordInput";
 import { useUser } from "../authentication/useUser";
-import ContainerLoader from "../../ui/ContainerLoader";
-import { useAddMasterPassword } from "./useAddMasterPassword";
+import { useAddSecret } from "./useAddSecret";
 import { deriveKey, generateSalt } from "../../services/cryptoServices";
+import Loader from "../../ui/Loader";
 
 function AddMasterPasswordForm({ onCloseModal }) {
   const { handleSubmit, formState, register, getValues } = useForm();
   const { errors } = formState;
   const { isPending: isPendingUser, user } = useUser();
-  const { addMasterPassword, isCreating } = useAddMasterPassword();
+  const { addSecret, isCreating } = useAddSecret();
 
   async function onSubmit(data) {
     const { masterPassword } = data;
 
     const salt = generateSalt();
-    const { keyVerifier, kdfParams } = await deriveKey(masterPassword, salt);
+    const { verificationKey, kdfParams } = await deriveKey(
+      masterPassword,
+      salt,
+    );
 
-    addMasterPassword(
+    addSecret(
       {
         user_id: user?.id,
         salt,
         kdf_params: kdfParams,
-        key_verifier: keyVerifier,
+        key_verifier: verificationKey,
       },
       { onSettled: onCloseModal?.() },
     );
   }
 
-  if (isPendingUser) return <ContainerLoader />;
+  if (isPendingUser)
+    return (
+      <div className="flex h-full w-full items-center justify-center pb-4">
+        <Loader secondColor="#fafbfd" borderWidth="5" width="40" />
+      </div>
+    );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

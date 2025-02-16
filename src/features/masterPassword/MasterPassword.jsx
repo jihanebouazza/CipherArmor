@@ -3,7 +3,7 @@ import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import MasterPasswordForm from "./MasterPasswordForm";
 
-function MasterPassword() {
+function MasterPassword({ onUnlock }) {
   return (
     <div className="flex w-full flex-1 flex-col items-center justify-center gap-2">
       <div className="text-center">
@@ -22,7 +22,7 @@ function MasterPassword() {
           </Button>
         </Modal.Open>
         <Modal.Window name="master-password-input">
-          <MasterPasswordForm />
+          <MasterPasswordForm onUnlock={onUnlock} />
         </Modal.Window>
       </Modal>
     </div>
