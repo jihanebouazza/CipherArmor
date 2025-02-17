@@ -48,7 +48,7 @@ function HeadCell({ children, width }) {
 }
 
 function Body({ data, render }) {
-  if (!data.length) return <Error />;
+  if (!data?.length) return <Error />;
   return <tbody>{data.map(render)}</tbody>;
 }
 

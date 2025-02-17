@@ -6,5 +6,6 @@ export function useVaults() {
     queryKey: ["vaults"],
     queryFn: getVaults,
   });
+
   return { vaults, isPending };
 }

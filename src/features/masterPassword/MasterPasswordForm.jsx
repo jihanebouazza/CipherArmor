@@ -8,7 +8,7 @@ import { deriveKey } from "../../services/cryptoServices";
 import Loader from "../../ui/Loader";
 import { useSecurity } from "../../contexts/SecurityContext";
 
-function MasterPasswordForm({ onCloseModal, onUnlock }) {
+function MasterPasswordForm({ onCloseModal }) {
   const { handleSubmit, formState, register } = useForm();
   const { errors } = formState;
   const { isPending: isPendingUser, user } = useUser();
@@ -26,11 +26,7 @@ function MasterPasswordForm({ onCloseModal, onUnlock }) {
     if (verificationKey !== secret.key_verifier) {
       toast.error("Invalid master password.");
       onCloseModal?.();
-    } else {
-      onUnlock(true);
-      // initializeSession(encryptionKey);
-      console.log(encryptionKey);
-    }
+    } else initializeSession(encryptionKey);
   }
 
   if (isPending || isPendingUser)

@@ -1,6 +1,25 @@
-export async function getPasswords() {}
+import supabase from "./supabase";
 
-export async function addPassword() {}
+export async function getPasswords() {
+  const { data, error } = await supabase
+    .from("passwords")
+    .select("*, vaults(name)");
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function addPassword(password) {
+  const { data, error } = await supabase
+    .from("passwords")
+    .insert([password])
+    .select();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
 
 export async function deletePassword() {}
 

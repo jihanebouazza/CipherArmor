@@ -5,7 +5,7 @@ function VaultIcon({ title = "", tag = false }) {
 
   if (tag)
     return (
-      <div className="bg-charcoal-50 dark:bg-charcoal-600 flex items-center justify-center gap-1 rounded-2xl p-1">
+      <div className="bg-charcoal-50 dark:bg-charcoal-600 flex w-fit items-center justify-center gap-1 rounded-2xl px-4 py-1">
         <div>
           <Icon size={18} />
         </div>

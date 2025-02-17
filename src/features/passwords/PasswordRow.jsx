@@ -8,13 +8,17 @@ import VaultIcon from "../vaults/VaultIcon";
 import PasswordCell from "./PasswordCell";
 import PlatformCell from "./PlatformCell";
 import StrengthCell from "./StrengthCell";
-import { formatRelativeTime } from "../../utils/helpers";
+import { formatDate, formatRelativeTime } from "../../utils/helpers";
 import { useEffect, useState } from "react";
 import { analyzePassword } from "../../utils/passwordUtils";
 import Menu from "../../ui/Menu";
 import { IoTrashOutline } from "react-icons/io5";
 
-function PasswordRow() {
+function PasswordRow({ decryptedPassword, decryptedPasswords }) {
+  const existingsPasswords = decryptedPasswords
+    ?.filter((decrypted) => decrypted.password !== decryptedPassword.password) // Exclude current password
+    .map((decrypted) => decrypted.password);
+
   const [analysis, setAnalysis] = useState({
     strengthInfo: null,
     isReused: false,
@@ -28,28 +32,35 @@ function PasswordRow() {
     description = "",
   } = analysis.strengthInfo || {};
 
-  useEffect(function () {
-    async function analyse() {
-      const res = await analyzePassword("1234@5(-$$**ùùAazerty", ["password"]);
-      setAnalysis(res);
-    }
-    analyse();
-  }, []);
+  useEffect(
+    function () {
+      async function analyse() {
+        const res = await analyzePassword(
+          decryptedPassword.password,
+          existingsPasswords,
+        );
+        setAnalysis(res);
+      }
+
+      analyse();
+    },
+    [decryptedPassword, existingsPasswords],
+  );
 
   return (
     <Table.Row>
       <Table.Cell>
         <PlatformCell
-          platformName="Netflix"
-          platformUrl="https://www.netflix.com/login"
+          platformName={decryptedPassword.platform}
+          platformUrl={decryptedPassword.platform_url}
         />
       </Table.Cell>
-      <Table.Cell>Hello World</Table.Cell>
+      <Table.Cell>{decryptedPassword.username}</Table.Cell>
       <Table.Cell>
-        <PasswordCell password="password" />
+        <PasswordCell password={decryptedPassword.password} />
       </Table.Cell>
       <Table.Cell>
-        <VaultIcon title="Work" tag />
+        <VaultIcon title={decryptedPassword.vaults.name} tag />
       </Table.Cell>
       <Table.Cell>
         <div className="flex items-center justify-between">
@@ -77,9 +88,9 @@ function PasswordRow() {
         </div>
       </Table.Cell>
       <Table.Cell>
-        {formatRelativeTime("2025-02-12 16:44:32.212339+00")}
+        {formatRelativeTime(decryptedPassword.last_updated)}
       </Table.Cell>
-      <Table.Cell>Hello World</Table.Cell>
+      <Table.Cell>{formatDate(decryptedPassword.created_at)}</Table.Cell>
       <Table.Cell>
         <Menu.Container>
           <Menu>

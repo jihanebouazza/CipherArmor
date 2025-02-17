@@ -77,7 +77,7 @@ function SignupForm() {
         <div className="mb-2 flex items-start justify-between gap-2">
           <div className="w-full">
             <label htmlFor="password" className="label">
-              Passowrd
+              Password
             </label>
             <PasswordInput
               id="password"

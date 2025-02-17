@@ -11,25 +11,28 @@ const SecurityContext = createContext();
 
 function SecurityProvider({ children }) {
   const [encryptionKey, setEncryptionKey] = useState(null);
+  const [isUnlocked, setIsUnlocked] = useState(false);
   const lockTimer = useRef(null);
 
   const resetLockTimer = useCallback(() => {
     if (lockTimer.current) clearTimeout(lockTimer.current);
     lockTimer.current = setTimeout(() => {
       setEncryptionKey(null);
+      setIsUnlocked(false);
     }, 900000); // 15 minutes
   }, []);
 
   const initializeSession = useCallback(
     (key) => {
       setEncryptionKey(key);
+      setIsUnlocked(true);
       resetLockTimer();
     },
     [setEncryptionKey, resetLockTimer],
   );
 
   const getEncryptionKey = useCallback(() => {
-    if (!encryptionKey) throw new Error("Session expired");
+    if (!encryptionKey) throw new Error("Session expired.");
     resetLockTimer();
     return encryptionKey;
   }, [encryptionKey, resetLockTimer]);
@@ -39,7 +42,9 @@ function SecurityProvider({ children }) {
   }, [lockTimer]);
 
   return (
-    <SecurityContext.Provider value={{ initializeSession, getEncryptionKey }}>
+    <SecurityContext.Provider
+      value={{ initializeSession, getEncryptionKey, isUnlocked }}
+    >
       {children}
     </SecurityContext.Provider>
   );

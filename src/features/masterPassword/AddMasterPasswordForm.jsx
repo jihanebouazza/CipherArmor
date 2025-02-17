@@ -5,7 +5,6 @@ import PasswordInput from "../../ui/PasswordInput";
 import { useUser } from "../authentication/useUser";
 import { useAddSecret } from "./useAddSecret";
 import { deriveKey, generateSalt } from "../../services/cryptoServices";
-import Loader from "../../ui/Loader";
 
 function AddMasterPasswordForm({ onCloseModal }) {
   const { handleSubmit, formState, register, getValues } = useForm();
@@ -14,6 +13,8 @@ function AddMasterPasswordForm({ onCloseModal }) {
   const { addSecret, isCreating } = useAddSecret();
 
   async function onSubmit(data) {
+    if (isPendingUser || !user) return;
+
     const { masterPassword } = data;
 
     const salt = generateSalt();
@@ -32,13 +33,6 @@ function AddMasterPasswordForm({ onCloseModal }) {
       { onSettled: onCloseModal?.() },
     );
   }
-
-  if (isPendingUser)
-    return (
-      <div className="flex h-full w-full items-center justify-center pb-4">
-        <Loader secondColor="#fafbfd" borderWidth="5" width="40" />
-      </div>
-    );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
