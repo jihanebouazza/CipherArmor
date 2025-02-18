@@ -64,17 +64,27 @@ function Content({ children }) {
   useEffect(() => {
     if (triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
-      setPosition({
-        top: rect.bottom + window.scrollY + 8,
-        left: rect.left + window.scrollX + rect.width / 2,
-      });
+      const modalContent = triggerRef.current.closest('[role="dialog"]');
+
+      if (modalContent) {
+        const modalRect = modalContent.getBoundingClientRect();
+        setPosition({
+          top: rect.bottom - modalRect.top + 22,
+          left: rect.left - modalRect.left + rect.width / 2,
+        });
+      } else {
+        setPosition({
+          top: rect.bottom + 8,
+          left: rect.left + rect.width / 2,
+        });
+      }
     }
   }, [triggerRef, isVisibleTooltip]);
 
   return (
     <div
       role="tooltip"
-      className={`bg-ocean-100 dark:bg-charcoal-800 border-charcoal-400 absolute z-99 ${isVisibleTooltip ? "pointer-events-auto opacity-100 delay-200" : "pointer-events-none opacity-0 delay-200"} inline rounded-xl border p-3 shadow-md transition-opacity duration-300`}
+      className={`bg-ocean-100 dark:bg-charcoal-800 border-charcoal-400 absolute z-99 min-w-max ${isVisibleTooltip ? "pointer-events-auto opacity-100 delay-200" : "pointer-events-none opacity-0 delay-200"} inline rounded-xl border p-3 shadow-md transition-opacity duration-300`}
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,

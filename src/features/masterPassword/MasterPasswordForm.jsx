@@ -7,8 +7,11 @@ import toast from "react-hot-toast";
 import { deriveKey } from "../../services/cryptoServices";
 import Loader from "../../ui/Loader";
 import { useSecurity } from "../../contexts/SecurityContext";
+import { useState } from "react";
+import VisibilityToggle from "../../ui/VisibilityToggle";
 
 function MasterPasswordForm({ onCloseModal }) {
+  const [isVisible, setIsVisible] = useState();
   const { handleSubmit, formState, register } = useForm();
   const { errors } = formState;
   const { isPending: isPendingUser, user } = useUser();
@@ -41,15 +44,21 @@ function MasterPasswordForm({ onCloseModal }) {
       <label htmlFor="masterPassword" className="label">
         Master password
       </label>
-      <input
-        id="masterPassword"
-        type="password"
-        placeholder="Master password"
-        className="input"
-        {...register("masterPassword", {
-          required: "This field is required.",
-        })}
-      />
+      <div className="relative">
+        <input
+          id="masterPassword"
+          type={isVisible ? "text" : "password"}
+          placeholder="Master password"
+          className="input"
+          {...register("masterPassword", {
+            required: "This field is required.",
+          })}
+        />
+        <VisibilityToggle
+          isVisible={isVisible}
+          onToggle={() => setIsVisible((is) => !is)}
+        />
+      </div>
       <ErrorMessage
         condition={errors?.masterPassword?.message}
         message={errors?.masterPassword?.message}

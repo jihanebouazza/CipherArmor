@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import ErrorMessage from "../../ui/ErrorMessage";
 import { useLogin } from "./useLogin";
 import { useState } from "react";
-import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 import Loader from "../../ui/Loader";
+import VisibilityToggle from "../../ui/VisibilityToggle";
 
 function LoginForm() {
   const [isVisible, setIsVisible] = useState(false);
@@ -59,13 +59,10 @@ function LoginForm() {
             disabled={isLoginIn}
             {...register("password", { required: "This field is required." })}
           />
-
-          <div
-            className="bg-ocean-100 dark:bg-charcoal-800 absolute top-2 right-2.5 cursor-pointer"
-            onClick={() => setIsVisible((is) => !is)}
-          >
-            {isVisible ? <RxEyeClosed size={20} /> : <RxEyeOpen size={20} />}
-          </div>
+          <VisibilityToggle
+            isVisible={isVisible}
+            onToggle={() => setIsVisible(is=>!is)}
+          />
         </div>
         <ErrorMessage
           condition={errors?.password?.message}

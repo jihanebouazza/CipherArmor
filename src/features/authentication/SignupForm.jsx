@@ -7,8 +7,7 @@ import { useSignup } from "./useSignup";
 import Loader from "../../ui/Loader";
 
 function SignupForm() {
-  const { register, handleSubmit, formState, getValues, reset } =
-    useForm();
+  const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
   const { signup, isSigningUp } = useSignup();
 
@@ -64,7 +63,7 @@ function SignupForm() {
           {...register("email", {
             required: "This field is required.",
             pattern: {
-              value: /\S+@\S+\.\S+/,
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: "Please provide a valid email address.",
             },
           })}

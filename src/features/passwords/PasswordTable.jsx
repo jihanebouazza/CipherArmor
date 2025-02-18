@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSecurity } from "../../contexts/SecurityContext";
 import ContainerLoader from "../../ui/ContainerLoader";
 import Table from "../../ui/Table";
@@ -14,6 +14,10 @@ function PasswordTable() {
   const { passwords, isPendingPasswords } = usePasswords();
   const [decryptedPasswords, setDecryptedPasswords] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const passwordMap = useMemo(() => {
+    return new Map(decryptedPasswords?.map((p) => [p.id, p.password]));
+  }, [decryptedPasswords]);
 
   useEffect(() => {
     const decryptPasswords = async () => {
@@ -59,7 +63,7 @@ function PasswordTable() {
       <div className="py-4">
         <Table.Container
           title="My passwords"
-          count={15}
+          count={decryptedPasswords?.length}
           action={<AddPassword />}
         >
           <Table
@@ -68,12 +72,12 @@ function PasswordTable() {
           >
             <Table.Head>
               <Table.HeadCell width="15%">Platform</Table.HeadCell>
-              <Table.HeadCell width="15%">Username</Table.HeadCell>
+              <Table.HeadCell width="14%">Username</Table.HeadCell>
               <Table.HeadCell width="15%">Password</Table.HeadCell>
               <Table.HeadCell width="11%">Vault</Table.HeadCell>
               <Table.HeadCell width="10%">Strength</Table.HeadCell>
               <Table.HeadCell width="15%">Last updated</Table.HeadCell>
-              <Table.HeadCell width="14%">Added on</Table.HeadCell>
+              <Table.HeadCell width="15%">Added on</Table.HeadCell>
               <Table.HeadCell width="5%"></Table.HeadCell>
             </Table.Head>
             <Table.Body
@@ -82,7 +86,7 @@ function PasswordTable() {
                 <PasswordRow
                   key={decryptedPassword.id}
                   decryptedPassword={decryptedPassword}
-                  decryptPasswords={decryptedPasswords}
+                  passwordMap={passwordMap}
                 />
               )}
             />

@@ -41,7 +41,45 @@ function AddPasswordForm({ onCloseModal }) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} role="dialog">
+      <label htmlFor="username" className="label">
+        Username
+      </label>
+      <input
+        id="username"
+        type="text"
+        placeholder="Username or email"
+        className="input"
+        disabled={isCreating}
+        {...register("username", {
+          required: "This field is required.",
+          validate: (value) => {
+            const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            const isUsername = /^[a-zA-Z0-9_]{3,}$/.test(value); // At least 3 chars
+            if (!isEmail && !isUsername)
+              return "Must be a valid email or username (min. 3 chars)";
+          },
+        })}
+      />
+      <ErrorMessage
+        condition={errors?.username?.message}
+        message={errors?.username?.message}
+      />
+
+      <label htmlFor="password" className="label">
+        Password
+      </label>
+      <PasswordInput
+        id="password"
+        placeholder="Password"
+        disabled={isCreating}
+        register={register}
+      />
+      <ErrorMessage
+        condition={errors?.password?.message}
+        message={errors?.password?.message}
+      />
+
       <label htmlFor="platform" className="label">
         Platform
       </label>
@@ -75,43 +113,15 @@ function AddPasswordForm({ onCloseModal }) {
         disabled={isCreating}
         {...register("platform_url", {
           required: "This field is required.",
+          pattern: {
+            value: /^(https?:\/\/)[\w.-]+\.[a-z]{2,6}(\/.*)?$/i,
+            message: "Enter a valid URL starting with http:// or https://",
+          },
         })}
       />
       <ErrorMessage
         condition={errors?.platform_url?.message}
         message={errors?.platform_url?.message}
-      />
-
-      <label htmlFor="username" className="label">
-        Username
-      </label>
-      <input
-        id="username"
-        type="text"
-        placeholder="Username or email"
-        className="input"
-        disabled={isCreating}
-        {...register("username", {
-          required: "This field is required.",
-        })}
-      />
-      <ErrorMessage
-        condition={errors?.username?.message}
-        message={errors?.username?.message}
-      />
-
-      <label htmlFor="password" className="label">
-        Password
-      </label>
-      <PasswordInput
-        id="password"
-        placeholder="Password"
-        disabled={isCreating}
-        register={register}
-      />
-      <ErrorMessage
-        condition={errors?.password?.message}
-        message={errors?.password?.message}
       />
 
       <label htmlFor="vault" className="label">

@@ -9,15 +9,19 @@ import PasswordCell from "./PasswordCell";
 import PlatformCell from "./PlatformCell";
 import StrengthCell from "./StrengthCell";
 import { formatDate, formatRelativeTime } from "../../utils/helpers";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { analyzePassword } from "../../utils/passwordUtils";
 import Menu from "../../ui/Menu";
 import { IoTrashOutline } from "react-icons/io5";
 
-function PasswordRow({ decryptedPassword, decryptedPasswords }) {
-  const existingsPasswords = decryptedPasswords
-    ?.filter((decrypted) => decrypted.password !== decryptedPassword.password) // Exclude current password
-    .map((decrypted) => decrypted.password);
+function PasswordRow({ decryptedPassword, passwordMap }) {
+  const existingsPasswords = useMemo(() => {
+    if (!passwordMap) return [];
+
+    return Array.from(passwordMap.entries())
+      .filter(([id]) => id !== decryptedPassword.id)
+      .map(([, password]) => password);
+  }, [passwordMap, decryptedPassword.id]);
 
   const [analysis, setAnalysis] = useState({
     strengthInfo: null,
@@ -39,12 +43,16 @@ function PasswordRow({ decryptedPassword, decryptedPasswords }) {
           decryptedPassword.password,
           existingsPasswords,
         );
-        setAnalysis(res);
+
+        // Only update if the result has changed
+        if (JSON.stringify(res) !== JSON.stringify(analysis)) {
+          setAnalysis(res);
+        }
       }
 
       analyse();
     },
-    [decryptedPassword, existingsPasswords],
+    [decryptedPassword, existingsPasswords, analysis],
   );
 
   return (

@@ -1,7 +1,7 @@
 import Tooltip from "./Tooltip";
 import { useState } from "react";
-import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 import PasswordStrength from "./PasswordStrength";
+import VisibilityToggle from "./VisibilityToggle";
 
 function PasswordInput({ id, placeholder, register, disabled }) {
   const [password, setPassword] = useState("");
@@ -43,12 +43,10 @@ function PasswordInput({ id, placeholder, register, disabled }) {
             {...restRegister} // Spread remaining register props
             onChange={handleChange} // Use merged handler
           />
-          <div
-            className="bg-ocean-100 dark:bg-charcoal-800 absolute top-2 right-2.5 cursor-pointer"
-            onClick={() => setIsVisible((is) => !is)}
-          >
-            {isVisible ? <RxEyeClosed size={20} /> : <RxEyeOpen size={20} />}
-          </div>
+          <VisibilityToggle
+            isVisible={isVisible}
+            onToggle={() => setIsVisible((is) => !is)}
+          />
         </div>
       </Tooltip.Trigger>
       <Tooltip.Content>

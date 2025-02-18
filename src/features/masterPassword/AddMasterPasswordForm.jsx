@@ -35,7 +35,7 @@ function AddMasterPasswordForm({ onCloseModal }) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} role="dialog">
       <label htmlFor="masterPassword" className="label">
         Master password
       </label>
