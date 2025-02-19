@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../../ui/ErrorMessage";
 import Button from "../../ui/Button";
-import PasswordInput from "../../ui/PasswordInput";
 import { useUser } from "../authentication/useUser";
 import { useAddSecret } from "./useAddSecret";
 import { deriveKey, generateSalt } from "../../services/cryptoServices";
+import MasterPasswordInput from "./MasterPasswordInput";
 
 function AddMasterPasswordForm({ onCloseModal }) {
   const { handleSubmit, formState, register, getValues } = useForm();
@@ -39,12 +39,7 @@ function AddMasterPasswordForm({ onCloseModal }) {
       <label htmlFor="masterPassword" className="label">
         Master password
       </label>
-      <PasswordInput
-        id="masterPassword"
-        placeholder="Master password"
-        disabled={isCreating}
-        register={register}
-      />
+      <MasterPasswordInput disabled={isCreating} register={register} />
       <ErrorMessage
         condition={errors?.masterPassword?.message}
         message={errors?.masterPassword?.message}

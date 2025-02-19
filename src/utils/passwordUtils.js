@@ -7,13 +7,13 @@ export function isPasswordReused(password, existingPasswords = []) {
 }
 
 // Basic character checks
-function analyzeCharacterVariety(password) {
+export function analyzeCharacterVariety(password) {
   return {
     hasLower: /[a-z]/.test(password),
     hasUpper: /[A-Z]/.test(password),
     hasNumber: /\d/.test(password),
-    hasSymbol: /[\W_]/.test(password),
-    length: password.length,
+    hasSymbol: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    length: password.trim().length,
   };
 }
 
@@ -43,22 +43,8 @@ function calculateScore({ hasLower, hasUpper, hasNumber, hasSymbol, length }) {
 // Apply penalties to password score
 function applyPenalties(password, score) {
   const zxcvbnResult = zxcvbn(password);
-  const hasCommonPassword =
-    zxcvbnResult.guesses < 1e6 ||
-    zxcvbnResult.sequence.some(
-      (seq) =>
-        seq.pattern === "dictionary" &&
-        [
-          "passwords",
-          "english_wikipedia",
-          "male_names",
-          "female_names",
-        ].includes(seq.dictionary),
-    );
-
-  const hasKeyboardPattern = zxcvbnResult.sequence.some(
-    (seq) => seq.pattern === "spatial",
-  );
+  const hasCommonPassword = isCommonPassword(zxcvbnResult);
+  const hasKeyboardPattern = usesKeyboardPattern(zxcvbnResult);
 
   if (hasKeyboardPattern) score -= 15;
   if (/(.{2})\1{2}/.test(password)) score -= 8; // Repeated 2-char patterns
@@ -74,29 +60,29 @@ function clampScore(score) {
 }
 
 // Determine password strength
-function getStrength(score) {
+export function getStrength(score) {
   return score >= 85
     ? {
         strength: "Very Strong",
         description: "Quantum-resistant (10+ years)",
-        color: "dark:bg-mint-600 bg-mint-500",
+        background: "dark:bg-mint-600 bg-mint-500",
       }
     : score >= 70
       ? {
-          strength: "Strong",
+          strength: "Resilient",
           description: "Resist brute-force (~decade)",
-          color: "dark:bg-mint-600 bg-mint-500",
+          background: "bg-butter-500 dark:bg-butter-600",
         }
       : score >= 50
         ? {
             strength: "Moderate",
             description: "Vulnerable (<1 year)",
-            color: "dark:bg-rust-600 bg-rust-500",
+            background: "dark:bg-rust-600 bg-rust-500",
           }
         : {
             strength: "Weak",
             description: "Easily crackable (<1 hour)",
-            color: "dark:bg-ruby-600 bg-ruby-500",
+            background: "dark:bg-ruby-600 bg-ruby-500",
           };
 }
 
@@ -118,4 +104,28 @@ export async function analyzePassword(password, existingPasswords = []) {
   const strengthInfo = getStrength(score);
 
   return { strengthInfo, isBreached, isReused, score };
+}
+
+export function isCommonPassword(zxcvbnResult) {
+  if (!zxcvbnResult) return false;
+  if (zxcvbnResult.password.length === 0) return false;
+
+  return (
+    zxcvbnResult.guesses < 1e6 ||
+    zxcvbnResult.sequence.some(
+      (seq) =>
+        seq.pattern === "dictionary" &&
+        [
+          "passwords",
+          "english_wikipedia",
+          "male_names",
+          "female_names",
+        ].includes(seq.dictionary),
+    )
+  );
+}
+
+export function usesKeyboardPattern(zxcvbnResult) {
+  if (!zxcvbnResult) return false;
+  return zxcvbnResult.sequence.some((seq) => seq.pattern === "spatial");
 }

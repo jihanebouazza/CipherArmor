@@ -1,7 +1,7 @@
 import { HiX } from "react-icons/hi";
 import { HiMiniCheck } from "react-icons/hi2";
 
-function PasswordValidator({ validationCondition, validationMessage }) {
+function MasterPasswordValidator({ validationCondition, validationMessage }) {
   return (
     <p className="flex items-center gap-1">
       <span
@@ -18,4 +18,4 @@ function PasswordValidator({ validationCondition, validationMessage }) {
   );
 }
 
-export default PasswordValidator;
+export default MasterPasswordValidator

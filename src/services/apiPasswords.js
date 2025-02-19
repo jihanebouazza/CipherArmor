@@ -27,6 +27,7 @@ export async function editPassword() {}
 
 // Check password against HIBP API
 export async function checkPasswordBreach(password) {
+  password = password.trim();
   const encoder = new TextEncoder();
   const data = encoder.encode(password);
   const hashBuffer = await crypto.subtle.digest("SHA-1", data);

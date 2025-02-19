@@ -11,10 +11,10 @@ function PasswordInput({ id, placeholder, register, disabled }) {
     required: "This field is required.",
     validate: (value) => {
       if (
-        value.length < 8 ||
+        value.trim().length < 8 ||
         !/[A-Z]/.test(value) ||
-        !/[0-9]/.test(value) ||
-        !/[!@#$%^&*]/.test(value)
+        !/\d/.test(value) ||
+        !/[!@#$%^&*(),.?":{}|<>]/.test(value)
       ) {
         return "Invalid password.";
       }

@@ -13,17 +13,19 @@ function StrengthCell({ analysis, strength, description }) {
     <>
       <PasswordTag
         Icon={
-          strength === "Very Strong" || strength === "Strong"
+          strength === "Very Strong" || strength === "Resilient"
             ? HiOutlineShieldCheck
             : HiOutlineShieldExclamation
         }
         title={strength}
         type={
-          strength === "Very Strong" || strength === "Strong"
+          strength === "Very Strong"
             ? "safe"
-            : strength === "Moderate"
-              ? "warning"
-              : "danger"
+            : strength === "Resilient"
+              ? "caution"
+              : strength === "Moderate"
+                ? "warning"
+                : "danger"
         }
       />
       <PasswordTag

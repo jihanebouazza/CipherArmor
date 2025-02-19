@@ -1,22 +1,17 @@
+import { analyzeCharacterVariety, getStrength } from "../utils/passwordUtils";
 import PasswordValidator from "./PasswordValidator";
 
 function PasswordStrength({ password }) {
   const passwordValidation = {
-    isLongEnough: password.length >= 8,
-    hasUppercase: /[A-Z]/.test(password),
-    hasNumber: /[0-9]/.test(password),
-    hasSpecialChar: /[!@#$%^&*]/.test(password),
+    isLongEnough: password.trim().length >= 12,
+    ...analyzeCharacterVariety(password),
   };
 
   const strengthScore =
-    Object.values(passwordValidation).filter(Boolean).length;
+    Object.values(passwordValidation).filter(Boolean).length - 1;
+  const strengthPercentage = Math.max(0, (strengthScore / 4) * 100);
 
-  function getStrengthColor(score) {
-    if (score <= 1) return "bg-ruby-500 dark:bg-ruby-600";
-    if (score <= 2) return "bg-rust-500 dark:bg-rust-600";
-    if (score === 3) return "bg-yellow-500 dark:bg-yellow-600";
-    return "bg-mint-500 dark:bg-mint-600";
-  }
+  const { background } = getStrength(strengthPercentage);
 
   return (
     <div>
@@ -25,26 +20,26 @@ function PasswordStrength({ password }) {
         role="progressbar"
       >
         <div
-          className={`h-full ${getStrengthColor(strengthScore)} transition-all duration-500 ease-out`}
-          style={{ width: `${(strengthScore / 4) * 100}%` }}
+          className={`h-full ${background} transition-all duration-500 ease-out`}
+          style={{ width: `${strengthPercentage}%` }}
         ></div>
       </div>
       <p className="font-medium">Your password must contain:</p>
       <PasswordValidator
         validationCondition={passwordValidation.isLongEnough}
-        validationText={"At least 8 character."}
+        validationMessage={"At least 8 character."}
       />
       <PasswordValidator
-        validationCondition={passwordValidation.hasUppercase}
-        validationText={"At least one uppercase letter."}
+        validationCondition={passwordValidation.hasUpper}
+        validationMessage={"At least one uppercase letter."}
       />
       <PasswordValidator
-        validationCondition={passwordValidation.hasSpecialChar}
-        validationText={"At least one special character."}
+        validationCondition={passwordValidation.hasSymbol}
+        validationMessage={"At least one special character."}
       />
       <PasswordValidator
         validationCondition={passwordValidation.hasNumber}
-        validationText={"At least one number."}
+        validationMessage={"At least one number."}
       />
     </div>
   );
