@@ -1,13 +1,23 @@
+import { PAGE_SIZE } from "../utils/constants";
 import supabase from "./supabase";
 
-export async function getPasswords() {
-  const { data, error } = await supabase
+export async function getPasswords({ page }) {
+  let query = supabase
     .from("passwords")
-    .select("*, vaults(name)");
+    .select("*, vaults(name)", { count: "exact" });
+
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+
+    query = query.range(from, to);
+  }
+
+  const { data, count, error } = await query;
 
   if (error) throw new Error(error.message);
 
-  return data;
+  return { data, count };
 }
 
 export async function addPassword(password) {

@@ -4,14 +4,13 @@ import DashboardHeader from "../dashboard/DashboardHeader";
 import { useVaults } from "./useVaults";
 import VaultRow from "./VaultRow";
 import AddVault from "./AddVault";
+import { PAGE_SIZE } from "../../utils/constants";
+import Pagination from "../../ui/Pagination";
 
 function VaultTable() {
-  const { vaults, isPending } = useVaults();
+  const { vaults, count, isPending } = useVaults();
 
   if (isPending) return <ContainerLoader />;
-
-  const vaultCount = vaults.length;
-
   return (
     <>
       <DashboardHeader title="Vaults">
@@ -19,11 +18,7 @@ function VaultTable() {
         retrieval.
       </DashboardHeader>
       <div className="py-4">
-        <Table.Container
-          title="My vaults"
-          count={vaultCount}
-          action={<AddVault />}
-        >
+        <Table.Container title="My vaults" count={count} action={<AddVault />}>
           <Table
             columnsCount={5}
             emptyErrorMessage="No vaults found. Start organizing your passwords by creating your
@@ -40,6 +35,11 @@ function VaultTable() {
               data={vaults}
               render={(vault) => <VaultRow key={vault.id} vault={vault} />}
             ></Table.Body>
+            {Math.ceil(count / PAGE_SIZE) > 1 && (
+              <Table.Footer>
+                <Pagination count={count} />
+              </Table.Footer>
+            )}
           </Table>
         </Table.Container>
       </div>

@@ -23,7 +23,7 @@ function AuthLayout() {
   if (isAuthenticated && !isPending) return null;
 
   return (
-    <main className="dark:bg-charcoal-800 bg-ocean-100 3xl:justify-center flex h-fit flex-col xl:h-screen xl:flex-row xl:items-start xl:justify-between 2xl:text-[18px]">
+    <main className="3xl:justify-center flex h-fit flex-col xl:h-screen xl:flex-row xl:items-start xl:justify-between 2xl:text-[18px]">
       <section className="3xl:w-full flex h-auto items-center justify-center lg:mx-auto lg:w-[70%] xl:h-screen xl:w-1/2">
         <div className="3xl:p-12 3xl:m-0 flex h-fit flex-col items-center gap-4 py-4 md:items-center md:justify-between xl:h-screen 2xl:-mr-25 2xl:py-25 2xl:pl-10">
           <div className="flex w-full items-center justify-between px-4 md:block md:w-auto md:items-start md:justify-start md:px-0">

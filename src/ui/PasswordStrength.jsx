@@ -3,7 +3,7 @@ import PasswordValidator from "./PasswordValidator";
 
 function PasswordStrength({ password }) {
   const passwordValidation = {
-    isLongEnough: password.trim().length >= 12,
+    isLongEnough: password.trim().length >= 8,
     ...analyzeCharacterVariety(password),
   };
 

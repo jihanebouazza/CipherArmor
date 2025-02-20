@@ -8,10 +8,12 @@ import { usePasswords } from "./usePasswords";
 import { decryptData } from "../../services/cryptoServices";
 import toast from "react-hot-toast";
 import AddPassword from "./AddPassword";
+import Pagination from "../../ui/Pagination";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function PasswordTable() {
   const { getEncryptionKey } = useSecurity();
-  const { passwords, isPendingPasswords } = usePasswords();
+  const { passwords, isPendingPasswords, count } = usePasswords();
   const [decryptedPasswords, setDecryptedPasswords] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -63,7 +65,7 @@ function PasswordTable() {
       <div className="py-4">
         <Table.Container
           title="My passwords"
-          count={decryptedPasswords?.length}
+          count={count}
           action={<AddPassword />}
         >
           <Table
@@ -90,6 +92,11 @@ function PasswordTable() {
                 />
               )}
             />
+            {Math.ceil(count / PAGE_SIZE) > 1 && (
+              <Table.Footer>
+                <Pagination count={count} />
+              </Table.Footer>
+            )}
           </Table>
         </Table.Container>
       </div>

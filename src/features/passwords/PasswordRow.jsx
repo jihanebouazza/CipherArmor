@@ -32,7 +32,7 @@ function PasswordRow({ decryptedPassword, passwordMap }) {
 
   const {
     strength = "",
-    color = "",
+    background = "",
     description = "",
   } = analysis.strengthInfo || {};
 
@@ -73,7 +73,7 @@ function PasswordRow({ decryptedPassword, passwordMap }) {
       <Table.Cell>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <div className={`h-2 w-2 rounded-full ${color}`}></div>
+            <div className={`h-2 w-2 rounded-full ${background}`}></div>
             <p>{analysis.score}%</p>
           </div>
           <Tooltip>

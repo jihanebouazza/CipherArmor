@@ -77,11 +77,26 @@ function Error() {
   );
 }
 
+function Footer({ children }) {
+  const { columnsCount } = useContext(TableContext);
+
+  return (
+    <tfoot>
+      <tr className="border-charcoal-400 border border-r-0 border-b-0 border-l-0">
+        <td colSpan={columnsCount} className="pt-3 text-center">
+          {children}
+        </td>
+      </tr>
+    </tfoot>
+  );
+}
+
 Table.Container = Container;
 Table.Head = Head;
 Table.HeadCell = HeadCell;
 Table.Body = Body;
 Table.Row = Row;
 Table.Cell = Cell;
+Table.Footer = Footer;
 
 export default Table;
