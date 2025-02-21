@@ -8,7 +8,7 @@ function PasswordStrength({ password }) {
   };
 
   const strengthScore =
-    Object.values(passwordValidation).filter(Boolean).length - 1;
+    Object.values(passwordValidation).filter(Boolean).length - 2;
   const strengthPercentage = Math.max(0, (strengthScore / 4) * 100);
 
   const { background } = getStrength(strengthPercentage);

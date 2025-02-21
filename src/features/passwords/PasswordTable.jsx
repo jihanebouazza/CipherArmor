@@ -7,9 +7,9 @@ import PasswordRow from "./PasswordRow";
 import { usePasswords } from "./usePasswords";
 import { decryptData } from "../../services/cryptoServices";
 import toast from "react-hot-toast";
-import AddPassword from "./AddPassword";
 import Pagination from "../../ui/Pagination";
 import { PAGE_SIZE } from "../../utils/constants";
+import PasswordTableOperations from "./PasswordTableOperations";
 
 function PasswordTable() {
   const { getEncryptionKey } = useSecurity();
@@ -66,7 +66,7 @@ function PasswordTable() {
         <Table.Container
           title="My passwords"
           count={count}
-          action={<AddPassword />}
+          actions={<PasswordTableOperations />}
         >
           <Table
             columnsCount={8}

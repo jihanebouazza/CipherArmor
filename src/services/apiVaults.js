@@ -1,6 +1,16 @@
 import { PAGE_SIZE } from "../utils/constants";
 import supabase from "./supabase";
 
+export async function getAllVaults() {
+  let { data, count, error } = await supabase
+    .from("vaults")
+    .select("*", { count: "exact" });
+
+  if (error) throw new Error("Vaults could not be loaded.");
+
+  return { data, count };
+}
+
 export async function getVaults({ page }) {
   let query = supabase.from("vaults").select("*", { count: "exact" });
 

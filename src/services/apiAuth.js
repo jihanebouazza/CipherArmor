@@ -1,3 +1,4 @@
+import { addVault } from "./apiVaults";
 import supabase from "./supabase";
 
 export async function signup({ fullName, email, password }) {
@@ -10,6 +11,14 @@ export async function signup({ fullName, email, password }) {
   });
 
   if (error) throw new Error(error.message);
+
+  await addVault({
+    vault: {
+      name: "Default",
+      description: "Generic vault for miscellaneous accounts.",
+    },
+    user_id: data.user.id,
+  });
 
   return data;
 }

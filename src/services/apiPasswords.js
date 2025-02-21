@@ -1,7 +1,7 @@
 import { PAGE_SIZE } from "../utils/constants";
 import supabase from "./supabase";
 
-export async function getPasswords({ page }) {
+export async function getPasswords({ page, filter }) {
   let query = supabase
     .from("passwords")
     .select("*, vaults(name)", { count: "exact" });
@@ -11,6 +11,10 @@ export async function getPasswords({ page }) {
     const to = from + PAGE_SIZE - 1;
 
     query = query.range(from, to);
+  }
+
+  if (filter) {
+    query = query[filter.method || "eq"](filter.field, filter.value);
   }
 
   const { data, count, error } = await query;

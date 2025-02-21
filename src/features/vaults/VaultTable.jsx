@@ -18,7 +18,7 @@ function VaultTable() {
         retrieval.
       </DashboardHeader>
       <div className="py-4">
-        <Table.Container title="My vaults" count={count} action={<AddVault />}>
+        <Table.Container title="My vaults" count={count} actions={<AddVault />}>
           <Table
             columnsCount={5}
             emptyErrorMessage="No vaults found. Start organizing your passwords by creating your

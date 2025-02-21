@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 
 const TableContext = createContext();
 
-function Container({ children, width = "100%", title, count, action }) {
+function Container({ children, width = "100%", title, count, actions }) {
   return (
     <div
       className="border-charcoal-400 mx-auto rounded-2xl border px-5 py-4"
@@ -13,7 +13,7 @@ function Container({ children, width = "100%", title, count, action }) {
           {title}{" "}
           {count > 0 && <span className="text-sm font-medium">({count})</span>}
         </h4>
-        {action}
+        {actions}
       </div>
       {children}
     </div>

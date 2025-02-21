@@ -3,16 +3,16 @@ import { useUser } from "../authentication/useUser";
 import ErrorMessage from "../../ui/ErrorMessage";
 import Button from "../../ui/Button";
 import PasswordInput from "../../ui/PasswordInput";
-import { useVaults } from "../vaults/useVaults";
 import { encryptData } from "../../services/cryptoServices";
 import { useSecurity } from "../../contexts/SecurityContext";
 import { useAddPassword } from "./useAddPassword";
+import { useAllVaults } from "../vaults/useAllVaults";
 
 function AddPasswordForm({ onCloseModal }) {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
   const { isPending: isPendingUser, user } = useUser();
-  const { vaults, isPending: isPendingVaults } = useVaults();
+  const { vaults, isPending: isPendingVaults } = useAllVaults();
   const { getEncryptionKey } = useSecurity();
   const { addPassword, isCreating } = useAddPassword();
 
