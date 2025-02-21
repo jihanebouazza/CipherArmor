@@ -16,6 +16,7 @@ function PasswordTable() {
   const { passwords, isPendingPasswords, count } = usePasswords();
   const [decryptedPasswords, setDecryptedPasswords] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [platformSearchTerm, setPlatformSearchTerm] = useState("");
 
   const passwordMap = useMemo(() => {
     return new Map(decryptedPasswords?.map((p) => [p.id, p.password]));
@@ -55,6 +56,10 @@ function PasswordTable() {
     decryptPasswords();
   }, [passwords, getEncryptionKey]);
 
+  const filteredPasswords = decryptedPasswords?.filter((password) =>
+    password.platform.toLowerCase().includes(platformSearchTerm.toLowerCase()),
+  );
+
   if (isPendingPasswords || isLoading) return <ContainerLoader />;
 
   return (
@@ -66,7 +71,12 @@ function PasswordTable() {
         <Table.Container
           title="My passwords"
           count={count}
-          actions={<PasswordTableOperations />}
+          actions={
+            <PasswordTableOperations
+              platformSearchTerm={platformSearchTerm}
+              setPlatformSearchTerm={setPlatformSearchTerm}
+            />
+          }
         >
           <Table
             columnsCount={8}
@@ -83,7 +93,7 @@ function PasswordTable() {
               <Table.HeadCell width="5%"></Table.HeadCell>
             </Table.Head>
             <Table.Body
-              data={decryptedPasswords}
+              data={filteredPasswords}
               render={(decryptedPassword) => (
                 <PasswordRow
                   key={decryptedPassword.id}

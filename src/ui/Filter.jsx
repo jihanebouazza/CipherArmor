@@ -14,9 +14,7 @@ function Filter({ filterField, options }) {
 
   return (
     <select className="input" onChange={handleChange} value={currentFilter}>
-      <option value="all" disabled={currentFilter === "all"}>
-        All
-      </option>
+      <option value="all" disabled={currentFilter ==="all"}>All</option>
       {options.map((option) => (
         <option
           value={option.value}

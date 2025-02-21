@@ -69,7 +69,7 @@ function Error() {
   return (
     <tbody>
       <tr className="border-charcoal-400 border border-r-0 border-b-0 border-l-0">
-        <td colSpan={columnsCount} className="pt-3 text-center">
+        <td colSpan={columnsCount} className="py-3 text-center">
           {emptyErrorMessage}
         </td>
       </tr>
