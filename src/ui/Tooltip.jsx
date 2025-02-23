@@ -74,8 +74,8 @@ function Content({ children }) {
         });
       } else {
         setPosition({
-          top: rect.bottom + 8,
-          left: rect.left + rect.width / 2,
+          top: rect.bottom + window.scrollY + 8,
+          left: rect.left + window.scrollX + rect.width / 2,
         });
       }
     }

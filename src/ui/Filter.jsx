@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router";
+import Select from "./Select";
 
 function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,18 +14,12 @@ function Filter({ filterField, options }) {
   }
 
   return (
-    <select className="input" onChange={handleChange} value={currentFilter}>
-      <option value="all" disabled={currentFilter ==="all"}>All</option>
-      {options.map((option) => (
-        <option
-          value={option.value}
-          key={option.value}
-          disabled={currentFilter === option.value}
-        >
-          {option.label}
-        </option>
-      ))}
-    </select>
+    <Select
+      options={options}
+      onChange={handleChange}
+      value={currentFilter}
+      defaultSelected={{ value: "all", label: "All" }}
+    />
   );
 }
 

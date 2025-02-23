@@ -1,7 +1,7 @@
 import { PAGE_SIZE } from "../utils/constants";
 import supabase from "./supabase";
 
-export async function getPasswords({ page, filter }) {
+export async function getPasswords({ page, filter, sortBy }) {
   let query = supabase
     .from("passwords")
     .select("*, vaults(name)", { count: "exact" });
@@ -15,6 +15,12 @@ export async function getPasswords({ page, filter }) {
 
   if (filter) {
     query = query[filter.method || "eq"](filter.field, filter.value);
+  }
+
+  if (sortBy) {
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    });
   }
 
   const { data, count, error } = await query;
