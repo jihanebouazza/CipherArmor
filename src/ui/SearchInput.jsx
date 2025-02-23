@@ -1,11 +1,11 @@
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 
-function SearchInput({ searchTerm, onChange }) {
+function SearchInput({ searchTerm, onChange, placeholder }) {
   return (
     <div className="relative shrink-0">
       <input
         className="input"
-        placeholder="Search platforms..."
+        placeholder={placeholder}
         value={searchTerm}
         onChange={onChange}
       />

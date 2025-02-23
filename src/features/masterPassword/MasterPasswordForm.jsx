@@ -26,10 +26,9 @@ function MasterPasswordForm({ onCloseModal }) {
       secret.kdf_params,
     );
 
-    if (verificationKey !== secret.key_verifier) {
+    if (verificationKey !== secret.key_verifier)
       toast.error("Invalid master password.");
-      onCloseModal?.();
-    } else initializeSession(encryptionKey);
+    else initializeSession(encryptionKey);
   }
 
   if (isPending || isPendingUser)

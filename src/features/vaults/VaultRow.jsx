@@ -1,4 +1,4 @@
-import { HiOutlinePencilSquare } from "react-icons/hi2";
+import { HiOutlineKey, HiOutlinePencilSquare } from "react-icons/hi2";
 import Menu from "../../ui/Menu";
 import Table from "../../ui/Table";
 import { formatDate } from "../../utils/helpers";
@@ -9,18 +9,19 @@ import ConfirmDelete from "../../pages/ConfirmDelete";
 import { useDeleteVault } from "./useDeleteVault";
 import { useUser } from "../authentication/useUser";
 import EditVaultForm from "./EditVaultForm";
+import { Link } from "react-router";
 
 function VaultRow({ vault }) {
   const { deleteVault, isDeleting } = useDeleteVault();
   const { isPending, user } = useUser();
-  const { id, name, description, created_at } = vault;
+  const { id, name, description, created_at, password_count } = vault;
 
   return (
     <Table.Row>
       <Table.Cell>
         <VaultIcon title={name} />
       </Table.Cell>
-      <Table.Cell>15</Table.Cell>
+      <Table.Cell>{password_count > 0 ? password_count : "None"}</Table.Cell>
       <Table.Cell>{description}</Table.Cell>
       <Table.Cell>{formatDate(created_at)}</Table.Cell>
       <Table.Cell>
@@ -29,6 +30,11 @@ function VaultRow({ vault }) {
             <Menu>
               <Menu.Toggle id={id} />
               <Menu.List id={id}>
+                <Link to={`/passwords?vault=${id}`}>
+                  <Menu.ListButton Icon={<HiOutlineKey />}>
+                    Passwords
+                  </Menu.ListButton>
+                </Link>
                 <Modal.Open opens="edit-vault">
                   <Menu.ListButton Icon={<HiOutlinePencilSquare />}>
                     Edit

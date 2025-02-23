@@ -11,7 +11,7 @@ export async function getAllVaults() {
   return { data, count };
 }
 
-export async function getVaults({ page }) {
+export async function getVaults({ page, sortBy }) {
   let query = supabase.from("vaults").select("*", { count: "exact" });
 
   if (page) {
@@ -19,6 +19,12 @@ export async function getVaults({ page }) {
     const to = from + PAGE_SIZE - 1;
 
     query = query.range(from, to);
+  }
+
+  if (sortBy) {
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    });
   }
 
   let { data, count, error } = await query;

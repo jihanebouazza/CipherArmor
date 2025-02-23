@@ -3,12 +3,20 @@ import Table from "../../ui/Table";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import { useVaults } from "./useVaults";
 import VaultRow from "./VaultRow";
-import AddVault from "./AddVault";
 import { PAGE_SIZE } from "../../utils/constants";
 import Pagination from "../../ui/Pagination";
+import VaultTableOperations from "./VaultTableOperations";
+import { useState } from "react";
 
 function VaultTable() {
   const { vaults, count, isPending } = useVaults();
+  const [vaultSearchTerm, setVaultSearchTerm] = useState("");
+
+  const filteredVaults = vaults?.filter(
+    (vault) =>
+      vault.name.toLowerCase().includes(vaultSearchTerm.toLowerCase()) ||
+      vault.description.toLowerCase().includes(vaultSearchTerm.toLowerCase()),
+  );
 
   if (isPending) return <ContainerLoader />;
   return (
@@ -18,7 +26,16 @@ function VaultTable() {
         retrieval.
       </DashboardHeader>
       <div className="py-4">
-        <Table.Container title="My vaults" count={count} actions={<AddVault />}>
+        <Table.Container
+          title="My vaults"
+          count={count}
+          actions={
+            <VaultTableOperations
+              vaultSearchTerm={vaultSearchTerm}
+              setVaultSearchTerm={setVaultSearchTerm}
+            />
+          }
+        >
           <Table
             columnsCount={5}
             emptyErrorMessage="No vaults found. Start organizing your passwords by creating your
@@ -32,7 +49,7 @@ function VaultTable() {
               <Table.HeadCell width="5%"></Table.HeadCell>
             </Table.Head>
             <Table.Body
-              data={vaults}
+              data={filteredVaults}
               render={(vault) => <VaultRow key={vault.id} vault={vault} />}
             ></Table.Body>
             {Math.ceil(count / PAGE_SIZE) > 1 && (
