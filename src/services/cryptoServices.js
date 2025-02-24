@@ -50,8 +50,13 @@ export function bufferToHex(buffer) {
 }
 
 export function hexToBuffer(hexString) {
+  if (hexString === undefined) {
+    throw new Error("Crypto operation failed: Missing required parameters");
+  }
+
+  const safeHex = hexString ?? "";
   return new Uint8Array(
-    hexString.match(/[\da-f]{2}/gi).map((h) => parseInt(h, 16)),
+    safeHex.match(/[\da-f]{2}/gi).map((h) => parseInt(h, 16)),
   );
 }
 

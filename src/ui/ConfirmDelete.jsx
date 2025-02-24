@@ -1,5 +1,5 @@
 import { HiOutlineExclamationTriangle } from "react-icons/hi2";
-import Button from "../ui/Button";
+import Button from "./Button";
 
 function ConfirmDelete({
   message,

@@ -3,7 +3,13 @@ import { useState } from "react";
 import PasswordStrength from "./PasswordStrength";
 import VisibilityToggle from "./VisibilityToggle";
 
-function PasswordInput({ id, placeholder, register, disabled }) {
+function PasswordInput({
+  id,
+  placeholder,
+  register,
+  disabled,
+  defaultValue = "",
+}) {
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
 
@@ -40,6 +46,7 @@ function PasswordInput({ id, placeholder, register, disabled }) {
             placeholder={placeholder}
             className="input"
             disabled={disabled}
+            defaultValue={defaultValue}
             {...restRegister} // Spread remaining register props
             onChange={handleChange} // Use merged handler
           />

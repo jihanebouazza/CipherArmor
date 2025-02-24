@@ -5,7 +5,7 @@ import { formatDate } from "../../utils/helpers";
 import VaultIcon from "./VaultIcon";
 import { IoTrashOutline } from "react-icons/io5";
 import Modal from "../../ui/Modal";
-import ConfirmDelete from "../../pages/ConfirmDelete";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeleteVault } from "./useDeleteVault";
 import { useUser } from "../authentication/useUser";
 import EditVaultForm from "./EditVaultForm";

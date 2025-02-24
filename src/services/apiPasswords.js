@@ -4,7 +4,7 @@ import supabase from "./supabase";
 export async function getPasswords({ page, filter, sortBy }) {
   let query = supabase
     .from("passwords")
-    .select("*, vaults(name)", { count: "exact" });
+    .select("*, vaults(id, name)", { count: "exact" });
 
   if (page) {
     const from = (page - 1) * PAGE_SIZE;
@@ -36,14 +36,35 @@ export async function addPassword(password) {
     .insert([password])
     .select();
 
-  if (error) throw new Error(error.message);
+  if (error) throw new Error("Password could not be added.");
 
   return data;
 }
 
-export async function deletePassword() {}
+export async function deletePassword({ id, user_id }) {
+  const { data, error } = await supabase
+    .from("passwords")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", user_id);
 
-export async function editPassword() {}
+  if (error) throw new Error("Password could not be deleted.");
+
+  return data;
+}
+
+export async function editPassword({ updatedPassword, id, user_id }) {
+  const { data, error } = await supabase
+    .from("passwords")
+    .update(updatedPassword)
+    .eq("id", id)
+    .eq("user_id", user_id)
+    .select();
+
+  if (error) throw new Error("Password could not be updated.");
+
+  return data;
+}
 
 // Check password against HIBP API
 export async function checkPasswordBreach(password) {

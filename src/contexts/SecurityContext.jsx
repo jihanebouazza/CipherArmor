@@ -13,12 +13,14 @@ function SecurityProvider({ children }) {
   const [encryptionKey, setEncryptionKey] = useState(null);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const lockTimer = useRef(null);
+  const [sessionNonce, setSessionNonce] = useState(0); // Add nonce
 
   const resetLockTimer = useCallback(() => {
     if (lockTimer.current) clearTimeout(lockTimer.current);
     lockTimer.current = setTimeout(() => {
       setEncryptionKey(null);
       setIsUnlocked(false);
+      setSessionNonce((prev) => prev + 1); // Invalidate session
     }, 900000); // 15 minutes
   }, []);
 
@@ -26,6 +28,7 @@ function SecurityProvider({ children }) {
     (key) => {
       setEncryptionKey(key);
       setIsUnlocked(true);
+      setSessionNonce((prev) => prev + 1); // New session version
       resetLockTimer();
     },
     [setEncryptionKey, resetLockTimer],
@@ -43,7 +46,7 @@ function SecurityProvider({ children }) {
 
   return (
     <SecurityContext.Provider
-      value={{ initializeSession, getEncryptionKey, isUnlocked }}
+      value={{ initializeSession, getEncryptionKey, isUnlocked, sessionNonce }}
     >
       {children}
     </SecurityContext.Provider>

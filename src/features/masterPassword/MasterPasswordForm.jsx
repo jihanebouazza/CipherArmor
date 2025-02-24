@@ -16,19 +16,39 @@ function MasterPasswordForm({ onCloseModal }) {
   const { errors } = formState;
   const { isPending: isPendingUser, user } = useUser();
   const { secret, isPending } = useSecret(user?.id);
-  const { initializeSession } = useSecurity();
+  const { initializeSession, sessionNonce } = useSecurity(); // Get nonce
 
   async function onSubmit(data) {
-    const { masterPassword } = data;
-    const { encryptionKey, verificationKey } = await deriveKey(
-      masterPassword,
-      secret.salt,
-      secret.kdf_params,
-    );
+    try {
+      // Capture current session state at submission start
+      const currentSessionNonce = sessionNonce;
 
-    if (verificationKey !== secret.key_verifier)
-      toast.error("Invalid master password.");
-    else initializeSession(encryptionKey);
+      if (!secret?.salt) {
+        throw new Error("Security configuration not loaded.");
+      }
+
+      // Perform crypto operations first
+      const { encryptionKey, verificationKey } = await deriveKey(
+        data.masterPassword,
+        secret.salt,
+        secret.kdf_params,
+      );
+
+      // Validate session AFTER crypto operations
+      if (sessionNonce !== currentSessionNonce) {
+        throw new Error("Session expired during authentication");
+      }
+
+      if (verificationKey !== secret.key_verifier) {
+        throw new Error("Invalid master password");
+      }
+
+      initializeSession(encryptionKey);
+      onCloseModal?.();
+    } catch (error) {
+      console.error("Unlock Error:", error);
+      toast.error(error.message);
+    }
   }
 
   if (isPending || isPendingUser)
