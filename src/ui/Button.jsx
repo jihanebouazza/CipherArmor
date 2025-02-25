@@ -33,6 +33,9 @@ function Button({
     danger:
       base +
       "bg-ruby-500 dark:bg-ruby-600 px-4 py-1.5 text-blanc-100 rounded-lg focus:ring-ruby-600 dark:focus:ring-ruby-900",
+    dangersecondary:
+      base +
+      "text-ruby-500 dark:text-ruby-400 border border-ruby-500 dark:border-ruby-400 px-4 py-1.5 rounded-lg focus:ring-ruby-600 dark:focus:ring-ruby-900",
   };
 
   return (

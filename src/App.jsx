@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import Passwords from "./pages/Passwords";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Vaults from "./pages/Vaults";
+import Settings from "./pages/settings.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,6 +47,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="passwords" element={<Passwords />} />
             <Route path="vaults" element={<Vaults />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
           <Route path="/" element={<p>Hello</p>} />
         </Routes>

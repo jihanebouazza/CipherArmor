@@ -22,7 +22,6 @@ function ResetPasswordForm() {
   }, []);
 
   function onSubmit({ password }) {
-    console.log(token);
     if (!token) return;
     resetPassword({ token, password });
   }
@@ -58,6 +57,7 @@ function ResetPasswordForm() {
           type="password"
           placeholder="Confirm password"
           className="input"
+          disabled={isResetingPassword}
           {...register("confirmPassword", {
             required: "This field is required.",
             validate: (value) =>
