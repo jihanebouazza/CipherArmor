@@ -7,9 +7,15 @@ function PasswordStrength({ password }) {
     ...analyzeCharacterVariety(password),
   };
 
-  const strengthScore =
-    Object.values(passwordValidation).filter(Boolean).length - 2;
-  const strengthPercentage = Math.max(0, (strengthScore / 4) * 100);
+  const visibleValidators = [
+    passwordValidation.isLongEnough,
+    passwordValidation.hasUpper,
+    passwordValidation.hasSymbol,
+    passwordValidation.hasNumber,
+  ];
+
+  const strengthScore = visibleValidators.filter(Boolean).length;
+  const strengthPercentage = (strengthScore / 4) * 100;
 
   const { background } = getStrength(strengthPercentage);
 

@@ -6,7 +6,7 @@ function EditAccount() {
   return (
     <Modal>
       <Modal.Open opens="edit-username">
-        <Button type="raw">Edit</Button>
+        <Button type="raw" extraStyles="h-fit">Edit</Button>
       </Modal.Open>
       <Modal.Window name="edit-username">
         <EditAccountForm />

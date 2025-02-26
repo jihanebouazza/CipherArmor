@@ -14,6 +14,7 @@ import Passwords from "./pages/Passwords";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Vaults from "./pages/Vaults";
 import Settings from "./pages/settings.jsx";
+import VerifyEmail from "./pages/VerifyEmail.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,12 +32,15 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<p>Hello</p>} />
+
           <Route element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="reset-password" element={<ResetPassword />} />
           </Route>
+
           <Route
             element={
               <ProtectedRoute>
@@ -49,7 +53,8 @@ function App() {
             <Route path="vaults" element={<Vaults />} />
             <Route path="settings" element={<Settings />} />
           </Route>
-          <Route path="/" element={<p>Hello</p>} />
+
+          <Route path="verify-email-change" element={<VerifyEmail />} />
         </Routes>
       </BrowserRouter>
 

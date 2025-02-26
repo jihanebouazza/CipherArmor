@@ -69,5 +69,37 @@ export async function resetPassword({ token, password }) {
   );
 
   if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function updateAccount(updateData) {
+  const { data, error } = await supabase.auth.updateUser(updateData);
+
+  if (error) {
+    if (error.message.includes("rate limit")) {
+      throw new Error("Too many attempts. Please try again later.");
+    }
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function updatePassword(password) {
+  const { data, error } = await supabase.auth.updateUser({
+    password,
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function verifyEmailChange(emailChangeData) {
+  const { data, error } = await supabase.auth.verifyOtp(emailChangeData);
+
+  if (error) throw new Error(error.message);
+
   return data;
 }

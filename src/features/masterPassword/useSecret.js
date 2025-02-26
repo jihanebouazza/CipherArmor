@@ -12,7 +12,6 @@ export function useSecret(userId) {
       // Only retry on network errors
       return error.message.includes("Network") && failureCount < 3;
     },
-    staleTime: 0, // Always fresh
   });
 
   return { secret, isPending };
