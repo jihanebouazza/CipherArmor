@@ -7,19 +7,20 @@ export default function VerifyEmail() {
   const [searchParams] = useSearchParams();
   const { verifyEmail } = useVerifyEmail();
   const navigate = useNavigate();
+  const email = searchParams.get("email");
+  const token = searchParams.get("token");
 
   useEffect(
     function () {
       verifyEmail(
         {
-          email: searchParams.get("email"),
-          token: searchParams.get("token"),
-          type: "email_change",
+          email,
+          token,
         },
         { onSettled: () => navigate("/settings") },
       );
     },
-    [searchParams, verifyEmail, navigate],
+    [email, token, verifyEmail, navigate],
   );
 
   return (

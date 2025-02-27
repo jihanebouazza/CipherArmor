@@ -9,7 +9,7 @@ export function useEditAccount() {
 
   const { mutate: updateAccount, isPending: isUpdating } = useMutation({
     mutationFn: updateAccountApi,
-    onSuccess: (variables) => {
+    onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
 
       const isEmailUpdated =
@@ -17,7 +17,7 @@ export function useEditAccount() {
 
       toast.success(
         isEmailUpdated
-          ? "Confirmation email sent to new address."
+          ? "Confirmation email sent to the new email address."
           : "Profile updated.",
       );
     },

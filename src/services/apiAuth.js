@@ -77,7 +77,10 @@ export async function updateAccount(updateData) {
   const { data, error } = await supabase.auth.updateUser(updateData);
 
   if (error) {
-    if (error.message.includes("rate limit")) {
+    if (
+      error.message.includes("rate limit") ||
+      error.message.includes("For security purposes")
+    ) {
       throw new Error("Too many attempts. Please try again later.");
     }
     throw new Error(error.message);
@@ -96,8 +99,11 @@ export async function updatePassword(password) {
   return data;
 }
 
-export async function verifyEmailChange(emailChangeData) {
-  const { data, error } = await supabase.auth.verifyOtp(emailChangeData);
+export async function verifyEmailChange({ email, token }) {
+  const { data, error } = await supabase.auth.updateUser({
+    email,
+    email_change_token: token,
+  });
 
   if (error) throw new Error(error.message);
 

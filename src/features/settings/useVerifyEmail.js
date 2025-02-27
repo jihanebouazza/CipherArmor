@@ -6,9 +6,9 @@ export function useVerifyEmail() {
   const { mutate: verifyEmail, isPending: isVerifying } = useMutation({
     mutationFn: verifyEmailChange,
     onSuccess: () => {
-      toast.success("Email updated successfully!");
+      toast.success("Email updated successfully.");
     },
-    onError: (err) => toast.error("Email change failed: " + err.message),
+    onError: (err) => toast.error(err.message),
   });
 
   return { verifyEmail, isVerifying };

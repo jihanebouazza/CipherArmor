@@ -13,13 +13,12 @@ function EditAccountForm({ onCloseModal }) {
   const { updateAccount, isUpdating } = useEditAccount();
 
   function onSubmit({ email, fullName }) {
+    if (isPending || !user) return;
+
     const updateData = {};
 
     // Only include email if it's changed
-    if (email && email !== user?.email) {
-      updateData.email = email;
-      updateData.email_change_token = "auto";
-    }
+    if (email && email !== user?.email) updateData.email = email;
 
     // Always include fullName if provided
     if (fullName && fullName !== user?.user_metadata?.fullName)
