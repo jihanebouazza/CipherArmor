@@ -14,7 +14,7 @@ export function useLogin() {
       navigate("/dashboard", { replace: true });
       toast.success("Welcome back! You are now logged in.");
     },
-    onError: () => toast.error("Invalid email or password. Please try again."),
+    onError: (err) => toast.error(err.message),
   });
 
   return { login, isLoginIn };

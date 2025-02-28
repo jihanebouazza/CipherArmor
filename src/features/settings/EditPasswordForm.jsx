@@ -4,12 +4,15 @@ import ErrorMessage from "../../ui/ErrorMessage";
 import Button from "../../ui/Button";
 import { useUser } from "../authentication/useUser";
 import { useEditPassword } from "./useEditPassword";
+import VisibilityToggle from "../../ui/VisibilityToggle";
+import { useState } from "react";
 
 function EditPasswordForm({ onCloseModal }) {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
   const { user, isPending } = useUser();
   const { updateAccount, isUpdating } = useEditPassword();
+  const [isVisible, setIsVisible] = useState(false);
 
   function onSubmit({ oldPassword, password }) {
     if (isPending || !user) return;
@@ -29,12 +32,20 @@ function EditPasswordForm({ onCloseModal }) {
       <label htmlFor="oldPassword" className="label">
         Old password
       </label>
-      <PasswordInput
-        id="oldPassword"
-        placeholder="Old password"
-        disabled={isUpdating}
-        register={register}
-      />
+      <div className="relative">
+        <input
+          type={isVisible ? "text" : "password"}
+          className="input"
+          id="oldPassword"
+          placeholder="Old password"
+          disabled={isUpdating}
+          {...register("oldPassword", { required: "This field is required." })}
+        />
+        <VisibilityToggle
+          isVisible={isVisible}
+          onToggle={() => setIsVisible((is) => !is)}
+        />
+      </div>
       <ErrorMessage
         condition={errors?.oldPassword?.message}
         message={errors?.oldPassword?.message}

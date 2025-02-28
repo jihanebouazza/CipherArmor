@@ -64,7 +64,7 @@ function App() {
         containerStyle={{ margin: "8px" }}
         toastOptions={{
           success: {
-            duration: 3000,
+            duration: 5000,
             primary: !isDarkMode ? "#018c29" : "#007020",
             secondary: "black",
           },

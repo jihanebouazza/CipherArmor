@@ -1,3 +1,4 @@
+import { checkEligibility, reactivateAccount } from "./apiSettings";
 import { addVault } from "./apiVaults";
 import supabase from "./supabase";
 
@@ -24,13 +25,28 @@ export async function signup({ fullName, email, password }) {
 }
 
 export async function login({ email, password }) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  if (error) throw new Error(error.message);
+  const { data: authData, error: authError } =
+    await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  return data;
+  if (authError) throw new Error(authError.message);
+
+  try {
+    const eligibility = await checkEligibility(authData.user.id);
+
+    // Auto-reactivate if eligible
+    if (!eligibility.is_active && eligibility.eligible) {
+      await reactivateAccount(authData.user.id);
+    }
+
+    return authData;
+  } catch (error) {
+    // Clean up session on any eligibility errors
+    await supabase.auth.signOut();
+    throw error;
+  }
 }
 
 export async function getCurrentUser() {
