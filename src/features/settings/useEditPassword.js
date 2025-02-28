@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { updatePassword } from "../../services/apiAuth";
+import { updatePassword } from "../../services/apiSettings";
 import toast from "react-hot-toast";
 import { useLogout } from "../authentication/useLogout";
 

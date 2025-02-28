@@ -12,7 +12,6 @@ function EditVaultForm({ onCloseModal, vault }) {
   const { id, name, description } = vault;
 
   function onSubmit(data) {
-    console.log("data: ", data);
     if (isPending || !user) return;
     editVault(
       { id, user_id: user?.id, vault: data },

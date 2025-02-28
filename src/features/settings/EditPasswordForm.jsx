@@ -2,31 +2,58 @@ import { useForm } from "react-hook-form";
 import PasswordInput from "../../ui/PasswordInput";
 import ErrorMessage from "../../ui/ErrorMessage";
 import Button from "../../ui/Button";
+import { useUser } from "../authentication/useUser";
+import { useEditPassword } from "./useEditPassword";
 
 function EditPasswordForm({ onCloseModal }) {
-  const { register, formState, getValues, handleSubmit } = useForm();
+  const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
-  const isResetingPassword = false;
+  const { user, isPending } = useUser();
+  const { updateAccount, isUpdating } = useEditPassword();
 
-  function onSubmit(data) {
-    console.log(data);
+  function onSubmit({ oldPassword, password }) {
+    if (isPending || !user) return;
+    updateAccount(
+      { email: user?.email, oldPassword, password },
+      {
+        onSettled: () => {
+          reset();
+          onCloseModal?.();
+        },
+      },
+    );
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} role="dialog">
+      <label htmlFor="oldPassword" className="label">
+        Old password
+      </label>
+      <PasswordInput
+        id="oldPassword"
+        placeholder="Old password"
+        disabled={isUpdating}
+        register={register}
+      />
+      <ErrorMessage
+        condition={errors?.oldPassword?.message}
+        message={errors?.oldPassword?.message}
+      />
+
       <label htmlFor="password" className="label">
         New password
       </label>
       <PasswordInput
         id="password"
-        placeholder="Password"
-        disabled={isResetingPassword}
+        placeholder="New Password"
+        disabled={isUpdating}
         register={register}
       />
       <ErrorMessage
         condition={errors?.password?.message}
         message={errors?.password?.message}
       />
+
       <label htmlFor="confirmPassword" className="label">
         Confirm password
       </label>
@@ -35,7 +62,7 @@ function EditPasswordForm({ onCloseModal }) {
         type="password"
         placeholder="Confirm password"
         className="input"
-        disabled={isResetingPassword}
+        disabled={isUpdating}
         {...register("confirmPassword", {
           required: "This field is required.",
           validate: (value) =>
@@ -49,13 +76,13 @@ function EditPasswordForm({ onCloseModal }) {
       <div className="mt-3 flex justify-end gap-2">
         <Button
           type="raw"
-          disabled={isResetingPassword}
+          disabled={isUpdating}
           onClick={() => onCloseModal?.()}
           reset
         >
           Cancel
         </Button>
-        <Button type="primary" disabled={isResetingPassword}>
+        <Button type="primary" disabled={isUpdating}>
           Edit
         </Button>
       </div>
