@@ -4,7 +4,7 @@ import AddVault from "./AddVault";
 
 function VaultTableOperations({ vaultSearchTerm, setVaultSearchTerm }) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
       <SearchInput
         searchTerm={vaultSearchTerm}
         onChange={(e) => setVaultSearchTerm(e.target.value)}
@@ -32,7 +32,7 @@ function VaultTableOperations({ vaultSearchTerm, setVaultSearchTerm }) {
           ]}
         />
       </div>
-      <div className="shrink-0">
+      <div className="mb-2 shrink-0 lg:mb-0">
         <AddVault />
       </div>
     </div>

@@ -26,7 +26,7 @@ function DashboardLayout() {
   return (
     <main className="bg-ocean-100 dark:bg-charcoal-800 dark:text-blanc-100 flex h-fit w-full justify-between">
       <nav
-        className={`dark:shadow-charcoal-700 bg-ocean-100 dark:bg-charcoal-800 text-charcoal-800 dark:text-charcoal-100 flex h-screen transition-all duration-300 ${isExpanded ? "fixed z-99 w-68 px-6 py-4" : "fixed w-16 items-center p-4"} flex-col justify-between shadow-md`}
+        className={`dark:shadow-charcoal-700 bg-ocean-100 dark:bg-charcoal-800 text-charcoal-800 dark:text-charcoal-100 top-0 bottom-0 z-99 flex transition-all duration-300 ${isExpanded ? "fixed w-68 px-6 py-4" : "fixed w-16 items-center p-4"} flex-col justify-between shadow-md`}
       >
         <div className="space-y-4">
           <div

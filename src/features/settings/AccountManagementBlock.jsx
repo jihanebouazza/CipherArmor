@@ -16,14 +16,18 @@ function AccountManagementBlock() {
       heading="Account Management"
       subHeading="Control your account status."
     >
-      <div className="border-charcoal-100 flex items-center gap-2">
+      <div className="border-charcoal-100 flex flex-col items-center gap-2 md:flex-row">
         <Modal>
           <Modal.Open opens="deactivate-user">
-            <Button type="dangersecondary">Deactivate Account</Button>
+            <Button type="dangersecondary" extraStyles="w-full md:w-fit">
+              Deactivate Account
+            </Button>
           </Modal.Open>
 
           <Modal.Open opens="delete-user">
-            <Button type="danger">Delete Account</Button>
+            <Button type="danger" extraStyles="w-full md:w-fit">
+              Delete Account
+            </Button>
           </Modal.Open>
 
           <Modal.Window name="deactivate-user">

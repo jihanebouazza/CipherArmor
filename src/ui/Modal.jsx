@@ -32,7 +32,7 @@ function Window({ children, name }) {
 
   return createPortal(
     <div className="bg-ocean-100/40 dark:bg-charcoal-800/40 fixed inset-0 z-[1000] h-screen w-full backdrop-blur-sm">
-      <div className="bg-ocean-100 dark:bg-charcoal-800 dark:text-charcoal-100 border-charcoal-100 dark:shadow-charcoal-700 fixed top-1/2 left-1/2 w-1/3 -translate-x-1/2 -translate-y-1/2 transform rounded-3xl border px-6 py-4 shadow-md transition-all duration-500">
+      <div className="bg-ocean-100 dark:bg-charcoal-800 dark:text-charcoal-100 border-charcoal-100 dark:shadow-charcoal-700 fixed top-1/2 left-1/2 w-2/3 -translate-x-1/2 -translate-y-1/2 transform rounded-3xl border px-6 py-4 shadow-md transition-all duration-500 md:w-1/2 xl:w-1/3 2xl:w-1/4">
         <div className="flex justify-end">
           <Button type="rawsm" onClick={close}>
             <HiMiniXMark size={28} />

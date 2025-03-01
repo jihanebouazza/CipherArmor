@@ -8,14 +8,14 @@ function Container({ children, width = "100%", title, count, actions }) {
       className="border-charcoal-400 mx-auto rounded-2xl border px-5 py-4"
       style={{ width }}
     >
-      <div className="flex justify-between">
+      <div className="flex flex-col gap-2 lg:flex-row lg:justify-between">
         <h4 className="font-heading text-[24px] font-bold">
           {title}{" "}
           {count > 0 && <span className="text-sm font-medium">({count})</span>}
         </h4>
         {actions}
       </div>
-      {children}
+      <div className="overflow-x-auto">{children}</div>
     </div>
   );
 }

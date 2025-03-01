@@ -20,7 +20,7 @@ function PasswordTableOperations({
     return <Loader secondColor="#fafbfd" borderWidth="3" width="20" />;
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
       <SearchInput
         searchTerm={platformSearchTerm}
         onChange={(e) => setPlatformSearchTerm(e.target.value)}
@@ -51,7 +51,7 @@ function PasswordTableOperations({
       <div className="flex-none">
         {count > 0 && <Filter filterField="vault" options={filterVaults} />}{" "}
       </div>
-      <div className="shrink-0">
+      <div className="mb-2 shrink-0 lg:mb-0">
         <AddPassword />
       </div>
     </div>

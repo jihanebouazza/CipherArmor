@@ -7,7 +7,7 @@ function Vaults() {
       <DashboardHeader title="Vaults">
         Your vault, your rules. <br /> Categorize your passwords for easy
         retrieval.
-      </DashboardHeader>{" "}
+      </DashboardHeader>
       <VaultTable />
     </>
   );

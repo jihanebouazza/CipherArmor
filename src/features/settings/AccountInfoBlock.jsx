@@ -19,7 +19,7 @@ function AccountInfoBlock() {
       heading="Account Information"
       subHeading="Edit your account info."
     >
-      <div className="w-1/5 min-w-max space-y-1">
+      <div className="w-full min-w-max space-y-1 md:w-1/5">
         <div className="border-charcoal-100 flex w-full items-center gap-1 rounded-lg border px-3 py-1.5">
           <LiaUser
             size={18}

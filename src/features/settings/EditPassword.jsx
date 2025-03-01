@@ -6,7 +6,9 @@ function EditPassword() {
   return (
     <Modal>
       <Modal.Open opens="edit-password">
-        <Button type="raw">Edit</Button>
+        <Button type="raw" extraStyles="w-fit">
+          Edit
+        </Button>
       </Modal.Open>
       <Modal.Window name="edit-password">
         <EditPasswordForm />
