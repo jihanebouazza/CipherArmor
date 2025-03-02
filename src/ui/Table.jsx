@@ -27,7 +27,7 @@ function Table({
 }) {
   return (
     <TableContext.Provider value={{ emptyErrorMessage, columnsCount }}>
-      <table className="w-full text-left">{children}</table>
+      <table className="w-full min-w-[1000px] text-left">{children}</table>
     </TableContext.Provider>
   );
 }

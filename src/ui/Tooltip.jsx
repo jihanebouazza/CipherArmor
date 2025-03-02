@@ -84,12 +84,11 @@ function Content({ children }) {
   return (
     <div
       role="tooltip"
-      className={`bg-ocean-100 dark:bg-charcoal-800 border-charcoal-400 absolute z-99 min-w-max ${isVisibleTooltip ? "pointer-events-auto opacity-100 delay-200" : "pointer-events-none opacity-0 delay-200"} inline rounded-xl border p-3 shadow-md transition-opacity duration-300`}
+      className={`bg-ocean-100 dark:bg-charcoal-800 border-charcoal-400 absolute z-99 min-w-max ${isVisibleTooltip ? "pointer-events-auto visible delay-200" : "pointer-events-none hidden delay-200"} rounded-xl border p-3 shadow-md transition-opacity duration-300`}
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
         transform: "translateX(-50%)",
-        pointerEvents: isVisibleTooltip ? "auto" : "none",
       }}
     >
       <div className="border-charcoal-400 dark:bg-charcoal-800 bg-ocean-100 absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 transform border-t border-l"></div>

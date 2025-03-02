@@ -93,7 +93,7 @@ function PasswordRow({ decryptedPassword, passwordMap }) {
               <button>
                 <HiOutlineInformationCircle
                   size={20}
-                  className="text-charcoal-600 dark:text-charcoal-100 mt-0.5 cursor-pointer"
+                  className="text-charcoal-600 dark:text-charcoal-100 cursor-pointer"
                 />
               </button>
             </Tooltip.Trigger>
