@@ -1,53 +1,37 @@
-import {
-  HiOutlineArrowPath,
-  HiOutlineExclamationTriangle,
-  HiOutlineInformationCircle,
-  HiOutlineShieldCheck,
-  HiOutlineShieldExclamation,
-} from "react-icons/hi2";
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import PasswordTag from "./PasswordTag";
+import { HiOutlineInformationCircle } from "react-icons/hi2";
+import Tooltip from "../../ui/Tooltip";
+import StrengthTooltip from "./StrengthTooltip";
 
-function StrengthCell({ analysis, strength, description }) {
+export default function StrengthCell({ analysis }) {
+  const {
+    strength = "",
+    background = "",
+    description = "",
+  } = analysis?.strengthInfo || {};
+
   return (
-    <>
-      <PasswordTag
-        Icon={
-          strength === "Very Strong" || strength === "Resilient"
-            ? HiOutlineShieldCheck
-            : HiOutlineShieldExclamation
-        }
-        title={strength}
-        type={
-          strength === "Very Strong"
-            ? "safe"
-            : strength === "Resilient"
-              ? "caution"
-              : strength === "Moderate"
-                ? "warning"
-                : "danger"
-        }
-      />
-      <PasswordTag
-        Icon={HiOutlineArrowPath}
-        title={analysis.isReused ? "Reused" : "Unique"}
-        type={analysis.isReused ? "danger" : "safe"}
-      />
-      <PasswordTag
-        Icon={
-          analysis.isBreached
-            ? HiOutlineExclamationTriangle
-            : IoIosCheckmarkCircleOutline
-        }
-        title={analysis.isBreached ? "Breached" : "Safe"}
-        type={analysis.isBreached ? "danger" : "safe"}
-      />
-      <p className="dark:text-charcoal-100 text-charcoal-600 flex gap-1 text-sm font-light italic">
-        <HiOutlineInformationCircle size={14} className="mt-[2.5px]" />
-        <span>{description}</span>
-      </p>
-    </>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-1.5">
+        <div className={`h-2 w-2 rounded-full ${background}`}></div>
+        <p>{analysis?.score}%</p>
+      </div>
+      <Tooltip>
+        <Tooltip.Trigger isButton>
+          <button>
+            <HiOutlineInformationCircle
+              size={20}
+              className="text-charcoal-600 dark:text-charcoal-100 cursor-pointer"
+            />
+          </button>
+        </Tooltip.Trigger>
+        <Tooltip.Content>
+          <StrengthTooltip
+            analysis={analysis}
+            strength={strength}
+            description={description}
+          />
+        </Tooltip.Content>
+      </Tooltip>
+    </div>
   );
 }
-
-export default StrengthCell;

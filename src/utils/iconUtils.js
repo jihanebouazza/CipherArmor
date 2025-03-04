@@ -31,7 +31,10 @@ const vaultIcons = {
 
 export function getVaultIcon(category) {
   const normalizedCategory = category.toLowerCase().replace(/\s+/g, "");
-  return vaultIcons[normalizedCategory] || vaultIcons.default;
+  const match = Object.keys(vaultIcons).find((key) =>
+    normalizedCategory.includes(key),
+  );
+  return vaultIcons[match] || vaultIcons.default;
 }
 
 export function formatPlatformName(platformName) {

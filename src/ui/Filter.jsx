@@ -4,7 +4,9 @@ import Select from "./Select";
 function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const currentFilter = searchParams.get(filterField) || options.at(0).value;
+  const newOptions = [{ value: "all", label: "All" }, ...options];
+
+  const currentFilter = searchParams.get(filterField) || newOptions.at(0).value;
 
   function handleChange(e) {
     const value = e.target.value;
@@ -15,10 +17,9 @@ function Filter({ filterField, options }) {
 
   return (
     <Select
-      options={options}
+      options={newOptions}
       onChange={handleChange}
       value={currentFilter}
-      defaultSelected={{ value: "all", label: "All" }}
     />
   );
 }

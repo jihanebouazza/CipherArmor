@@ -49,7 +49,7 @@ function PasswordTableOperations({
         />
       </div>
       <div className="flex-none">
-        {count > 0 && <Filter filterField="vault" options={filterVaults} />}{" "}
+        {count > 1 && <Filter filterField="vault" options={filterVaults} />}
       </div>
       <div className="mb-2 shrink-0 lg:mb-0">
         <AddPassword />

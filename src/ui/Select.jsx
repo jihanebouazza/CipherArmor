@@ -1,14 +1,6 @@
-function Select({ options, onChange, value, defaultSelected }) {
+function Select({ options, onChange, value }) {
   return (
     <select className="input" onChange={onChange} value={value}>
-      {defaultSelected && (
-        <option
-          value={defaultSelected.value}
-          disabled={value === defaultSelected.value}
-        >
-          {defaultSelected.label}
-        </option>
-      )}
       {options.map((option) => (
         <option
           value={option.value}

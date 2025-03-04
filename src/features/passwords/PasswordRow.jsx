@@ -1,13 +1,8 @@
-import {
-  HiOutlineInformationCircle,
-  HiOutlinePencilSquare,
-} from "react-icons/hi2";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 import Table from "../../ui/Table";
-import Tooltip from "../../ui/Tooltip";
 import VaultIcon from "../vaults/VaultIcon";
 import PasswordCell from "./PasswordCell";
 import PlatformCell from "./PlatformCell";
-import StrengthCell from "./StrengthCell";
 import { formatDate, formatRelativeTime } from "../../utils/helpers";
 import { useEffect, useMemo, useState } from "react";
 import { analyzePassword } from "../../utils/passwordUtils";
@@ -18,6 +13,7 @@ import EditPasswordForm from "./EditPasswordForm";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeletePassword } from "./useDeletePassword";
 import { useUser } from "../authentication/useUser";
+import StrengthCell from "./StrengthCell";
 
 function PasswordRow({ decryptedPassword, passwordMap }) {
   const { deletePassword, isDeleting } = useDeletePassword();
@@ -48,12 +44,6 @@ function PasswordRow({ decryptedPassword, passwordMap }) {
     score: 0,
   });
 
-  const {
-    strength = "",
-    background = "",
-    description = "",
-  } = analysis.strengthInfo || {};
-
   useEffect(
     function () {
       async function analyse() {
@@ -83,29 +73,10 @@ function PasswordRow({ decryptedPassword, passwordMap }) {
         <VaultIcon title={vaults.name} tag />
       </Table.Cell>
       <Table.Cell>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <div className={`h-2 w-2 rounded-full ${background}`}></div>
-            <p>{analysis.score}%</p>
-          </div>
-          <Tooltip>
-            <Tooltip.Trigger isButton>
-              <button>
-                <HiOutlineInformationCircle
-                  size={20}
-                  className="text-charcoal-600 dark:text-charcoal-100 cursor-pointer"
-                />
-              </button>
-            </Tooltip.Trigger>
-            <Tooltip.Content>
-              <StrengthCell
-                analysis={analysis}
-                strength={strength}
-                description={description}
-              />
-            </Tooltip.Content>
-          </Tooltip>
-        </div>
+        <StrengthCell
+          strengthInfo={analysis.strengthInfo}
+          analysis={analysis}
+        />
       </Table.Cell>
       <Table.Cell>{formatRelativeTime(last_updated)}</Table.Cell>
       <Table.Cell>{formatDate(created_at)}</Table.Cell>
