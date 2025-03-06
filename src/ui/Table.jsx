@@ -5,7 +5,7 @@ const TableContext = createContext();
 function Container({ children, width = "100%", title, count, actions }) {
   return (
     <div
-      className="border-charcoal-400 mx-auto rounded-2xl border px-5 py-4"
+      className="border-charcoal-400 rounded-2xl border px-5 py-4"
       style={{ width }}
     >
       <div className="flex flex-col gap-2 lg:flex-row lg:justify-between">
