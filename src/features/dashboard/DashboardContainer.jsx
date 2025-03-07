@@ -8,6 +8,7 @@ import { useUser } from "../authentication/useUser";
 import DashboardHeader from "./DashboardHeader";
 import { Link } from "react-router";
 import PasswordHealthChart from "./PasswordHealthChart";
+import AchievementProgress from "./AchievementProgress";
 
 function DashboardContainer() {
   const { user, isPending } = useUser();
@@ -115,8 +116,39 @@ function DashboardContainer() {
             <p className="text-sm">80%</p>
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 flex h-fit flex-col items-center justify-between rounded-2xl border px-4 py-3 shadow-xs">
-          <PasswordHealthChart />
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 flex h-fit flex-col gap-3 rounded-2xl border px-5 py-4 shadow-xs">
+          <div className="flex items-center justify-center">
+            <PasswordHealthChart />
+          </div>
+          <div className="divide-charcoal-400 divide-y-1">
+            <h4 className="font-heading dark:text-charcoal-100 pb-2 text-xl font-semibold">
+              Achievements
+            </h4>
+            <AchievementProgress
+              title="Just Getting Started"
+              percentage="20%"
+              progressLabel="2/10"
+              description="Save 10 passwords."
+              barColor="bg-ruby-500"
+              titleColor="text-ruby-500"
+            />
+            <AchievementProgress
+              title="Cyber Guardian"
+              percentage="50%"
+              progressLabel="50%"
+              description="Reach 75% password health."
+              barColor="bg-rust-500"
+              titleColor="text-rust-500"
+            />
+            <AchievementProgress
+              title="Needs Work"
+              percentage="45%"
+              progressLabel="45%"
+              description="Achieve 50% strong passwords."
+              barColor="bg-butter-600"
+              titleColor="text-butter-600"
+            />
+          </div>
         </div>
       </div>
     </>
