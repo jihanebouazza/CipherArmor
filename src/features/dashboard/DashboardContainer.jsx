@@ -9,6 +9,8 @@ import DashboardHeader from "./DashboardHeader";
 import { Link } from "react-router";
 import PasswordHealthChart from "./PasswordHealthChart";
 import AchievementProgress from "./AchievementProgress";
+import PasswordsByVaultChart from "./PasswordsByVaultChart";
+import PasswordStatusChart from "./PasswordStatusChart";
 
 function DashboardContainer() {
   const { user, isPending } = useUser();
@@ -23,7 +25,7 @@ function DashboardContainer() {
         <br />
         Let&apos;s see what&apos;s new.
       </DashboardHeader>
-      <div className="grid w-full grid-cols-12 gap-3 rounded-2xl py-4">
+      <div className="grid w-full grid-flow-row grid-cols-12 grid-rows-[minmax(7rem,auto)_minmax(7rem,auto)] gap-3 rounded-2xl py-4">
         <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col justify-between rounded-2xl border px-4 py-3 shadow-xs">
           <p className="font-heading text-lg font-medium">Vaults total</p>
           <h2 className="text-2xl leading-none font-light md:text-[32px] 2xl:text-4xl">
@@ -116,7 +118,7 @@ function DashboardContainer() {
             <p className="text-sm">80%</p>
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 flex h-fit flex-col gap-3 rounded-2xl border px-5 py-4 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-3 flex flex-col justify-between gap-3 rounded-2xl border px-5 py-4 shadow-xs">
           <div className="flex items-center justify-center">
             <PasswordHealthChart />
           </div>
@@ -148,6 +150,22 @@ function DashboardContainer() {
               barColor="bg-butter-600"
               titleColor="text-butter-600"
             />
+          </div>
+        </div>
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-5 row-span-2 rounded-2xl border px-4 py-3 shadow-xs">
+          <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
+            Passwords by Vault
+          </h4>
+          <div className="">
+            <PasswordsByVaultChart />
+          </div>
+        </div>
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-3 row-span-2 rounded-2xl border px-4 py-3 shadow-xs">
+          <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
+            Password Status Overview
+          </h4>
+          <div className="">
+            <PasswordStatusChart />
           </div>
         </div>
       </div>

@@ -84,7 +84,7 @@ export default function PasswordHealthChart() {
   };
 
   return (
-    <div className="flex h-[100px] w-[200px] items-center justify-center overflow-hidden">
+    <div className="flex h-[110px] w-[220px] items-center justify-center overflow-hidden">
       <Doughnut
         key={chartKey} // Forces re-render on theme change
         data={data}
