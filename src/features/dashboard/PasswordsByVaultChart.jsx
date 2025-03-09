@@ -8,8 +8,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useDarkMode } from "../../contexts/DarkModeContext";
 
-// Register necessary Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -20,15 +20,17 @@ ChartJS.register(
 );
 
 function PasswordsByVaultChart() {
+  const { isDarkMode } = useDarkMode();
+
   const data = {
-    labels: ["Vault 1", "Vault 2", "Vault 3", "Vault 4", "Vault 5"], // List of vaults
+    labels: ["Vault 1", "Vault 2", "Vault 3", "Vault 4", "Vault 5"],
     datasets: [
       {
         label: "Passwords by Vault",
         data: [10, 15, 8, 20, 12],
-        backgroundColor: "rgba(75, 192, 192, 0.2)", // Color of the bars
-        borderColor: "rgba(75, 192, 192, 1)", // Border color of the bars
-        borderWidth: 1,
+        backgroundColor: "#306CD3",
+        hoverBackgroundColor: "#0049c6",
+        borderRadius: 8,
       },
     ],
   };
@@ -38,6 +40,76 @@ function PasswordsByVaultChart() {
     plugins: {
       title: {
         display: false,
+      },
+      legend: {
+        labels: {
+          boxWidth: 12,
+          boxHeight: 12,
+          color: isDarkMode ? "#dddfe2" : "#0b0f14",
+          font: {
+            family: "Work Sans",
+            size: 12,
+          },
+        },
+      },
+      tooltip: {
+        backgroundColor: isDarkMode
+          ? "rgba(26,28,33, 0.9)"
+          : "rgba(228,238,254,0.9)",
+        titleColor: isDarkMode ? "#edeeee" : "#0b0f14",
+        bodyColor: isDarkMode ? "#dddfe2" : "#1a1c21",
+        titleFont: {
+          family: "Work Sans",
+          weight: "600",
+          size: 14,
+        },
+        bodyFont: {
+          family: "Work Sans",
+        },
+        callbacks: {
+          label: function (context) {
+            const value = context.raw || "";
+            return ` ${value} password${value > 1 ? "s" : ""}`; // Add a space after the color box and value
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: isDarkMode ? "#dddfe2" : "#0b0f14",
+          font: {
+            family: "Work Sans",
+            size: 12,
+          },
+        },
+        grid: {
+          display: false,
+          borderColor: isDarkMode ? "#676a6f" : "#8d9094",
+          borderWidth: 1,
+        },
+        border: {
+          color: isDarkMode ? "#676a6f" : "#8d9094",
+          width: 1,
+        },
+      },
+      y: {
+        ticks: {
+          color: isDarkMode ? "#dddfe2" : "#0b0f14",
+          font: {
+            family: "Work Sans",
+            size: 12,
+          },
+        },
+        grid: {
+          display: false,
+          borderColor: isDarkMode ? "#676a6f" : "#8d9094",
+          borderWidth: 1,
+        },
+        border: {
+          color: isDarkMode ? "#676a6f" : "#8d9094",
+          width: 1,
+        },
       },
     },
   };

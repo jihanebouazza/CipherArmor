@@ -50,15 +50,15 @@
   --color-mint-800: #007016;
   --color-mint-900: #00490f;
 
-  --color-rust-100: #fcede3;
-  --color-rust-200: #efcdb5;
-  --color-rust-300: #e5a578;
-  --color-rust-400: #e18340;
-  --color-rust-500: #d6600b;
-  --color-rust-600: #bb5711;
-  --color-rust-700: #a44a09;
-  --color-rust-800: #8a3f09;
-  --color-rust-900: #6e2e01;
+  --color-rust-100: #fce9e3;
+  --color-rust-200: #f6c9b9;
+  --color-rust-300: #f09d7e;
+  --color-rust-400: #e16b40;
+  --color-rust-500: #d6410b;
+  --color-rust-600: #bd3605;
+  --color-rust-700: #aa3206;
+  --color-rust-800: #8a2b09;
+  --color-rust-900: #6e1e01;
 
   --color-charcoal-50: #edeeee;
   --color-charcoal-100: #dddfe2;
@@ -74,7 +74,6 @@
   --font-heading: "Space Grotesk", serif;
   --font-body: "Work Sans", serif;
 
-  /* --breakpoint-2xl: 100rem;*/
   --breakpoint-3xl: 1535px;
 }
 

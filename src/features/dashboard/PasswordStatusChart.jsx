@@ -1,23 +1,37 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { useDarkMode } from "../../contexts/DarkModeContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function PasswordStatusChart() {
+  const { isDarkMode } = useDarkMode();
+
   const data = {
     labels: ["Very Strong", "Strong", "Resilient", "Moderate", "Weak"],
     datasets: [
       {
         data: [25, 40, 10, 15, 10],
         backgroundColor: [
-          "#36A2EB", // Very Strong
-          "#4BC0C0", // Strong
-          "#FFCE56", // Resilient
-          "#FF9F40", // Moderate
-          "#FF6384", // Weak
+          "#306CD3", // Very Strong
+          "#00c628", // Strong
+          "#ffce73", // Resilient
+          "#d6410b", // Moderate
+          "#c60003", // Weak
+        ],
+        hoverBackgroundColor: [
+          "#0049c6",
+          "#01aa23",
+          "#f4bf5d",
+          "#bd3605",
+          "#b00609",
         ],
         hoverOffset: 4,
-        borderRadius: 4,
+        borderRadius: 6,
+        borderColor: isDarkMode ? "#1a1c21" : "#fafcff",
+        borderWidth: 2,
+        hoverBorderColor: isDarkMode ? "#24272c" : "#e4eefe",
+        borderAlign: "inner",
       },
     ],
   };
@@ -32,10 +46,9 @@ function PasswordStatusChart() {
       legend: {
         position: "bottom",
         labels: {
-          borderRadius: 16,
           boxWidth: 12,
           boxHeight: 12,
-          color: "#1a1a1a",
+          color: isDarkMode ? "#dddfe2" : "#0b0f14",
           font: {
             family: "Work Sans",
             size: 12,
@@ -43,6 +56,11 @@ function PasswordStatusChart() {
         },
       },
       tooltip: {
+        backgroundColor: isDarkMode
+          ? "rgba(26,28,33, 0.8)"
+          : "rgba(250,252, 255,0.8)",
+        titleColor: isDarkMode ? "#edeeee" : "#0b0f14",
+        bodyColor: isDarkMode ? "#dddfe2" : "#1a1c21",
         titleFont: {
           family: "Work Sans",
           weight: "600",
@@ -54,7 +72,7 @@ function PasswordStatusChart() {
         callbacks: {
           label: function (context) {
             const value = context.raw || "";
-            return ` ${value}%`; // Add a space after the color box and value
+            return ` ${value}%`;
           },
         },
       },
