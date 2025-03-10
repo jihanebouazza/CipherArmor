@@ -18,18 +18,27 @@ function Button({
     primarysm:
       base +
       "hover:bg-ocean-600 px-2 py-0.5 bg-ocean-500 text-blanc-100 rounded-xl focus:ring-ocean-400 dark:focus:ring-charcoal-600",
+    primaryxs:
+      base +
+      "hover:bg-ocean-600 px-2 bg-ocean-500 text-blanc-100 rounded-lg focus:ring-ocean-400 dark:focus:ring-charcoal-600",
     secondarysm:
       base +
       "px-2 py-0.5 border bg-transparent rounded-xl dark:border-charcoal-100 dark:text-charcoal-100 hover:bg-charcoal-800 hover:text-charcoal-100 dark:hover:bg-charcoal-100 dark:hover:text-charcoal-800",
     raw:
       base +
       "rounded-lg focus:ring-charcoal-100 focus:ring-offset-ocean-100 dark:focus:ring-charcoal-700 border border-charcoal-100 px-4 py-1.5",
+    rawlg:
+      base +
+      "rounded-lg focus:ring-charcoal-100 focus:ring-offset-ocean-100 dark:focus:ring-charcoal-700 border border-charcoal-100 p-2",
     rawsm:
       base +
       "rounded-lg focus:ring-charcoal-100 focus:ring-offset-ocean-100 dark:focus:ring-charcoal-700 border border-charcoal-100",
     rawmd:
       base +
       "rounded-lg focus:ring-charcoal-100 focus:ring-offset-ocean-100 dark:focus:ring-charcoal-700 border border-charcoal-100 px-2 py-0.5",
+    rawxs:
+      base +
+      "rounded-lg focus:ring-charcoal-100 focus:ring-offset-ocean-100 dark:focus:ring-charcoal-700 border border-charcoal-100 px-2",
     danger:
       base +
       "bg-ruby-500 dark:bg-ruby-600 px-4 py-1.5 text-blanc-100 rounded-lg focus:ring-ruby-600 dark:focus:ring-ruby-900",

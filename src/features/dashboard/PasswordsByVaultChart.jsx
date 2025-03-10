@@ -26,7 +26,7 @@ function PasswordsByVaultChart() {
     labels: ["Vault 1", "Vault 2", "Vault 3", "Vault 4", "Vault 5"],
     datasets: [
       {
-        label: "Passwords by Vault",
+        label: "Passwords by vault",
         data: [10, 15, 8, 20, 12],
         backgroundColor: "#306CD3",
         hoverBackgroundColor: "#0049c6",
