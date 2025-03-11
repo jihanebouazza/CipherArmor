@@ -1,9 +1,7 @@
 import {
   HiMiniChevronDoubleDown,
   HiMiniChevronDoubleUp,
-  HiOutlineArrowPath,
   HiOutlineChevronRight,
-  HiOutlineSquare2Stack,
 } from "react-icons/hi2";
 import ContainerLoader from "../../ui/ContainerLoader";
 import { useUser } from "../authentication/useUser";
@@ -13,7 +11,7 @@ import PasswordHealthChart from "./PasswordHealthChart";
 import AchievementProgress from "./AchievementProgress";
 import PasswordsByVaultChart from "./PasswordsByVaultChart";
 import PasswordStatusChart from "./PasswordStatusChart";
-import Button from "../../ui/Button";
+import PasswordGenerator from "./PasswordGenerator";
 
 function DashboardContainer() {
   const { user, isPending } = useUser();
@@ -172,64 +170,7 @@ function DashboardContainer() {
           </div>
         </div>
         <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-6 row-span-2 rounded-2xl border px-4 pt-4 pb-3 shadow-xs">
-          <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl leading-none font-semibold">
-            Password generator
-          </h4>
-          <p className="dark:text-charcoal-400 text-charcoal-600 leading-5">
-            Build a password with the perfect balance of security.
-          </p>
-          <div className="my-2 space-y-2">
-            <div className="flex items-center justify-between">
-              <p>Symbols</p>
-              <div className="flex items-center gap-2">
-                <Button type="primaryxs">+</Button>
-                <p className="">5</p>
-                <Button type="rawxs">-</Button>
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <p>Digits</p>
-              <div className="flex items-center gap-2">
-                <Button type="primaryxs">+</Button>
-                <p className="">5</p>
-                <Button type="rawxs">-</Button>
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <p>Upper case characters</p>
-              <div className="flex items-center gap-2">
-                <Button type="primaryxs">+</Button>
-                <p className="">5</p>
-                <Button type="rawxs">-</Button>
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <p>Length</p>
-              <div className="flex w-full items-center gap-2">
-                <input
-                  min={8}
-                  max={50}
-                  type="range"
-                  className="accent-ocean-500 active:accent-ocean-500 hover:accent-ocean-500 ml-auto h-1 w-1/2 outline-none"
-                />
-                <p>10</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-between gap-2">
-              <div className="dark:border-charcoal-300 bg-ocean-100 dark:bg-charcoal-800 border-charcoal-100 w-full rounded-lg border px-3 py-1.5">
-                hello
-              </div>
-              <Button type="rawlg">
-                <HiOutlineSquare2Stack size={20} />
-              </Button>
-              <Button type="rawlg">
-                <HiOutlineArrowPath size={20} />
-              </Button>
-            </div>
-            <p className="text-charcoal-500 dark:text-charcoal-400 text-xs">
-              Your password contains 5 symbols, 5 digits, and 10 characters.
-            </p>
-          </div>
+          <PasswordGenerator />
         </div>
       </div>
     </>

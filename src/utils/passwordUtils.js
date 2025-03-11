@@ -129,3 +129,39 @@ export function usesKeyboardPattern(zxcvbnResult) {
   if (!zxcvbnResult) return false;
   return zxcvbnResult.sequence.some((seq) => seq.pattern === "spatial");
 }
+
+export function generatePassword(symbols, digits, uppercase, length, setPassword) {
+  const symbolChars = "!@#$%^&*()_+{}[]<>?";
+  const digitChars = "0123456789";
+  const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+
+  let passwordArray = [];
+
+  // Add symbols
+  for (let i = 0; i < symbols; i++) {
+    passwordArray.push(symbolChars[Math.floor(Math.random() * symbolChars.length)]);
+  }
+
+  // Add digits
+  for (let i = 0; i < digits; i++) {
+    passwordArray.push(digitChars[Math.floor(Math.random() * digitChars.length)]);
+  }
+
+  // Add uppercase characters
+  for (let i = 0; i < uppercase; i++) {
+    passwordArray.push(uppercaseChars[Math.floor(Math.random() * uppercaseChars.length)]);
+  }
+
+  // Fill the rest with lowercase characters
+  for (let i = passwordArray.length; i < length; i++) {
+    passwordArray.push(lowercaseChars[Math.floor(Math.random() * lowercaseChars.length)]);
+  }
+
+  // Shuffle the password to mix characters randomly
+  passwordArray = passwordArray.sort(() => Math.random() - 0.5);
+
+  // Set the generated password
+  setPassword(passwordArray.join(''));
+}
+
