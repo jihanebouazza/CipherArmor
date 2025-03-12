@@ -4,6 +4,7 @@ import { useState } from "react";
 import PasswordPropertyCounter from "./PasswordPropertyCounter";
 import PasswordLengthSelector from "./PasswordLengthSelector";
 import { generatePassword } from "../../utils/passwordUtils";
+import toast from "react-hot-toast";
 
 function PasswordGenerator() {
   const [symbols, setSymbols] = useState(2);
@@ -45,15 +46,9 @@ function PasswordGenerator() {
           min={uppercase + digits + symbols}
         />
         <div className="flex items-center justify-between gap-2">
-          <div className="dark:border-charcoal-300 bg-ocean-100 dark:bg-charcoal-800 border-charcoal-100 w-full rounded-lg border px-3 py-1.5">
+          <div className="dark:border-charcoal-300 bg-ocean-100 dark:bg-charcoal-800 border-charcoal-100 w-full truncate overflow-hidden rounded-lg border px-3 py-1.5">
             {password}
           </div>
-          <Button
-            type="rawlg"
-            onClick={() => navigator.clipboard.writeText(password)}
-          >
-            <HiOutlineSquare2Stack size={20} />
-          </Button>
           <Button
             type="rawlg"
             onClick={() =>
@@ -61,6 +56,15 @@ function PasswordGenerator() {
             }
           >
             <HiOutlineArrowPath size={20} />
+          </Button>
+          <Button
+            type="rawlg"
+            onClick={() => {
+              navigator.clipboard.writeText(password);
+              toast.success("Password has been copied to your clipboard.");
+            }}
+          >
+            <HiOutlineSquare2Stack size={20} />
           </Button>
         </div>
         <p className="text-charcoal-500 dark:text-charcoal-400 text-xs">

@@ -9,7 +9,7 @@ function PasswordLengthSelector({ length, setLength, min }) {
           type="range"
           value={length}
           onChange={(e) => setLength(Number(e.target.value))}
-          className="accent-ocean-500 active:accent-ocean-500 hover:accent-ocean-500 ml-auto h-1 w-1/2 outline-none"
+          className="accent-ocean-500 active:accent-ocean-500 hover:accent-ocean-500 ml-auto h-1 w-2/3 outline-none"
         />
         <p>{length}</p>
       </div>
