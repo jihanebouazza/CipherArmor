@@ -46,7 +46,7 @@ function PasswordGenerator() {
           min={uppercase + digits + symbols}
         />
         <div className="flex items-center justify-between gap-2">
-          <div className="dark:border-charcoal-300 bg-ocean-100 dark:bg-charcoal-800 border-charcoal-100 w-full truncate overflow-hidden rounded-lg border px-3 py-1.5">
+          <div className="dark:border-charcoal-300 dark:text-charcoal-50 bg-ocean-100 dark:bg-charcoal-800 border-charcoal-100 w-full truncate overflow-hidden rounded-lg border px-3 py-1.5">
             {password}
           </div>
           <Button

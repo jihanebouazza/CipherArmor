@@ -13,6 +13,7 @@ import PasswordsByVaultChart from "./PasswordsByVaultChart";
 import PasswordStatusChart from "./PasswordStatusChart";
 import PasswordGenerator from "./PasswordGenerator";
 import PasswordAgeChart from "./PasswordAgeChart";
+import Badges from "./Badges";
 
 function DashboardContainer() {
   const { user, isPending } = useUser();
@@ -178,8 +179,17 @@ function DashboardContainer() {
             <PasswordAgeChart />
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-5 row-span-2 rounded-2xl border px-4 pt-5 pb-3 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-5 row-span-2 rounded-2xl border px-4 pt-4 pb-3 shadow-xs">
           <PasswordGenerator />
+        </div>
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 row-span-2 rounded-2xl border px-4 py-3 shadow-xs">
+          <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
+            My badges
+          </h4>
+          <div>
+            {/*  the most recent + the next greyed out  */}
+            <Badges />
+          </div>
         </div>
       </div>
     </>
