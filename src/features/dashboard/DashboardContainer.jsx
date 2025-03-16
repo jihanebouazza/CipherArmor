@@ -184,10 +184,9 @@ function DashboardContainer() {
         </div>
         <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 row-span-2 rounded-2xl border px-4 py-3 shadow-xs">
           <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
-            My badges
+            Badges
           </h4>
           <div>
-            {/*  the most recent + the next greyed out  */}
             <Badges />
           </div>
         </div>
