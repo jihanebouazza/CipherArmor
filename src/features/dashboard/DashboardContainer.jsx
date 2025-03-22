@@ -2,6 +2,7 @@ import {
   HiMiniChevronDoubleDown,
   HiMiniChevronDoubleUp,
   HiOutlineChevronRight,
+  HiOutlineEllipsisHorizontal,
 } from "react-icons/hi2";
 import ContainerLoader from "../../ui/ContainerLoader";
 import { useUser } from "../authentication/useUser";
@@ -14,6 +15,8 @@ import PasswordStatusChart from "./PasswordStatusChart";
 import PasswordGenerator from "./PasswordGenerator";
 import PasswordAgeChart from "./PasswordAgeChart";
 import Badges from "./Badges";
+import Modal from "../../ui/Modal";
+import BadgeGallery from "./BadgeGallery";
 
 function DashboardContainer() {
   const { user, isPending } = useUser();
@@ -183,9 +186,24 @@ function DashboardContainer() {
           <PasswordGenerator />
         </div>
         <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 row-span-2 rounded-2xl border px-4 py-3 shadow-xs">
-          <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
-            Badges
-          </h4>
+          <div className="flex items-center justify-between">
+            <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
+              Badges
+            </h4>
+            <Modal>
+              <Modal.Open opens="all-badges">
+                <button title="View all">
+                  <HiOutlineEllipsisHorizontal
+                    className="dark:text-charcoal-200 text-charcoal-700 cursor-pointer"
+                    size={22}
+                  />
+                </button>
+              </Modal.Open>
+              <Modal.Window name="all-badges">
+                <BadgeGallery />
+              </Modal.Window>
+            </Modal>
+          </div>
           <div>
             <Badges />
           </div>

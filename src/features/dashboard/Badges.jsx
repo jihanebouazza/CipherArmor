@@ -1,9 +1,10 @@
 import { useBadges } from "./useBadges";
 import BadgeItem from "./BadgeItem";
 import ContainerLoader from "../../ui/ContainerLoader";
+import { FcPrivacy, FcUnlock } from "react-icons/fc";
 
 function Badges() {
-  const { badges, count, isPending } = useBadges();
+  const { badges, isPending } = useBadges();
 
   if (isPending) return <ContainerLoader />;
 
@@ -17,18 +18,20 @@ function Badges() {
           bgColor={badge.bg_color}
         />
       ))} */}
-         <BadgeItem
-          key={badges[0].id}
-          name={badges[0].name}
-          badgeIcon={badges[0].icon}
-          bgColor={badges[0].bg_color}
-        />
-         <BadgeItem
-          key={badges[1].id}
-          name={badges[1].name}
-          badgeIcon={badges[1].icon}
-          bgColor={badges[1].bg_color}
-        />
+      <BadgeItem
+        key={badges[0].id}
+        name={badges[0].name}
+        badgeIcon={badges[0].icon}
+        bgColor={badges[0].bg_color}
+        Icon={<FcUnlock size={20} />}
+      />
+      <BadgeItem
+        key={badges[1].id}
+        name={badges[1].name}
+        badgeIcon={badges[1].icon}
+        bgColor={badges[1].bg_color}
+        Icon={<FcPrivacy size={20} />}
+      />
     </div>
   );
 }

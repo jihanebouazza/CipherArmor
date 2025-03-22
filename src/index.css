@@ -4,9 +4,9 @@
 
 @theme {
   --color-blanc-100: #fafbfd;
-  --color-blanc-150: #F4F5F8;
-  
-  --color-butter-50: #FFFBF4;
+  --color-blanc-150: #f4f5f8;
+
+  --color-butter-50: #fffbf4;
   --color-butter-100: #fff6e5;
   --color-butter-500: #ffce73;
   --color-butter-600: #f4bf5d;
@@ -103,6 +103,20 @@
   to {
     transform: rotate(0.5turn);
   }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #0049c6;
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #e4eefe;
+  border-radius: 8px;
 }
 
 /* sm: 640px
