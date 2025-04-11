@@ -26,10 +26,10 @@ function Badges() {
         Icon={<FcUnlock size={20} />}
       />
       <BadgeItem
-        key={badges[1].id}
-        name={badges[1].name}
-        badgeIcon={badges[1].icon}
-        bgColor={badges[1].bg_color}
+        key={badges[2].id}
+        name={badges[2].name}
+        badgeIcon={badges[2].icon}
+        bgColor={badges[2].bg_color}
         Icon={<FcPrivacy size={20} />}
       />
     </div>

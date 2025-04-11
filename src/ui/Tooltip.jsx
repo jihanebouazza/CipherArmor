@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { createPortal } from "react-dom";
 
 const TooltipContext = createContext();
 
@@ -81,10 +82,10 @@ function Content({ children }) {
     }
   }, [triggerRef, isVisibleTooltip]);
 
-  return (
+  return createPortal(
     <div
       role="tooltip"
-      className={`bg-ocean-100 dark:bg-charcoal-800 border-charcoal-400 absolute z-99 min-w-max ${isVisibleTooltip ? "visible" : "hidden"} rounded-xl border p-3 shadow-md transition-opacity delay-200 duration-300`}
+      className={`bg-ocean-100 dark:bg-charcoal-800 border-charcoal-400 absolute z-[1100] min-w-max ${isVisibleTooltip ? "visible" : "hidden"} rounded-xl border p-3 shadow-md transition-opacity delay-200 duration-300`}
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
@@ -93,7 +94,8 @@ function Content({ children }) {
     >
       <div className="border-charcoal-400 dark:bg-charcoal-800 bg-ocean-100 absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 transform border-t border-l"></div>
       {children}
-    </div>
+    </div>,
+    document.body,
   );
 }
 

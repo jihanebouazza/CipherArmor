@@ -1,7 +1,7 @@
-import clsx from "clsx";
+import Tooltip from "../../ui/Tooltip";
 import { HiOutlineInformationCircle } from "react-icons/hi2";
 
-function BadgeItem({ badgeIcon, name, bgColor, Icon }) {
+function BadgeItem({ badgeIcon, name, bgColor, Icon, description = "" }) {
   const renderSvg = (svgString) => {
     const div = document.createElement("div");
     div.innerHTML = svgString.trim();
@@ -10,11 +10,10 @@ function BadgeItem({ badgeIcon, name, bgColor, Icon }) {
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className={clsx(
-        "relative rounded-xl p-1",
-        bgColor || "bg-ocean-500", // Fallback color
-        "!important" // Force override if needed
-      )}>
+      <div
+        className="relative rounded-xl p-1"
+        style={{ backgroundColor: bgColor }}
+      >
         <div
           className="h-17 w-17"
           ref={(el) => el && el.replaceChildren(renderSvg(badgeIcon))}
@@ -24,13 +23,24 @@ function BadgeItem({ badgeIcon, name, bgColor, Icon }) {
         </div>
       </div>
       <div className="flex items-center gap-0.5">
+        {description && (
+          <Tooltip>
+            <Tooltip.Trigger isButton>
+              <button className="cursor-pointer">
+                <HiOutlineInformationCircle
+                  size={15}
+                  className="text-charcoal-600 dark:text-charcoal-200 shrink-0"
+                />
+              </button>
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+              <p className="dark:text-charcoal-100 text-sm">{description}</p>
+            </Tooltip.Content>
+          </Tooltip>
+        )}
         <p className="dark:text-charcoal-100 text-center text-sm font-medium">
           {name}
         </p>
-        <HiOutlineInformationCircle
-          size={14}
-          className="text-charcoal-600 dark:text-charcoal-200 shrink-0"
-        />
       </div>
     </div>
   );

@@ -31,6 +31,7 @@ function BadgeGallery() {
               name={badge.name}
               badgeIcon={badge.icon}
               bgColor={badge.bg_color}
+              description={badge.description}
               Icon={<HiOutlineCheck className="text-mint-500" size={16} />}
             />
           ))}
