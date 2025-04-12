@@ -1,22 +1,14 @@
-import {
-  HiMiniChevronDoubleDown,
-  HiMiniChevronDoubleUp,
-  HiOutlineChevronRight,
-  HiOutlineEllipsisHorizontal,
-} from "react-icons/hi2";
 import ContainerLoader from "../../ui/ContainerLoader";
 import { useUser } from "../authentication/useUser";
 import DashboardHeader from "./DashboardHeader";
-import { Link } from "react-router";
-import PasswordHealthChart from "./PasswordHealthChart";
-import AchievementProgress from "./AchievementProgress";
 import PasswordsByVaultChart from "./PasswordsByVaultChart";
 import PasswordStatusChart from "./PasswordStatusChart";
 import PasswordGenerator from "./PasswordGenerator";
 import PasswordAgeChart from "./PasswordAgeChart";
-import Badges from "./Badges";
-import Modal from "../../ui/Modal";
-import BadgeGallery from "./BadgeGallery";
+import StatBlock from "./StatBlock";
+import MiniStat from "./MiniStat";
+import HealthAndAchievements from "./HealthAndAchievements";
+import DashboardBadges from "./DashboardBadges";
 
 function DashboardContainer() {
   const { user, isPending } = useUser();
@@ -32,186 +24,37 @@ function DashboardContainer() {
         Let&apos;s see what&apos;s new.
       </DashboardHeader>
       <div className="grid w-full grid-flow-row grid-cols-4 grid-rows-[minmax(7rem,auto)_minmax(7rem,auto)] gap-3 rounded-2xl py-4 lg:grid-cols-12">
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 flex h-28 flex-col justify-between rounded-2xl border px-4 py-3 shadow-xs md:col-span-2 lg:col-span-2 lg:h-[132px] xl:h-28">
-          <p className="font-heading text-lg font-medium lg:text-base xl:text-lg">
-            Vaults total
-          </p>
-          <h2 className="text-2xl leading-none font-light md:text-[32px] lg:text-2xl xl:text-[32px] 2xl:text-4xl">
-            20
-          </h2>
-          <div className="flex items-end justify-between gap-1 lg:items-center xl:items-end leading-5">
-            <p className="text-ruby-500 dark:text-ruby-600">
-              20%{" "}
-              <span className="text-charcoal-700 dark:text-charcoal-200 text-sm">
-                are empty
-              </span>
-            </p>
-            <Link to="/vaults">
-              <span className="bg-ocean-700 inline-flex items-center justify-center rounded-lg p-1">
-                <HiOutlineChevronRight
-                  size={18}
-                  className="text-ocean-100 inline rounded-lg"
-                />
-              </span>
-            </Link>
-          </div>
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 flex h-28 flex-col justify-between rounded-2xl border px-4 py-3 shadow-xs md:col-span-2 lg:col-span-2 lg:h-[132px] xl:h-28">
-          <p className="font-heading text-lg leading-5 font-medium lg:text-base xl:text-lg">
-            Passwords total
-          </p>
-          <h2 className="text-2xl leading-none font-light md:text-[32px] lg:text-2xl xl:text-[32px] 2xl:text-4xl">
-            15
-          </h2>
-          <div className="flex items-end justify-between gap-1 lg:items-center xl:items-end leading-5">
-            <p className="text-mint-500 dark:text-mint-600">
-              60%{" "}
-              <span className="text-charcoal-700 dark:text-charcoal-200 text-sm">
-                are safe
-              </span>
-            </p>
-            <Link to="/passwords">
-              <span className="bg-ocean-700 inline-flex items-center justify-center rounded-lg p-1">
-                <HiOutlineChevronRight
-                  size={18}
-                  className="text-ocean-100 inline rounded-lg"
-                />
-              </span>
-            </Link>
-          </div>
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs md:col-span-1 lg:col-span-1 lg:h-[132px] xl:h-28">
-          <p className="text-charcoal-700 dark:text-charcoal-200 font-medium">
-            Strong
-          </p>
-          <div className="bg-ocean-150 text-ocean-800 rounded-xl px-2.5 font-medium">
-            40
-          </div>
-          <div className="flex items-center">
-            <HiMiniChevronDoubleDown size={12} />
-            <p className="text-sm">50%</p>
-          </div>
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs md:col-span-1 lg:col-span-1 lg:h-[132px] xl:h-28">
-          <p className="text-charcoal-700 dark:text-charcoal-200 font-medium">
-            Reused
-          </p>
-          <div className="bg-ocean-150 text-ocean-800 rounded-xl px-2.5 font-medium">
-            150
-          </div>
-          <div className="flex items-center">
-            <HiMiniChevronDoubleUp size={12} />
-            <p className="text-sm">20%</p>
-          </div>
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs md:col-span-1 lg:col-span-1 lg:h-[132px] xl:h-28">
-          <p className="text-charcoal-700 dark:text-charcoal-200 font-medium">
-            Weak
-          </p>
-          <div className="bg-ocean-150 text-ocean-800 rounded-xl px-2.5 font-medium">
-            40
-          </div>
-          <div className="flex items-center">
-            <HiMiniChevronDoubleUp size={12} />
-            <p className="text-sm">20%</p>
-          </div>
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs md:col-span-1 lg:col-span-1 lg:h-[132px] xl:h-28">
-          <p className="text-charcoal-700 dark:text-charcoal-200 font-medium">
-            Leaked
-          </p>
-          <div className="bg-ocean-150 text-ocean-800 rounded-xl px-2.5 font-medium">
-            10
-          </div>
-          <div className="flex items-center">
-            <HiMiniChevronDoubleUp size={12} />
-            <p className="text-sm">80%</p>
-          </div>
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-3 flex flex-col justify-between gap-3 rounded-2xl border px-5 py-4 shadow-xs lg:col-span-4">
-          <div className="flex items-center justify-center">
-            <PasswordHealthChart />
-          </div>
-          <div className="divide-charcoal-400 divide-y-1">
-            <h4 className="font-heading dark:text-charcoal-100 pb-2 text-xl font-semibold">
-              Achievements
-            </h4>
-            <AchievementProgress
-              title="Just Getting Started"
-              percentage="20%"
-              progressLabel="2/10"
-              description="Save 10 passwords."
-              barColor="bg-ruby-500"
-              titleColor="text-ruby-500"
-            />
-            <AchievementProgress
-              title="Cyber Guardian"
-              percentage="50%"
-              progressLabel="50%"
-              description="Reach 75% password health."
-              barColor="bg-rust-500"
-              titleColor="text-rust-500"
-            />
-            <AchievementProgress
-              title="Needs Work"
-              percentage="45%"
-              progressLabel="45%"
-              description="Achieve 50% strong passwords."
-              barColor="bg-butter-600"
-              titleColor="text-butter-600"
-            />
-          </div>
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-2 rounded-2xl border px-4 py-3 shadow-xs lg:col-span-5">
-          <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
-            Passwords by vault
-          </h4>
-          <div className="h-56">
-            <PasswordsByVaultChart />
-          </div>
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-2 rounded-2xl border px-4 py-3 shadow-xs lg:col-span-3">
-          <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
-            Password status overview
-          </h4>
-          <div>
-            <PasswordStatusChart />
-          </div>
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-2 rounded-2xl border px-4 py-3 shadow-xs lg:col-span-5">
-          <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
-            Password age and creation analysis
-          </h4>
-          <div className="h-56">
-            <PasswordAgeChart />
-          </div>
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-2 rounded-2xl border px-4 pt-4 pb-3 shadow-xs md:col-span-3 lg:col-span-5">
-          <PasswordGenerator />
-        </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-2 rounded-2xl border px-4 py-3 shadow-xs md:col-span-1 lg:col-span-2">
-          <div className="flex items-center justify-between">
-            <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
-              Badges
-            </h4>
-            <Modal>
-              <Modal.Open opens="all-badges">
-                <button title="View all">
-                  <HiOutlineEllipsisHorizontal
-                    className="dark:text-charcoal-200 text-charcoal-700 cursor-pointer"
-                    size={22}
-                  />
-                </button>
-              </Modal.Open>
-              <Modal.Window name="all-badges">
-                <BadgeGallery />
-              </Modal.Window>
-            </Modal>
-          </div>
-          <div>
-            <Badges />
-          </div>
-        </div>
+        <StatBlock
+          title="Vaults total"
+          count={20}
+          percentage={20}
+          detailText="are empty"
+          linkTo="/vaults"
+        />
+        <StatBlock
+          title="Passwords total"
+          count={15}
+          percentage={60}
+          detailText="are safe"
+          linkTo="/passwords"
+        />
+
+        <MiniStat title="Strong" count={40} percentage={50} />
+        <MiniStat title="Reused" count={150} percentage={20} />
+        <MiniStat title="Weak" count={40} percentage={20} />
+        <MiniStat title="Leaked" count={10} percentage={80} />
+
+        <HealthAndAchievements />
+
+        <PasswordsByVaultChart />
+
+        <PasswordStatusChart />
+
+        <PasswordAgeChart />
+
+        <PasswordGenerator />
+
+        <DashboardBadges />
       </div>
     </>
   );

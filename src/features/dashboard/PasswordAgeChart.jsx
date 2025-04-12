@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { useDarkMode } from "../../contexts/DarkModeContext";
+import DashboardBox from "./DashboardBox";
 
 ChartJS.register(
   LineElement,
@@ -244,7 +245,16 @@ function PasswordAgeChart() {
     },
   };
 
-  return <Line data={data} options={options} />;
+  return (
+    <DashboardBox extraStyles="col-span-4 row-span-2 px-4 py-3 lg:col-span-5">
+      <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
+        Password age and creation analysis
+      </h4>
+      <div className="h-56">
+        <Line data={data} options={options} />
+      </div>
+    </DashboardBox>
+  );
 }
 
 export default PasswordAgeChart;

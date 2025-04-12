@@ -1,6 +1,7 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useDarkMode } from "../../contexts/DarkModeContext";
+import DashboardBox from "./DashboardBox";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -80,7 +81,16 @@ function PasswordStatusChart() {
     cutout: "65%",
   };
 
-  return <Doughnut data={data} options={options} className="h-50" />;
+  return (
+    <DashboardBox extraStyles="col-span-4 row-span-2 px-4 py-3 lg:col-span-3">
+      <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
+        Password status overview
+      </h4>
+      <div>
+        <Doughnut data={data} options={options} className="h-50" />
+      </div>
+    </DashboardBox>
+  );
 }
 
 export default PasswordStatusChart;

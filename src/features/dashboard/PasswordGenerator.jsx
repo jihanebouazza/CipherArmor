@@ -5,6 +5,7 @@ import PasswordPropertyCounter from "./PasswordPropertyCounter";
 import PasswordLengthSelector from "./PasswordLengthSelector";
 import { generatePassword } from "../../utils/passwordUtils";
 import toast from "react-hot-toast";
+import DashboardBox from "./DashboardBox";
 
 function PasswordGenerator() {
   const [symbols, setSymbols] = useState(2);
@@ -14,7 +15,7 @@ function PasswordGenerator() {
   const [password, setPassword] = useState("#<wD4fx36VNy");
 
   return (
-    <>
+    <DashboardBox extraStyles="col-span-4 row-span-2 px-4 pt-4 pb-3 md:col-span-3 lg:col-span-5">
       <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl leading-none font-semibold">
         Password generator
       </h4>
@@ -72,7 +73,7 @@ function PasswordGenerator() {
           {uppercase} characters.
         </p>
       </div>
-    </>
+    </DashboardBox>
   );
 }
 

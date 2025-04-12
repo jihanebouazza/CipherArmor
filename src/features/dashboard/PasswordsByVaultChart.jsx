@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { useDarkMode } from "../../contexts/DarkModeContext";
+import DashboardBox from "./DashboardBox";
 
 ChartJS.register(
   CategoryScale,
@@ -37,7 +38,7 @@ function PasswordsByVaultChart() {
 
   const options = {
     responsive: true,
-    maintainAspectRatio:false,
+    maintainAspectRatio: false,
     plugins: {
       title: {
         display: false,
@@ -115,7 +116,16 @@ function PasswordsByVaultChart() {
     },
   };
 
-  return <Bar data={data} options={options} className="h-50" />;
+  return (
+    <DashboardBox extraStyles="col-span-4 row-span-2 px-4 py-3 lg:col-span-5">
+      <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
+        Passwords by vault
+      </h4>
+      <div className="h-56">
+        <Bar data={data} options={options} className="h-50" />
+      </div>
+    </DashboardBox>
+  );
 }
 
 export default PasswordsByVaultChart;

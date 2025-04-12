@@ -3,7 +3,7 @@ import BadgeItem from "./BadgeItem";
 import ContainerLoader from "../../ui/ContainerLoader";
 import { FcPrivacy, FcUnlock } from "react-icons/fc";
 
-function Badges() {
+function BadgeTracker() {
   const { badges, isPending } = useBadges();
 
   if (isPending) return <ContainerLoader />;
@@ -36,4 +36,4 @@ function Badges() {
   );
 }
 
-export default Badges;
+export default BadgeTracker;
