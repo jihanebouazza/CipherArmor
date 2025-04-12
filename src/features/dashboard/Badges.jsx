@@ -9,7 +9,7 @@ function Badges() {
   if (isPending) return <ContainerLoader />;
 
   return (
-    <div className="flex flex-col items-center justify-between gap-3 py-1">
+    <div className="flex items-center justify-between gap-3 px-6 py-1 md:flex-col md:px-0">
       {/* {badges?.map((badge) => (
         <BadgeItem
           key={badge.id}

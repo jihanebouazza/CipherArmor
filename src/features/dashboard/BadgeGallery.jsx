@@ -24,7 +24,7 @@ function BadgeGallery() {
         </p>
       </div>
       <div className="custom-scrollbar max-h-[300px] overflow-y-auto py-4">
-        <div className="grid grid-cols-3 space-y-4 space-x-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 space-y-4 space-x-2">
           {badges?.map((badge) => (
             <BadgeItem
               key={badge.id}

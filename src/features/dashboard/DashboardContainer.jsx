@@ -31,13 +31,15 @@ function DashboardContainer() {
         <br />
         Let&apos;s see what&apos;s new.
       </DashboardHeader>
-      <div className="grid w-full grid-flow-row grid-cols-12 grid-rows-[minmax(7rem,auto)_minmax(7rem,auto)] gap-3 rounded-2xl py-4">
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col justify-between rounded-2xl border px-4 py-3 shadow-xs">
-          <p className="font-heading text-lg font-medium">Vaults total</p>
-          <h2 className="text-2xl leading-none font-light md:text-[32px] 2xl:text-4xl">
+      <div className="grid w-full grid-flow-row grid-cols-4 grid-rows-[minmax(7rem,auto)_minmax(7rem,auto)] gap-3 rounded-2xl py-4 lg:grid-cols-12">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 flex h-28 flex-col justify-between rounded-2xl border px-4 py-3 shadow-xs md:col-span-2 lg:col-span-2 lg:h-[132px] xl:h-28">
+          <p className="font-heading text-lg font-medium lg:text-base xl:text-lg">
+            Vaults total
+          </p>
+          <h2 className="text-2xl leading-none font-light md:text-[32px] lg:text-2xl xl:text-[32px] 2xl:text-4xl">
             20
           </h2>
-          <div className="flex items-end justify-between">
+          <div className="flex items-end justify-between gap-1 lg:items-center xl:items-end leading-5">
             <p className="text-ruby-500 dark:text-ruby-600">
               20%{" "}
               <span className="text-charcoal-700 dark:text-charcoal-200 text-sm">
@@ -54,12 +56,14 @@ function DashboardContainer() {
             </Link>
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col justify-between rounded-2xl border px-4 py-3 shadow-xs">
-          <p className="font-heading text-lg font-medium">Passwords total</p>
-          <h2 className="text-2xl leading-none font-light md:text-[32px] 2xl:text-4xl">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 flex h-28 flex-col justify-between rounded-2xl border px-4 py-3 shadow-xs md:col-span-2 lg:col-span-2 lg:h-[132px] xl:h-28">
+          <p className="font-heading text-lg leading-5 font-medium lg:text-base xl:text-lg">
+            Passwords total
+          </p>
+          <h2 className="text-2xl leading-none font-light md:text-[32px] lg:text-2xl xl:text-[32px] 2xl:text-4xl">
             15
           </h2>
-          <div className="flex items-end justify-between">
+          <div className="flex items-end justify-between gap-1 lg:items-center xl:items-end leading-5">
             <p className="text-mint-500 dark:text-mint-600">
               60%{" "}
               <span className="text-charcoal-700 dark:text-charcoal-200 text-sm">
@@ -76,7 +80,7 @@ function DashboardContainer() {
             </Link>
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-1 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs md:col-span-1 lg:col-span-1 lg:h-[132px] xl:h-28">
           <p className="text-charcoal-700 dark:text-charcoal-200 font-medium">
             Strong
           </p>
@@ -88,7 +92,7 @@ function DashboardContainer() {
             <p className="text-sm">50%</p>
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-1 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs md:col-span-1 lg:col-span-1 lg:h-[132px] xl:h-28">
           <p className="text-charcoal-700 dark:text-charcoal-200 font-medium">
             Reused
           </p>
@@ -100,7 +104,7 @@ function DashboardContainer() {
             <p className="text-sm">20%</p>
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-1 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs md:col-span-1 lg:col-span-1 lg:h-[132px] xl:h-28">
           <p className="text-charcoal-700 dark:text-charcoal-200 font-medium">
             Weak
           </p>
@@ -112,7 +116,7 @@ function DashboardContainer() {
             <p className="text-sm">20%</p>
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-1 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 flex h-28 flex-col items-center justify-between rounded-2xl border py-3 shadow-xs md:col-span-1 lg:col-span-1 lg:h-[132px] xl:h-28">
           <p className="text-charcoal-700 dark:text-charcoal-200 font-medium">
             Leaked
           </p>
@@ -124,7 +128,7 @@ function DashboardContainer() {
             <p className="text-sm">80%</p>
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-3 flex flex-col justify-between gap-3 rounded-2xl border px-5 py-4 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-3 flex flex-col justify-between gap-3 rounded-2xl border px-5 py-4 shadow-xs lg:col-span-4">
           <div className="flex items-center justify-center">
             <PasswordHealthChart />
           </div>
@@ -158,15 +162,15 @@ function DashboardContainer() {
             />
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-5 row-span-2 rounded-2xl border px-4 py-3 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-2 rounded-2xl border px-4 py-3 shadow-xs lg:col-span-5">
           <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
             Passwords by vault
           </h4>
-          <div>
+          <div className="h-56">
             <PasswordsByVaultChart />
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-3 row-span-2 rounded-2xl border px-4 py-3 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-2 rounded-2xl border px-4 py-3 shadow-xs lg:col-span-3">
           <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
             Password status overview
           </h4>
@@ -174,18 +178,18 @@ function DashboardContainer() {
             <PasswordStatusChart />
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-5 row-span-2 rounded-2xl border px-4 py-3 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-2 rounded-2xl border px-4 py-3 shadow-xs lg:col-span-5">
           <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
             Password age and creation analysis
           </h4>
-          <div>
+          <div className="h-56">
             <PasswordAgeChart />
           </div>
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-5 row-span-2 rounded-2xl border px-4 pt-4 pb-3 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-2 rounded-2xl border px-4 pt-4 pb-3 shadow-xs md:col-span-3 lg:col-span-5">
           <PasswordGenerator />
         </div>
-        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-2 row-span-2 rounded-2xl border px-4 py-3 shadow-xs">
+        <div className="border-ocean-200 shadow-ocean-200 dark:border-charcoal-700 dark:shadow-charcoal-700 col-span-4 row-span-2 rounded-2xl border px-4 py-3 shadow-xs md:col-span-1 lg:col-span-2">
           <div className="flex items-center justify-between">
             <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
               Badges
