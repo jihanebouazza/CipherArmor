@@ -69,8 +69,11 @@ function PasswordGenerator() {
           </Button>
         </div>
         <p className="text-charcoal-500 dark:text-charcoal-400 text-xs">
-          Your password contains {symbols} symbols, {digits} digits, and{" "}
-          {uppercase} characters.
+          Your password contains {symbols === 0 ? "No" : symbols} symbol
+          {symbols === 1 ? "" : "s"}, {digits === 0 ? "No" : digits} digit
+          {digits === 1 ? "" : "s"}, and {uppercase === 0 ? "No" : uppercase}{" "}
+          uppercase character
+          {uppercase === 1 ? "" : "s"}.
         </p>
       </div>
     </DashboardBox>

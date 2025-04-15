@@ -27,6 +27,22 @@ export default function PasswordHealthChart() {
   const { isDarkMode } = useDarkMode();
   const [chartKey, setChartKey] = useState(0); // Key to force re-render
 
+  // const passwordHealth = Math.round(
+  //   Math.max(
+  //     0,
+  //     Math.min(
+  //       100,
+  //       ((stats.veryStrong * 1.2 +
+  //         stats.strong +
+  //         stats.resilient * 0.8 +
+  //         stats.moderate * 0.5 -
+  //         (stats.weak * 1.5 + stats.reused * 1.5 + stats.breached * 2)) /
+  //         stats.total) *
+  //         100,
+  //     ),
+  //   ),
+  // );
+
   useEffect(() => {
     setChartKey((prevKey) => prevKey + 1); // Change key when theme changes
   }, [isDarkMode]);

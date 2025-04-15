@@ -7,7 +7,7 @@ function MiniStat({ title, count, percentage }) {
       <p className="text-charcoal-700 dark:text-charcoal-200 font-medium">
         {title}
       </p>
-      <div className="bg-ocean-150 text-ocean-800 rounded-xl px-2.5 font-medium">
+      <div className="bg-ocean-150 dark:bg-ocean-200 dark:text-ocean-900 text-ocean-800 rounded-xl px-2.5 font-medium">
         {count}
       </div>
       <div className="flex items-center">

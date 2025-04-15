@@ -7,6 +7,7 @@ import { encryptData } from "../../services/cryptoServices";
 import { useSecurity } from "../../contexts/SecurityContext";
 import { useAddPassword } from "./useAddPassword";
 import { useAllVaults } from "../vaults/useAllVaults";
+import { analyzePassword } from "../../utils/passwordUtils";
 
 function AddPasswordForm({ onCloseModal }) {
   const { register, handleSubmit, formState, reset } = useForm();
@@ -24,12 +25,18 @@ function AddPasswordForm({ onCloseModal }) {
     const encryptionKey = getEncryptionKey();
     const encryptedData = await encryptData(password, encryptionKey);
 
+    const res = await analyzePassword(password, []);
+
     addPassword(
       {
         ...newPassword,
         encrypted_data: encryptedData,
         vault_id: vault,
         user_id: user.id,
+        is_reused: res?.isReused,
+        is_breached: res?.isBreached,
+        strength: res?.strengthInfo.strength,
+        score: res?.score,
       },
       {
         onSettled: () => {

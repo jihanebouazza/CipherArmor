@@ -91,7 +91,7 @@ function PasswordRow({ decryptedPassword, passwordMap }) {
                     Edit
                   </Menu.ListButton>
                 </Modal.Open>
-                <Modal.Open opens="delete-vault">
+                <Modal.Open opens="delete-password">
                   <Menu.ListButton Icon={<IoTrashOutline />}>
                     Delete
                   </Menu.ListButton>
@@ -102,7 +102,7 @@ function PasswordRow({ decryptedPassword, passwordMap }) {
           <Modal.Window name="edit-password">
             <EditPasswordForm password={decryptedPassword} />
           </Modal.Window>
-          <Modal.Window name="delete-vault">
+          <Modal.Window name="delete-password">
             <ConfirmDelete
               message="This action is permanent. The password will be deleted and cannot be recovered."
               ressourceName="Password"

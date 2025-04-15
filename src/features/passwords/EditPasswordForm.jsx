@@ -7,6 +7,7 @@ import ErrorMessage from "../../ui/ErrorMessage";
 import PasswordInput from "../../ui/PasswordInput";
 import { useEditPassword } from "./useEditPassword";
 import { useUser } from "../authentication/useUser";
+import { analyzePassword } from "../../utils/passwordUtils";
 
 function EditPasswordForm({ onCloseModal, password }) {
   const {
@@ -43,6 +44,12 @@ function EditPasswordForm({ onCloseModal, password }) {
         password,
         encryptionKey,
       );
+
+      const res = await analyzePassword(password, []);
+      updatedPassword.is_reused = res?.isReused;
+      updatedPassword.is_breached = res?.isBreached;
+      updatedPassword.strength = res?.strengthInfo.strength;
+      updatedPassword.score = res?.score;
     }
 
     editPassword(
