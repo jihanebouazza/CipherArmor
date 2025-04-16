@@ -46,7 +46,12 @@ function SecurityProvider({ children }) {
 
   return (
     <SecurityContext.Provider
-      value={{ initializeSession, getEncryptionKey, isUnlocked, sessionNonce }}
+      value={{
+        initializeSession,
+        getEncryptionKey,
+        isUnlocked,
+        sessionNonce,
+      }}
     >
       {children}
     </SecurityContext.Provider>

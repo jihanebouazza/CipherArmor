@@ -8,7 +8,7 @@ import {
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import PasswordTag from "./PasswordTag";
 
-function StrengthTooltip({ analysis, strength, description }) {
+function StrengthTooltip({ strength, description, is_reused, is_breached }) {
   return (
     <>
       <PasswordTag
@@ -30,17 +30,17 @@ function StrengthTooltip({ analysis, strength, description }) {
       />
       <PasswordTag
         Icon={HiOutlineArrowPath}
-        title={analysis.isReused ? "Reused" : "Unique"}
-        type={analysis.isReused ? "danger" : "safe"}
+        title={is_reused ? "Reused" : "Unique"}
+        type={is_reused ? "danger" : "safe"}
       />
       <PasswordTag
         Icon={
-          analysis.isBreached
+          is_breached
             ? HiOutlineExclamationTriangle
             : IoIosCheckmarkCircleOutline
         }
-        title={analysis.isBreached ? "Breached" : "Safe"}
-        type={analysis.isBreached ? "danger" : "safe"}
+        title={is_breached ? "Breached" : "Safe"}
+        type={is_breached ? "danger" : "safe"}
       />
       <p className="dark:text-charcoal-100 text-charcoal-600 flex gap-1 text-sm font-light italic">
         <HiOutlineInformationCircle size={14} className="mt-[2.5px]" />

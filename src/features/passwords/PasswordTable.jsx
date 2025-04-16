@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSecurity } from "../../contexts/SecurityContext";
 import ContainerLoader from "../../ui/ContainerLoader";
 import Table from "../../ui/Table";
@@ -10,17 +10,14 @@ import toast from "react-hot-toast";
 import Pagination from "../../ui/Pagination";
 import { PAGE_SIZE } from "../../utils/constants";
 import PasswordTableOperations from "./PasswordTableOperations";
+import { usePassword } from "../../contexts/PasswordContext";
 
 function PasswordTable() {
   const { getEncryptionKey } = useSecurity();
   const { passwords, isPendingPasswords, count } = usePasswords();
-  const [decryptedPasswords, setDecryptedPasswords] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [platformSearchTerm, setPlatformSearchTerm] = useState("");
-
-  const passwordMap = useMemo(() => {
-    return new Map(decryptedPasswords?.map((p) => [p.id, p.password]));
-  }, [decryptedPasswords]);
+  const { passwords: decryptedPasswords, setPasswords } = usePassword();
 
   useEffect(() => {
     const decryptPasswords = async () => {
@@ -42,7 +39,7 @@ function PasswordTable() {
           }),
         );
 
-        setDecryptedPasswords(decrypted);
+        setPasswords(decrypted);
       } catch (err) {
         console.log(err.message);
         toast.error(
@@ -54,7 +51,7 @@ function PasswordTable() {
     };
 
     decryptPasswords();
-  }, [passwords, getEncryptionKey]);
+  }, [passwords, getEncryptionKey, setPasswords]);
 
   const filteredPasswords = decryptedPasswords?.filter((password) =>
     password.platform.toLowerCase().includes(platformSearchTerm.toLowerCase()),
@@ -98,7 +95,6 @@ function PasswordTable() {
                 <PasswordRow
                   key={decryptedPassword.id}
                   decryptedPassword={decryptedPassword}
-                  passwordMap={passwordMap}
                 />
               )}
             />

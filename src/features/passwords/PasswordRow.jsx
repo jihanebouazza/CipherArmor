@@ -4,8 +4,6 @@ import VaultIcon from "../vaults/VaultIcon";
 import PasswordCell from "./PasswordCell";
 import PlatformCell from "./PlatformCell";
 import { formatDate, formatRelativeTime } from "../../utils/helpers";
-import { useEffect, useMemo, useState } from "react";
-import { analyzePassword } from "../../utils/passwordUtils";
 import Menu from "../../ui/Menu";
 import { IoTrashOutline } from "react-icons/io5";
 import Modal from "../../ui/Modal";
@@ -15,7 +13,7 @@ import { useDeletePassword } from "./useDeletePassword";
 import { useUser } from "../authentication/useUser";
 import StrengthCell from "./StrengthCell";
 
-function PasswordRow({ decryptedPassword, passwordMap }) {
+function PasswordRow({ decryptedPassword }) {
   const { deletePassword, isDeleting } = useDeletePassword();
   const { isPending, user } = useUser();
   const {
@@ -27,38 +25,10 @@ function PasswordRow({ decryptedPassword, passwordMap }) {
     vaults,
     last_updated,
     created_at,
+    is_reused,
+    is_breached,
+    score,
   } = decryptedPassword;
-
-  const existingsPasswords = useMemo(() => {
-    if (!passwordMap) return [];
-
-    return Array.from(passwordMap.entries())
-      .filter(([id]) => id !== decryptedPassword.id)
-      .map(([, password]) => password);
-  }, [passwordMap, decryptedPassword.id]);
-
-  const [analysis, setAnalysis] = useState({
-    strengthInfo: null,
-    isReused: false,
-    isBreached: false,
-    score: 0,
-  });
-
-  useEffect(
-    function () {
-      async function analyse() {
-        const res = await analyzePassword(password, existingsPasswords);
-
-        // Only update if the result has changed
-        if (JSON.stringify(res) !== JSON.stringify(analysis)) {
-          setAnalysis(res);
-        }
-      }
-
-      analyse();
-    },
-    [password, existingsPasswords, analysis],
-  );
 
   return (
     <Table.Row>
@@ -74,8 +44,9 @@ function PasswordRow({ decryptedPassword, passwordMap }) {
       </Table.Cell>
       <Table.Cell>
         <StrengthCell
-          strengthInfo={analysis.strengthInfo}
-          analysis={analysis}
+          score={score}
+          is_reused={is_reused}
+          is_breached={is_breached}
         />
       </Table.Cell>
       <Table.Cell>{formatRelativeTime(last_updated)}</Table.Cell>

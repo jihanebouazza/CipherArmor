@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useMemo } from "react";
 import { useUser } from "../authentication/useUser";
 import ErrorMessage from "../../ui/ErrorMessage";
 import Button from "../../ui/Button";
@@ -8,6 +9,7 @@ import { useSecurity } from "../../contexts/SecurityContext";
 import { useAddPassword } from "./useAddPassword";
 import { useAllVaults } from "../vaults/useAllVaults";
 import { analyzePassword } from "../../utils/passwordUtils";
+import { usePassword } from "../../contexts/PasswordContext";
 
 function AddPasswordForm({ onCloseModal }) {
   const { register, handleSubmit, formState, reset } = useForm();
@@ -16,6 +18,11 @@ function AddPasswordForm({ onCloseModal }) {
   const { vaults, isPending: isPendingVaults } = useAllVaults();
   const { getEncryptionKey } = useSecurity();
   const { addPassword, isCreating } = useAddPassword();
+  const { passwords } = usePassword();
+  const existingPasswords = useMemo(
+    () => passwords.map((p) => p.password),
+    [passwords],
+  );
 
   async function onSubmit(data) {
     if (isPendingUser || !user) return;
@@ -25,7 +32,7 @@ function AddPasswordForm({ onCloseModal }) {
     const encryptionKey = getEncryptionKey();
     const encryptedData = await encryptData(password, encryptionKey);
 
-    const res = await analyzePassword(password, []);
+    const res = await analyzePassword(password, existingPasswords);
 
     addPassword(
       {
@@ -35,7 +42,6 @@ function AddPasswordForm({ onCloseModal }) {
         user_id: user.id,
         is_reused: res?.isReused,
         is_breached: res?.isBreached,
-        strength: res?.strengthInfo.strength,
         score: res?.score,
       },
       {

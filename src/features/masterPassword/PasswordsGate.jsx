@@ -5,6 +5,7 @@ import MasterPassword from "./MasterPassword";
 import { useSecretStatus } from "./useSecretStatus";
 import PasswordTable from "../passwords/PasswordTable";
 import { useSecurity } from "../../contexts/SecurityContext";
+import { PasswordProvider } from "../../contexts/PasswordContext";
 
 function PasswordsGate() {
   const { isPending: isPendingUser, user } = useUser();
@@ -13,7 +14,9 @@ function PasswordsGate() {
   if (isPending || isPendingUser) return <ContainerLoader />;
 
   return isUnlocked ? (
-    <PasswordTable />
+    <PasswordProvider>
+      <PasswordTable />
+    </PasswordProvider>
   ) : hasMasterPassword ? (
     <MasterPassword />
   ) : (

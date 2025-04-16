@@ -101,9 +101,9 @@ export async function analyzePassword(password, existingPasswords = []) {
   if (isReused) score -= 20;
 
   score = clampScore(score);
-  const strengthInfo = getStrength(score);
+  // const strengthInfo = getStrength(score);
 
-  return { strengthInfo, isBreached, isReused, score };
+  return { isBreached, isReused, score };
 }
 
 export function isCommonPassword(zxcvbnResult) {
@@ -130,7 +130,13 @@ export function usesKeyboardPattern(zxcvbnResult) {
   return zxcvbnResult.sequence.some((seq) => seq.pattern === "spatial");
 }
 
-export function generatePassword(symbols, digits, uppercase, length, setPassword) {
+export function generatePassword(
+  symbols,
+  digits,
+  uppercase,
+  length,
+  setPassword,
+) {
   const symbolChars = "!@#$%^&*()_+{}[]<>?";
   const digitChars = "0123456789";
   const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -140,28 +146,35 @@ export function generatePassword(symbols, digits, uppercase, length, setPassword
 
   // Add symbols
   for (let i = 0; i < symbols; i++) {
-    passwordArray.push(symbolChars[Math.floor(Math.random() * symbolChars.length)]);
+    passwordArray.push(
+      symbolChars[Math.floor(Math.random() * symbolChars.length)],
+    );
   }
 
   // Add digits
   for (let i = 0; i < digits; i++) {
-    passwordArray.push(digitChars[Math.floor(Math.random() * digitChars.length)]);
+    passwordArray.push(
+      digitChars[Math.floor(Math.random() * digitChars.length)],
+    );
   }
 
   // Add uppercase characters
   for (let i = 0; i < uppercase; i++) {
-    passwordArray.push(uppercaseChars[Math.floor(Math.random() * uppercaseChars.length)]);
+    passwordArray.push(
+      uppercaseChars[Math.floor(Math.random() * uppercaseChars.length)],
+    );
   }
 
   // Fill the rest with lowercase characters
   for (let i = passwordArray.length; i < length; i++) {
-    passwordArray.push(lowercaseChars[Math.floor(Math.random() * lowercaseChars.length)]);
+    passwordArray.push(
+      lowercaseChars[Math.floor(Math.random() * lowercaseChars.length)],
+    );
   }
 
   // Shuffle the password to mix characters randomly
   passwordArray = passwordArray.sort(() => Math.random() - 0.5);
 
   // Set the generated password
-  setPassword(passwordArray.join(''));
+  setPassword(passwordArray.join(""));
 }
-

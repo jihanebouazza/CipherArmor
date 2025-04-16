@@ -8,6 +8,8 @@ import PasswordInput from "../../ui/PasswordInput";
 import { useEditPassword } from "./useEditPassword";
 import { useUser } from "../authentication/useUser";
 import { analyzePassword } from "../../utils/passwordUtils";
+import { usePassword } from "../../contexts/PasswordContext";
+import { useMemo } from "react";
 
 function EditPasswordForm({ onCloseModal, password }) {
   const {
@@ -25,6 +27,11 @@ function EditPasswordForm({ onCloseModal, password }) {
   const { vaults, isPending: isPendingVaults } = useAllVaults();
   const { getEncryptionKey } = useSecurity();
   const { editPassword, isEditing } = useEditPassword();
+  const { passwords } = usePassword();
+  const existingPasswords = useMemo(
+    () => passwords.map((p) => p.password),
+    [passwords],
+  );
 
   async function onSubmit(data) {
     if (isPendingUser || !user) return;
@@ -45,10 +52,9 @@ function EditPasswordForm({ onCloseModal, password }) {
         encryptionKey,
       );
 
-      const res = await analyzePassword(password, []);
+      const res = await analyzePassword(password, existingPasswords);
       updatedPassword.is_reused = res?.isReused;
       updatedPassword.is_breached = res?.isBreached;
-      updatedPassword.strength = res?.strengthInfo.strength;
       updatedPassword.score = res?.score;
     }
 
