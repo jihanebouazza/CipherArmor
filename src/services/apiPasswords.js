@@ -92,3 +92,13 @@ export async function checkPasswordBreach(password) {
     return false;
   }
 }
+
+export async function getPasswordsStats() {
+  const { data, count, error } = await supabase
+    .from("passwords")
+    .select("is_reused, is_breached, score", { count: "exact" });
+
+  if (error) throw new Error("Password stats could not be loaded.");
+
+  return { data, count };
+}

@@ -8,7 +8,7 @@ function MiniStat({ title, count, percentage }) {
         {title}
       </p>
       <div className="bg-ocean-150 dark:bg-ocean-200 dark:text-ocean-900 text-ocean-800 rounded-xl px-2.5 font-medium">
-        {count}
+        {count > 0 ? count : "None"}
       </div>
       <div className="flex items-center">
         <HiMiniChevronDoubleDown size={12} />
