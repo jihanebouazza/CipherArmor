@@ -1,7 +1,14 @@
 import { HiMiniChevronDoubleDown } from "react-icons/hi2";
 import DashboardBox from "./DashboardBox";
+import DashboardLoader from "./DashboardLoader";
 
-function MiniStat({ title, count, percentage }) {
+function MiniStat({ title, count, percentage, isPending }) {
+  if (isPending)
+    return (
+      <DashboardBox extraStyles="col-span-2 flex h-28 flex-col items-center justify-between py-3 md:col-span-1 lg:h-[132px] xl:h-28">
+        <DashboardLoader width={40} />
+      </DashboardBox>
+    );
   return (
     <DashboardBox extraStyles="col-span-2 flex h-28 flex-col items-center justify-between py-3 md:col-span-1 lg:h-[132px] xl:h-28">
       <p className="text-charcoal-700 dark:text-charcoal-200 font-medium">

@@ -10,6 +10,8 @@ import {
 } from "chart.js";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import DashboardBox from "./DashboardBox";
+import { useAllVaults } from "../vaults/useAllVaults";
+import DashboardLoader from "./DashboardLoader";
 
 ChartJS.register(
   CategoryScale,
@@ -22,13 +24,14 @@ ChartJS.register(
 
 function PasswordsByVaultChart() {
   const { isDarkMode } = useDarkMode();
+  const { vaults, isPending } = useAllVaults();
 
   const data = {
-    labels: ["Vault 1", "Vault 2", "Vault 3", "Vault 4", "Vault 5"],
+    labels: vaults?.map((v) => v.name),
     datasets: [
       {
         label: "Passwords by vault",
-        data: [10, 15, 8, 20, 12],
+        data: vaults?.map((v) => v.password_count),
         backgroundColor: "#306CD3",
         hoverBackgroundColor: "#0049c6",
         borderRadius: 8,
@@ -115,6 +118,13 @@ function PasswordsByVaultChart() {
       },
     },
   };
+
+  if (isPending)
+    return (
+      <DashboardBox extraStyles="col-span-4 row-span-2 px-4 py-3 lg:col-span-5">
+        <DashboardLoader />
+      </DashboardBox>
+    );
 
   return (
     <DashboardBox extraStyles="col-span-4 row-span-2 px-4 py-3 lg:col-span-5">
