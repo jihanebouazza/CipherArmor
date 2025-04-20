@@ -96,7 +96,7 @@ export async function checkPasswordBreach(password) {
 export async function getPasswordsStats() {
   const { data, count, error } = await supabase
     .from("passwords")
-    .select("is_reused, is_breached, score", { count: "exact" });
+    .select("is_reused, is_breached, score, created_at, last_updated", { count: "exact" });
 
   if (error) throw new Error("Password stats could not be loaded.");
 

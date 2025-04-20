@@ -3,10 +3,10 @@ import { Doughnut } from "react-chartjs-2";
 import pattern from "patternomaly";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import { useState, useEffect } from "react";
+import DashboardLoader from "./DashboardLoader";
+import { usePasswordStrength } from "./usePasswordStrength";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-const passwordHealth = 65;
 
 const options = {
   responsive: true,
@@ -26,22 +26,31 @@ const options = {
 export default function PasswordHealthChart() {
   const { isDarkMode } = useDarkMode();
   const [chartKey, setChartKey] = useState(0); // Key to force re-render
+  const { passwordsCount, isPending, strengthPercentages, passwordsStats } =
+    usePasswordStrength();
 
-  // const passwordHealth = Math.round(
-  //   Math.max(
-  //     0,
-  //     Math.min(
-  //       100,
-  //       ((stats.veryStrong * 1.2 +
-  //         stats.strong +
-  //         stats.resilient * 0.8 +
-  //         stats.moderate * 0.5 -
-  //         (stats.weak * 1.5 + stats.reused * 1.5 + stats.breached * 2)) /
-  //         stats.total) *
-  //         100,
-  //     ),
-  //   ),
-  // );
+  const breachedPasswords =
+    (passwordsStats?.filter((p) => p.is_breached === true).length * 100) /
+    passwordsCount;
+  const reusedPasswords =
+    (passwordsStats?.filter((p) => p.is_reused === true).length * 100) /
+    passwordsCount;
+
+  const passwordHealth = Math.round(
+    Math.max(
+      0,
+      Math.min(
+        100,
+        strengthPercentages["Very Strong"] * 1.4 +
+          strengthPercentages["Strong"] * 1.2 +
+          strengthPercentages["Resilient"] * 0.8 +
+          strengthPercentages["Moderate"] * 0.5 -
+          (strengthPercentages["Weak"] * 1.2 +
+            reusedPasswords * 1.5 +
+            breachedPasswords * 1.8),
+      ),
+    ),
+  );
 
   useEffect(() => {
     setChartKey((prevKey) => prevKey + 1); // Change key when theme changes
@@ -84,11 +93,40 @@ export default function PasswordHealthChart() {
       {
         data: [passwordHealth, 100 - passwordHealth],
         backgroundColor: [
-          isDarkMode ? "#01AA23" : "#00C628",
+          passwordHealth < 40
+            ? isDarkMode
+              ? "#c60003"
+              : "#b00609"
+            : passwordHealth >= 40 && passwordHealth < 60
+              ? isDarkMode
+                ? "#d6410b"
+                : "#bd3605"
+              : passwordHealth >= 60 && passwordHealth < 80
+                ? isDarkMode
+                  ? "#ffce73"
+                  : "#f4bf5d"
+                : isDarkMode
+                  ? "#00c628"
+                  : "#01aa23",
+
           pattern.draw(
             "diagonal-right-left",
             isDarkMode ? "#1a1c21" : "#fafcff",
-            isDarkMode ? "#01AA23" : "#01AA23",
+            passwordHealth < 40
+              ? isDarkMode
+                ? "#c60003"
+                : "#b00609"
+              : passwordHealth >= 40 && passwordHealth < 60
+                ? isDarkMode
+                  ? "#d6410b"
+                  : "#bd3605"
+                : passwordHealth >= 60 && passwordHealth < 80
+                  ? isDarkMode
+                    ? "#ffce73"
+                    : "#f4bf5d"
+                  : isDarkMode
+                    ? "#00c628"
+                    : "#01aa23",
             10,
           ),
         ],
@@ -98,6 +136,8 @@ export default function PasswordHealthChart() {
       },
     ],
   };
+
+  if (isPending) return <DashboardLoader />;
 
   return (
     <div className="flex h-[110px] w-[220px] items-center justify-center overflow-hidden">

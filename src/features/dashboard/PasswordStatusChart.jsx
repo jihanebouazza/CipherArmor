@@ -2,47 +2,20 @@ import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import DashboardBox from "./DashboardBox";
-import { usePasswordStats } from "./usePasswordsStats";
-import { getStrength } from "../../utils/passwordUtils";
 import DashboardLoader from "./DashboardLoader";
+import { usePasswordStrength } from "./usePasswordStrength";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const STRENGTH_ORDER = [
-  "Very Strong",
-  "Strong",
-  "Resilient",
-  "Moderate",
-  "Weak",
-];
-
 function PasswordStatusChart() {
   const { isDarkMode } = useDarkMode();
-  const {
-    passwordsStats,
-    isPending,
-    count: passwordsCount,
-  } = usePasswordStats();
-
-  const strengthLabels = passwordsStats?.map(
-    (p) => getStrength(p.score).strength,
-  );
-
-  const strengthCounts = strengthLabels?.reduce((acc, strength) => {
-    acc[strength] = (acc[strength] || 0) + 1;
-    return acc;
-  }, {});
-
-  const percentageData = STRENGTH_ORDER.map((label) => {
-    const count = strengthCounts?.[label] || 0;
-    return Math.round((count / passwordsCount) * 100);
-  });
+  const { isPending, strengthPercentages } = usePasswordStrength();
 
   const data = {
-    labels: STRENGTH_ORDER,
+    labels: Object.keys(strengthPercentages),
     datasets: [
       {
-        data: percentageData,
+        data: Object.values(strengthPercentages),
         backgroundColor: [
           "#306CD3", // Very Strong
           "#00c628", // Strong

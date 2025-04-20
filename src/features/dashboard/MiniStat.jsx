@@ -3,6 +3,7 @@ import DashboardBox from "./DashboardBox";
 import DashboardLoader from "./DashboardLoader";
 
 function MiniStat({ title, count, percentage, isPending }) {
+  
   if (isPending)
     return (
       <DashboardBox extraStyles="col-span-2 flex h-28 flex-col items-center justify-between py-3 md:col-span-1 lg:h-[132px] xl:h-28">

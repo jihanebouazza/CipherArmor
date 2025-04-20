@@ -10,6 +10,8 @@ import {
 } from "chart.js";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import DashboardBox from "./DashboardBox";
+import { usePasswordStats } from "./usePasswordsStats";
+import DashboardLoader from "./DashboardLoader";
 
 ChartJS.register(
   LineElement,
@@ -35,7 +37,7 @@ function getPasswordAgeGroups(passwords) {
     "2+ years": 0,
   };
 
-  passwords.forEach((password) => {
+  passwords?.forEach((password) => {
     const updatedAt = new Date(password.updatedAt);
     const updateAgeMonths = (today - updatedAt) / (1000 * 60 * 60 * 24 * 30);
 
@@ -66,45 +68,16 @@ function getPasswordAgeGroups(passwords) {
   return { passwordAgeDistribution, passwordCreationTimeline };
 }
 
-const passwordData = [
-  {
-    createdAt: "2024-02-10T00:00:00+00:00",
-    updatedAt: "2024-02-20T00:00:00+00:00",
-  }, // Recently updated
-  {
-    createdAt: "2023-10-05T00:00:00+00:00",
-    updatedAt: "2024-01-10T00:00:00+00:00",
-  }, // Updated 3 months ago
-  {
-    createdAt: "2023-06-15T00:00:00+00:00",
-    updatedAt: "2023-06-15T00:00:00+00:00",
-  }, // Never updated
-  {
-    createdAt: "2023-03-20T00:00:00+00:00",
-    updatedAt: "2024-01-05T00:00:00+00:00",
-  }, // Updated 6 months ago
-  {
-    createdAt: "2022-12-10T00:00:00+00:00",
-    updatedAt: "2023-12-10T00:00:00+00:00",
-  }, // 1 year, updated last year
-  {
-    createdAt: "2022-06-25T00:00:00+00:00",
-    updatedAt: "2022-06-25T00:00:00+00:00",
-  }, // Never updated
-  {
-    createdAt: "2021-12-05T00:00:00+00:00",
-    updatedAt: "2022-12-05T00:00:00+00:00",
-  }, // Updated 1 year ago
-  {
-    createdAt: "2021-04-18T00:00:00+00:00",
-    updatedAt: "2021-04-18T00:00:00+00:00",
-  }, // Never updated
-];
-
 function PasswordAgeChart() {
   const { isDarkMode } = useDarkMode();
+  const { passwordsStats, isPending } = usePasswordStats();
+
   const { passwordAgeDistribution, passwordCreationTimeline } =
-    getPasswordAgeGroups(passwordData);
+    getPasswordAgeGroups(
+      passwordsStats?.map((p) => {
+        return { createdAt: p.created_at, updatedAt: p.last_updated };
+      }),
+    );
 
   const data = {
     labels: Object.keys(passwordAgeDistribution),
@@ -244,6 +217,13 @@ function PasswordAgeChart() {
       intersect: false,
     },
   };
+
+  if (isPending)
+    return (
+      <DashboardBox extraStyles="col-span-4 row-span-2 px-4 py-3 lg:col-span-5">
+        <DashboardLoader />
+      </DashboardBox>
+    );
 
   return (
     <DashboardBox extraStyles="col-span-4 row-span-2 px-4 py-3 lg:col-span-5">
