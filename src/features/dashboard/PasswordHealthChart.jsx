@@ -3,8 +3,6 @@ import { Doughnut } from "react-chartjs-2";
 import pattern from "patternomaly";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import { useState, useEffect } from "react";
-import DashboardLoader from "./DashboardLoader";
-import { usePasswordStrength } from "./usePasswordStrength";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -23,34 +21,9 @@ const options = {
   },
 };
 
-export default function PasswordHealthChart() {
+export default function PasswordHealthChart({ passwordHealth }) {
   const { isDarkMode } = useDarkMode();
   const [chartKey, setChartKey] = useState(0); // Key to force re-render
-  const { passwordsCount, isPending, strengthPercentages, passwordsStats } =
-    usePasswordStrength();
-
-  const breachedPasswords =
-    (passwordsStats?.filter((p) => p.is_breached === true).length * 100) /
-    passwordsCount;
-  const reusedPasswords =
-    (passwordsStats?.filter((p) => p.is_reused === true).length * 100) /
-    passwordsCount;
-
-  const passwordHealth = Math.round(
-    Math.max(
-      0,
-      Math.min(
-        100,
-        strengthPercentages["Very Strong"] * 1.4 +
-          strengthPercentages["Strong"] * 1.2 +
-          strengthPercentages["Resilient"] * 0.8 +
-          strengthPercentages["Moderate"] * 0.5 -
-          (strengthPercentages["Weak"] * 1.2 +
-            reusedPasswords * 1.5 +
-            breachedPasswords * 1.8),
-      ),
-    ),
-  );
 
   useEffect(() => {
     setChartKey((prevKey) => prevKey + 1); // Change key when theme changes
@@ -136,8 +109,6 @@ export default function PasswordHealthChart() {
       },
     ],
   };
-
-  if (isPending) return <DashboardLoader />;
 
   return (
     <div className="flex h-[110px] w-[220px] items-center justify-center overflow-hidden">
