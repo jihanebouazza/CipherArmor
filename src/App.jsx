@@ -15,6 +15,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import Vaults from "./pages/Vaults";
 import Settings from "./pages/settings.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
+import { DashboardStatsProvider } from "./contexts/DashboardStatsContext .jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,7 +45,9 @@ function App() {
           <Route
             element={
               <ProtectedRoute>
-                <DashboardLayout />
+                <DashboardStatsProvider>
+                  <DashboardLayout />
+                </DashboardStatsProvider>
               </ProtectedRoute>
             }
           >

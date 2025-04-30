@@ -3,13 +3,13 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import DashboardBox from "./DashboardBox";
 import DashboardLoader from "./DashboardLoader";
-import { usePasswordStrength } from "./usePasswordStrength";
+import { useDashboardStats } from "../../contexts/DashboardStatsContext ";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function PasswordStatusChart() {
   const { isDarkMode } = useDarkMode();
-  const { isPending, strengthPercentages } = usePasswordStrength();
+  const { isPendingPasswords, strengthPercentages } = useDashboardStats();
 
   const data = {
     labels: Object.keys(strengthPercentages),
@@ -84,7 +84,7 @@ function PasswordStatusChart() {
     cutout: "65%",
   };
 
-  if (isPending)
+  if (isPendingPasswords)
     return (
       <DashboardBox extraStyles="col-span-4 row-span-2 px-4 py-3 lg:col-span-3">
         <DashboardLoader />

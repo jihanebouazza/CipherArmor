@@ -178,3 +178,22 @@ export function generatePassword(
   // Set the generated password
   setPassword(passwordArray.join(""));
 }
+
+export function getMaxPasswordAge(passwords) {
+  if (!Array.isArray(passwords) || passwords.length === 0) {
+    return 0;
+  }
+
+  const today = new Date();
+  const ages = passwords?.map((pwd) => {
+    const updatedAt = new Date(pwd.last_updated);
+    const diff = (today - updatedAt) / (1000 * 60 * 60 * 24);
+    return Math.floor(diff);
+  });
+
+  if (ages.length === 0) {
+    return 0; 
+  }
+
+  return Math.max(...ages); // longest age
+}

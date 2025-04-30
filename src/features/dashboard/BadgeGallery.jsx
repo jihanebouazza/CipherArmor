@@ -1,4 +1,3 @@
-import { HiOutlineCheck } from "react-icons/hi2";
 import Loader from "../../ui/Loader";
 import BadgeItem from "./BadgeItem";
 import { useBadges } from "./useBadges";
@@ -24,7 +23,7 @@ function BadgeGallery() {
         </p>
       </div>
       <div className="custom-scrollbar max-h-[300px] overflow-y-auto py-4">
-        <div className="grid grid-cols-2 md:grid-cols-3 space-y-4 space-x-2">
+        <div className="grid grid-cols-2 space-y-4 space-x-2 md:grid-cols-3">
           {badges?.map((badge) => (
             <BadgeItem
               key={badge.id}
@@ -32,7 +31,7 @@ function BadgeGallery() {
               badgeIcon={badge.icon}
               bgColor={badge.bg_color}
               description={badge.description}
-              Icon={<HiOutlineCheck className="text-mint-500" size={16} />}
+              isLocked
             />
           ))}
         </div>

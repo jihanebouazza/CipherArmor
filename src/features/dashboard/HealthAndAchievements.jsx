@@ -1,3 +1,4 @@
+import { useDashboardStats } from "../../contexts/DashboardStatsContext ";
 import {
   getPasswordCountAchievement,
   getPasswordHealthAchievement,
@@ -8,46 +9,10 @@ import AchievementProgress from "./AchievementProgress";
 import DashboardBox from "./DashboardBox";
 import DashboardLoader from "./DashboardLoader";
 import PasswordHealthChart from "./PasswordHealthChart";
-import { usePasswordStrength } from "./usePasswordStrength";
 
 function HealthAndAchievements() {
-  const {
-    passwordsCount,
-    isPending,
-    strengthPercentages,
-    passwordsStats,
-    strengthCounts,
-  } = usePasswordStrength();
-
-  const breachedPasswords =
-    (passwordsStats?.filter((p) => p.is_breached === true).length * 100) /
-    passwordsCount;
-  const reusedPasswords =
-    (passwordsStats?.filter((p) => p.is_reused === true).length * 100) /
-    passwordsCount;
-
-  const passwordHealth = Math.round(
-    Math.max(
-      0,
-      Math.min(
-        100,
-        strengthPercentages["Very Strong"] * 1.4 +
-          strengthPercentages["Strong"] * 1.2 +
-          strengthPercentages["Resilient"] * 0.8 +
-          strengthPercentages["Moderate"] * 0.5 -
-          (strengthPercentages["Weak"] * 1.2 +
-            reusedPasswords * 1.5 +
-            breachedPasswords * 1.8),
-      ),
-    ),
-  );
-
-  const safePercent =
-    ((strengthCounts["Very Strong"] +
-      strengthCounts["Strong"] +
-      strengthCounts["Resilient"]) *
-      100) /
-    passwordsCount;
+  const { isPendingPasswords, passwordHealth, passwordsCount, safePercent } =
+    useDashboardStats();
 
   const {
     title: countTitle,
@@ -73,7 +38,7 @@ function HealthAndAchievements() {
   } = getSafePasswordsAchievement(safePercent);
   const safeProgress = (safePercent / safeGoal) * 100;
 
-  if (isPending)
+  if (isPendingPasswords)
     return (
       <DashboardBox extraStyles="col-span-4 row-span-3 flex flex-col justify-between gap-3 px-5 py-4 lg:col-span-4">
         <DashboardLoader />
