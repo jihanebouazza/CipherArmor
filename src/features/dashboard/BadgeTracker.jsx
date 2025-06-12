@@ -1,24 +1,48 @@
 import { useBadges } from "./useBadges";
 import BadgeItem from "./BadgeItem";
 import ContainerLoader from "../../ui/ContainerLoader";
+import { useDashboardStats } from "../../contexts/DashboardStatsContext ";
+import { useAllVaults } from "../vaults/useAllVaults";
+import { useUser } from "../authentication/useUser";
+import { checkAndAwardBadges } from "../../services/apiBadges";
 
 function BadgeTracker() {
-  const { badges, isPending } = useBadges();
+  const { badges, isPending: isPendingBadges } = useBadges();
+  const { count: vaultsCount, isPending: isPendingVaults } = useAllVaults();
+  const { user, isPending: isPendingUser } = useUser();
 
-  if (isPending) return <ContainerLoader />;
+  const {
+    passwordHealth,
+    // robustPasswords,
+    safePercent,
+    strengthCounts,
+    // strengthPercentages,
+    // isPendingPasswords,
+    breachedPasswords,
+    // breachedPasswordsPercent,
+    reusedPasswords,
+    // reusedPasswordsPercent,
+    passwordsCount,
+    maxPasswordAge,
+  } = useDashboardStats();
 
-  // const stats = {
-  //   password_health: 92,
-  //   weak_count: 0,
-  //   strong_count: 50,
-  //   reused_count: 0,
-  //   total_count: 50,
-  //   vault_count: 6,
-  //   breach_count: 0,
-  //   max_password_age: 70,
-  // };
+  if (isPendingBadges || isPendingVaults || isPendingUser)
+    return <ContainerLoader />;
 
-  // checkAndAwardBadges(user.id, stats);
+  const stats = {
+    password_health: passwordHealth,
+    weak_count: strengthCounts["Weak"],
+    // strong_count: strengthCounts["Strong"],
+    moderate_count: strengthCounts["Moderate"],
+    reused_count: reusedPasswords,
+    total_count: passwordsCount,
+    vault_count: vaultsCount,
+    breach_count: breachedPasswords,
+    max_password_age: maxPasswordAge,
+    safe_percent: safePercent,
+  };
+
+  checkAndAwardBadges(user.id, stats);
 
   return (
     <div className="flex items-center justify-between gap-3 px-6 py-1 md:flex-col md:px-0">

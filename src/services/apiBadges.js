@@ -10,19 +10,33 @@ export async function getBadges() {
   return { data, count };
 }
 
-export async function checkAndAwardBadges(userId, stats) {
-  const { data: allBadges, error: allBadgesError } = await supabase
-    .from("badges")
-    .select("*");
-
-  if (allBadgesError) throw new Error("Badges could not be loaded.");
-
-  const { data: earnedBadges, error: earnedBadgesError } = await supabase
+export async function getEarnedBadges(userId) {
+  const { data, error } = await supabase
     .from("user_badges")
     .select("badge_id")
     .eq("user_id", userId);
 
-  if (earnedBadgesError) throw new Error("Earned badges could not be loaded.");
+  if (error) throw new Error("Earned badges could not be loaded.");
+
+  return data;
+}
+
+export async function checkAndAwardBadges(userId, stats) {
+  // const { data: allBadges, error: allBadgesError } = await supabase
+  //   .from("badges")
+  //   .select("*");
+
+  // if (allBadgesError) throw new Error("Badges could not be loaded.");
+  const { data: allBadges } = getBadges();
+
+  // const { data: earnedBadges, error: earnedBadgesError } = await supabase
+  //   .from("user_badges")
+  //   .select("badge_id")
+  //   .eq("user_id", userId);
+
+  // if (earnedBadgesError) throw new Error("Earned badges could not be loaded.");
+
+  const { data: earnedBadges } = getEarnedBadges(userId);
 
   const earnedIds = new Set((earnedBadges || []).map((b) => b.badge_id));
 

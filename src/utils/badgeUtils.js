@@ -7,13 +7,17 @@ export function checkCondition(type, value, stats) {
       return stats.password_health === value;
 
     case "all_unique_and_strong":
-      return stats.reused_count === 0 && stats.weak_count === 0;
+      return (
+        stats.reused_count === 0 &&
+        stats.weak_count === 0 &&
+        stats.moderate_count === 0
+      );
 
     case "max_breach_count":
       return stats.breach_count <= value;
 
-    case "all_status":
-      return stats.total_count > 0 && stats.strong_count === stats.total_count;
+    case "safe_percent":
+      return stats.safe_percent === value;
 
     case "no_weak_or_reused":
       return stats.weak_count === 0 && stats.reused_count === 0;

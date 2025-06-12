@@ -47,7 +47,6 @@ function DashboardStatsProvider({ children }) {
   );
 
   const maxPasswordAge = getMaxPasswordAge(passwordsStats);
-  console.log(maxPasswordAge)
 
   return (
     <DashboardStatsContext.Provider
@@ -63,6 +62,7 @@ function DashboardStatsProvider({ children }) {
         reusedPasswords,
         reusedPasswordsPercent,
         passwordsCount,
+        maxPasswordAge,
       }}
     >
       {children}

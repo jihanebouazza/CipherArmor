@@ -16,8 +16,8 @@ export function getPasswordCountAchievement(count) {
   return {
     title: "Password Pro",
     goal: 10,
-    barColor: "bg-mint-500",
-    titleColor: "text-mint-500",
+    barColor: "bg-mint-600",
+    titleColor: "text-mint-600",
   };
 }
 
@@ -39,8 +39,8 @@ export function getPasswordHealthAchievement(health) {
   return {
     title: "Unbreakable",
     goal: 75,
-    barColor: "bg-mint-500",
-    titleColor: "text-mint-500",
+    barColor: "bg-mint-600",
+    titleColor: "text-mint-600",
   };
 }
 
@@ -49,8 +49,8 @@ export function getSafePasswordsAchievement(safePercent) {
     return {
       title: "Fort Knox",
       goal: 100,
-      barColor: "bg-ruby-500",
-      titleColor: "text-ruby-500",
+      barColor: "bg-mint-600",
+      titleColor: "text-mint-600",
     };
   if (safePercent >= 80)
     return {
@@ -62,8 +62,8 @@ export function getSafePasswordsAchievement(safePercent) {
   return {
     title: "Needs Work",
     goal: 100,
-    barColor: "bg-mint-500",
-    titleColor: "text-mint-500",
+    barColor: "bg-ruby-500",
+    titleColor: "text-ruby-500",
   };
 }
 

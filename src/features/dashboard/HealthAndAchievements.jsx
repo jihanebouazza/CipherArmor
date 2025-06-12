@@ -65,7 +65,7 @@ function HealthAndAchievements() {
         <AchievementProgress
           title={healthTitle}
           percentage={`${healthProgress}%`}
-          progressLabel={`${Math.round((passwordHealth / healthGoal) * 100)}%`}
+          progressLabel={`${Math.min(Math.round((passwordHealth / healthGoal) * 100), 100)}%`}
           description={`Reach ${healthGoal}% password health.`}
           barColor={healthBarColor}
           titleColor={healthTitleColor}
@@ -73,7 +73,7 @@ function HealthAndAchievements() {
         <AchievementProgress
           title={safeTitle}
           percentage={`${safeProgress}%`}
-          progressLabel={`${Math.round(safePercent)}%`}
+          progressLabel={`${Math.min(Math.round(safePercent), 100)}%`}
           description={`Achieve ${safeGoal}% safe passwords.`}
           barColor={safeBarColor}
           titleColor={safeTitleColor}
