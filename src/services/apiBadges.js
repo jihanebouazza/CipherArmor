@@ -5,40 +5,38 @@ export async function getBadges() {
   const { data, error, count } = await supabase
     .from("badges")
     .select("*", { count: "exact" });
+
   if (error) throw new Error("Vaults could not be loaded.");
 
   return { data, count };
 }
 
-export async function getEarnedBadges(userId) {
-  const { data, error } = await supabase
+export async function getEarnedBadges() {
+  const { data, error, count } = await supabase
     .from("user_badges")
-    .select("badge_id")
-    .eq("user_id", userId);
+    .select("*", { count: "exact" });
 
   if (error) throw new Error("Earned badges could not be loaded.");
 
-  return data;
+  return { data, count };
+}
+
+export async function addBadges(newBadgeEntries) {
+  const { error } = await supabase.from("user_badges").insert(newBadgeEntries);
+
+  if (error) throw new Error("Earned badges could not be added.");
+
+  return null;
 }
 
 export async function checkAndAwardBadges(userId, stats) {
-  // const { data: allBadges, error: allBadgesError } = await supabase
-  //   .from("badges")
-  //   .select("*");
+  const { data: allBadges } = await getBadges();
 
-  // if (allBadgesError) throw new Error("Badges could not be loaded.");
-  const { data: allBadges } = getBadges();
-
-  // const { data: earnedBadges, error: earnedBadgesError } = await supabase
-  //   .from("user_badges")
-  //   .select("badge_id")
-  //   .eq("user_id", userId);
-
-  // if (earnedBadgesError) throw new Error("Earned badges could not be loaded.");
-
-  const { data: earnedBadges } = getEarnedBadges(userId);
+  const { data: earnedBadges } = await getEarnedBadges();
 
   const earnedIds = new Set((earnedBadges || []).map((b) => b.badge_id));
+
+  const newBadgeEntries = [];
 
   for (const badge of allBadges || []) {
     if (earnedIds.has(badge.id)) continue;
@@ -48,12 +46,14 @@ export async function checkAndAwardBadges(userId, stats) {
       badge.condition_value,
       stats,
     );
-
     if (passed) {
-      await supabase.from("user_badges").insert({
-        user_id: userId,
-        badge_id: badge.id,
-      });
+      newBadgeEntries.push({ user_id: userId, badge_id: badge.id });
     }
   }
+
+  if (newBadgeEntries.length > 0) {
+    await addBadges(newBadgeEntries);
+  }
 }
+
+export async function getDetailedEarnedBadges() {}

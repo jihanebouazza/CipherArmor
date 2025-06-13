@@ -5,6 +5,7 @@ import { useDashboardStats } from "../../contexts/DashboardStatsContext ";
 import { useAllVaults } from "../vaults/useAllVaults";
 import { useUser } from "../authentication/useUser";
 import { checkAndAwardBadges } from "../../services/apiBadges";
+import { useEffect, useMemo } from "react";
 
 function BadgeTracker() {
   const { badges, isPending: isPendingBadges } = useBadges();
@@ -13,36 +14,54 @@ function BadgeTracker() {
 
   const {
     passwordHealth,
-    // robustPasswords,
     safePercent,
     strengthCounts,
-    // strengthPercentages,
-    // isPendingPasswords,
     breachedPasswords,
-    // breachedPasswordsPercent,
     reusedPasswords,
-    // reusedPasswordsPercent,
     passwordsCount,
     maxPasswordAge,
   } = useDashboardStats();
 
+  const stats = useMemo(
+    () => ({
+      password_health: passwordHealth,
+      weak_count: strengthCounts["Weak"],
+      moderate_count: strengthCounts["Moderate"],
+      reused_count: reusedPasswords,
+      total_count: passwordsCount,
+      vault_count: vaultsCount,
+      breach_count: breachedPasswords,
+      max_password_age: maxPasswordAge,
+      safe_percent: safePercent,
+    }),
+    [
+      passwordHealth,
+      strengthCounts,
+      reusedPasswords,
+      passwordsCount,
+      vaultsCount,
+      breachedPasswords,
+      maxPasswordAge,
+      safePercent,
+    ],
+  );
+
+  useEffect(() => {
+    if (!user.id || !stats) return;
+
+    const run = async () => {
+      try {
+        await checkAndAwardBadges(user.id, stats);
+      } catch (err) {
+        console.error("Failed to award badges:", err);
+      }
+    };
+
+    run();
+  }, [user.id, stats]);
+
   if (isPendingBadges || isPendingVaults || isPendingUser)
     return <ContainerLoader />;
-
-  const stats = {
-    password_health: passwordHealth,
-    weak_count: strengthCounts["Weak"],
-    // strong_count: strengthCounts["Strong"],
-    moderate_count: strengthCounts["Moderate"],
-    reused_count: reusedPasswords,
-    total_count: passwordsCount,
-    vault_count: vaultsCount,
-    breach_count: breachedPasswords,
-    max_password_age: maxPasswordAge,
-    safe_percent: safePercent,
-  };
-
-  checkAndAwardBadges(user.id, stats);
 
   return (
     <div className="flex items-center justify-between gap-3 px-6 py-1 md:flex-col md:px-0">
