@@ -1,16 +1,30 @@
 import Loader from "../../ui/Loader";
+import { useUser } from "../authentication/useUser";
 import BadgeItem from "./BadgeItem";
 import { useBadges } from "./useBadges";
+import { useDetailedEarnedBadges } from "./useDetailedEarnedBadges";
 
 function BadgeGallery() {
-  const { badges, count, isPending } = useBadges();
+  const {
+    badges,
+    count: badgesCount,
+    isPending: isPendingBadges,
+  } = useBadges();
+  const { user, isPending: isPendingUser } = useUser();
+  const {
+    earnedBadges,
+    isPending: isPendingEarnedBadges,
+    count: earnedBadgesCount,
+  } = useDetailedEarnedBadges(user.id);
 
-  if (isPending)
+  if (isPendingBadges || isPendingEarnedBadges || isPendingUser)
     return (
       <div className="flex h-full w-full items-center justify-center pb-4">
         <Loader secondColor="#fafbfd" borderWidth="5" width="40" />
       </div>
     );
+
+  const earnedIds = new Set(earnedBadges?.map((eb) => eb.badge_id));
 
   return (
     <div>
@@ -19,7 +33,7 @@ function BadgeGallery() {
           All badges
         </h4>
         <p className="font-heading text-charcoal-700 dark:text-charcoal-200 font-medium">
-          5/{count}
+          {earnedBadgesCount}/{badgesCount}
         </p>
       </div>
       <div className="custom-scrollbar max-h-[300px] overflow-y-auto py-4">
@@ -31,7 +45,7 @@ function BadgeGallery() {
               badgeIcon={badge.icon}
               bgColor={badge.bg_color}
               description={badge.description}
-              isLocked
+              isLocked={!earnedIds.has(badge.id)}
             />
           ))}
         </div>

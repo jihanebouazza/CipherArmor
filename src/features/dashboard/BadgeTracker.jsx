@@ -1,4 +1,3 @@
-import { useBadges } from "./useBadges";
 import BadgeItem from "./BadgeItem";
 import ContainerLoader from "../../ui/ContainerLoader";
 import { useDashboardStats } from "../../contexts/DashboardStatsContext ";
@@ -6,11 +5,13 @@ import { useAllVaults } from "../vaults/useAllVaults";
 import { useUser } from "../authentication/useUser";
 import { checkAndAwardBadges } from "../../services/apiBadges";
 import { useEffect, useMemo } from "react";
+import { useDetailedEarnedBadges } from "./useDetailedEarnedBadges";
 
 function BadgeTracker() {
-  const { badges, isPending: isPendingBadges } = useBadges();
   const { count: vaultsCount, isPending: isPendingVaults } = useAllVaults();
   const { user, isPending: isPendingUser } = useUser();
+  const { earnedBadges, isPending: isPendingEarnedBadges } =
+    useDetailedEarnedBadges(user.id);
 
   const {
     passwordHealth,
@@ -60,32 +61,34 @@ function BadgeTracker() {
     run();
   }, [user.id, stats]);
 
-  if (isPendingBadges || isPendingVaults || isPendingUser)
+  if (isPendingVaults || isPendingUser || isPendingEarnedBadges)
     return <ContainerLoader />;
+
+  console.log(earnedBadges[0]?.badges?.icon);
 
   return (
     <div className="flex items-center justify-between gap-3 px-6 py-1 md:flex-col md:px-0">
-      {/* {badges?.map((badge) => (
+      {(!earnedBadges || earnedBadges.length === 0) && (
+        <div className="flex min-h-[240px] w-full items-center justify-center text-center">
+          No badges yet!
+        </div>
+      )}
+      {earnedBadges[0] && (
         <BadgeItem
-          key={badge.id}
-          name={badge.name}
-          badgeIcon={badge.icon}
-          bgColor={badge.bg_color}
+          key={earnedBadges[0]?.badges?.id}
+          name={earnedBadges[0]?.badges?.name}
+          badgeIcon={earnedBadges[0]?.badges?.icon}
+          bgColor={earnedBadges[0]?.badges?.bg_color}
         />
-      ))} */}
-      <BadgeItem
-        key={badges[0].id}
-        name={badges[0].name}
-        badgeIcon={badges[0].icon}
-        bgColor={badges[0].bg_color}
-        isLocked
-      />
-      <BadgeItem
-        key={badges[2].id}
-        name={badges[2].name}
-        badgeIcon={badges[2].icon}
-        bgColor={badges[2].bg_color}
-      />
+      )}
+      {earnedBadges[1] && (
+        <BadgeItem
+          key={earnedBadges[1]?.badges?.id}
+          name={earnedBadges[1]?.badges?.name}
+          badgeIcon={earnedBadges[1]?.badges?.icon}
+          bgColor={earnedBadges[1]?.badges?.bg_color}
+        />
+      )}
     </div>
   );
 }

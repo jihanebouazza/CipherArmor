@@ -9,11 +9,12 @@ function BadgeItem({
   isLocked = false,
   description = "",
 }) {
-  const renderSvg = (svgString) => {
+  function renderSvg(svgString) {
+    if (!svgString || typeof svgString !== "string") return null;
     const div = document.createElement("div");
     div.innerHTML = svgString.trim();
     return div.firstChild;
-  };
+  }
 
   return (
     <div className="flex flex-col items-center gap-1">

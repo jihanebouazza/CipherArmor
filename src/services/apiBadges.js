@@ -56,4 +56,27 @@ export async function checkAndAwardBadges(userId, stats) {
   }
 }
 
-export async function getDetailedEarnedBadges() {}
+export async function getDetailedEarnedBadges(userId) {
+  const { data, error, count } = await supabase
+    .from("user_badges")
+    .select(
+      `
+        badge_id,
+        created_at,
+        badges (
+          id,
+          name,
+          description,
+          icon, 
+          bg_color
+        )
+      `,
+      { count: "exact" },
+    )
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false }); // latest first
+
+  if (error) throw new Error("Earned badges could not be loaded.");
+
+  return { data, count };
+}
