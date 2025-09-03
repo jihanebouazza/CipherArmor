@@ -26,12 +26,14 @@ function PasswordsByVaultChart() {
   const { isDarkMode } = useDarkMode();
   const { vaults, isPending } = useAllVaults();
 
+  const vaultsWithPasswords = vaults?.filter((v) => v.password_count > 0) || [];
+
   const data = {
-    labels: vaults?.map((v) => v.name),
+    labels: vaultsWithPasswords?.map((v) => v.name),
     datasets: [
       {
         label: "Passwords by vault",
-        data: vaults?.map((v) => v.password_count),
+        data: vaultsWithPasswords?.map((v) => v.password_count),
         backgroundColor: "#306CD3",
         hoverBackgroundColor: "#0049c6",
         borderRadius: 8,
@@ -131,9 +133,15 @@ function PasswordsByVaultChart() {
       <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
         Passwords by vault
       </h4>
-      <div className="h-56">
-        <Bar data={data} options={options} className="h-50" />
-      </div>
+      {vaultsWithPasswords.length ? (
+        <div className="h-56">
+          <Bar data={data} options={options} className="h-50" />
+        </div>
+      ) : (
+        <div className="flex w-full items-center justify-center text-center sm:h-fit lg:h-full">
+          No passwords in your vaults yet. Add some to see them here.
+        </div>
+      )}
     </DashboardBox>
   );
 }

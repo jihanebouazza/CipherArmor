@@ -46,38 +46,48 @@ function HealthAndAchievements() {
     );
 
   return (
-    <DashboardBox extraStyles="col-span-4 row-span-3 flex flex-col justify-between gap-3 px-5 py-4 lg:col-span-4">
+    <DashboardBox extraStyles="col-span-4 row-span-3 flex flex-col justify-start gap-3 px-5 py-4 lg:col-span-4">
       <div className="flex items-center justify-center">
-        <PasswordHealthChart passwordHealth={passwordHealth} />
+        <PasswordHealthChart passwordHealth={Number(passwordHealth) || 0} />
       </div>
-      <div className="divide-charcoal-400 divide-y-1">
+      <div className="divide-charcoal-400 h-full divide-y-1 py-3">
         <h4 className="font-heading dark:text-charcoal-100 pb-2 text-xl font-semibold">
           Achievements
         </h4>
-        <AchievementProgress
-          title={countTitle}
-          percentage={`${countProgress}%`}
-          progressLabel={`${passwordsCount > countGoal ? countGoal : passwordsCount}/${countGoal}`}
-          description={`Save ${countGoal} passwords.`}
-          barColor={countBarColor}
-          titleColor={countTitleColor}
-        />
-        <AchievementProgress
-          title={healthTitle}
-          percentage={`${healthProgress}%`}
-          progressLabel={`${Math.min(Math.round((passwordHealth / healthGoal) * 100), 100)}%`}
-          description={`Reach ${healthGoal}% password health.`}
-          barColor={healthBarColor}
-          titleColor={healthTitleColor}
-        />
-        <AchievementProgress
-          title={safeTitle}
-          percentage={`${safeProgress}%`}
-          progressLabel={`${Math.min(Math.round(safePercent), 100)}%`}
-          description={`Achieve ${safeGoal}% safe passwords.`}
-          barColor={safeBarColor}
-          titleColor={safeTitleColor}
-        />
+        <div className="flex h-full justify-center">
+          {passwordsCount ? (
+            <div className="divide-charcoal-400 w-full divide-y-1">
+              <AchievementProgress
+                title={countTitle}
+                percentage={`${countProgress}%`}
+                progressLabel={`${passwordsCount > countGoal ? countGoal : passwordsCount}/${countGoal}`}
+                description={`Save ${countGoal} passwords.`}
+                barColor={countBarColor}
+                titleColor={countTitleColor}
+              />
+              <AchievementProgress
+                title={healthTitle}
+                percentage={`${healthProgress}%`}
+                progressLabel={`${Math.min(Math.round((passwordHealth / healthGoal) * 100), 100)}%`}
+                description={`Reach ${healthGoal}% password health.`}
+                barColor={healthBarColor}
+                titleColor={healthTitleColor}
+              />
+              <AchievementProgress
+                title={safeTitle}
+                percentage={`${safeProgress}%`}
+                progressLabel={`${Math.min(Math.round(safePercent), 100)}%`}
+                description={`Achieve ${safeGoal}% safe passwords.`}
+                barColor={safeBarColor}
+                titleColor={safeTitleColor}
+              />
+            </div>
+          ) : (
+            <p className="my-auto flex h-full items-center justify-center">
+              No achievements yet!
+            </p>
+          )}
+        </div>
       </div>
     </DashboardBox>
   );

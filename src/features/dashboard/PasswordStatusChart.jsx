@@ -9,7 +9,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 function PasswordStatusChart() {
   const { isDarkMode } = useDarkMode();
-  const { isPendingPasswords, strengthPercentages } = useDashboardStats();
+  const { isPendingPasswords, strengthPercentages, passwordsCount } =
+    useDashboardStats();
 
   const data = {
     labels: Object.keys(strengthPercentages),
@@ -96,9 +97,15 @@ function PasswordStatusChart() {
       <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
         Password status overview
       </h4>
-      <div>
-        <Doughnut data={data} options={options} className="h-50" />
-      </div>
+      {passwordsCount ? (
+        <div>
+          <Doughnut data={data} options={options} className="h-50" />
+        </div>
+      ) : (
+        <div className="flex w-full items-center justify-center text-center">
+          No passwords yet. Add some to see your stats.
+        </div>
+      )}
     </DashboardBox>
   );
 }

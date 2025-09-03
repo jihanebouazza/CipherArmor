@@ -38,7 +38,7 @@ function DashboardStats() {
       <StatBlock
         title="Passwords total"
         count={passwordsCount}
-        percentage={Math.round(safePercent)}
+        percentage={Math.round(safePercent) || 0}
         detailText="are safe"
         linkTo="/passwords"
         isPending={isPendingPasswords}

@@ -12,6 +12,7 @@ import { useDarkMode } from "../../contexts/DarkModeContext";
 import DashboardBox from "./DashboardBox";
 import { usePasswordStats } from "./usePasswordsStats";
 import DashboardLoader from "./DashboardLoader";
+import { useDashboardStats } from "../../contexts/DashboardStatsContext ";
 
 ChartJS.register(
   LineElement,
@@ -71,6 +72,7 @@ function getPasswordAgeGroups(passwords) {
 function PasswordAgeChart() {
   const { isDarkMode } = useDarkMode();
   const { passwordsStats, isPending } = usePasswordStats();
+  const { passwordsCount } = useDashboardStats();
 
   const { passwordAgeDistribution, passwordCreationTimeline } =
     getPasswordAgeGroups(
@@ -230,9 +232,15 @@ function PasswordAgeChart() {
       <h4 className="font-heading dark:text-charcoal-100 pb-1 text-xl font-semibold">
         Password age and creation analysis
       </h4>
-      <div className="h-56">
-        <Line data={data} options={options} />
-      </div>
+      {passwordsCount ? (
+        <div className="h-56">
+          <Line data={data} options={options} />
+        </div>
+      ) : (
+        <div className="flex w-full items-center justify-center text-center sm:h-fit lg:h-full">
+          No passwords yet. Add some to see your stats.
+        </div>
+      )}
     </DashboardBox>
   );
 }

@@ -50,6 +50,9 @@ function BadgeTracker() {
   useEffect(() => {
     if (!user.id || !stats) return;
 
+    // Skip badge awarding entirely if no passwords exist
+    if (stats.total_count === 0) return;
+
     const run = async () => {
       try {
         await checkAndAwardBadges(user.id, stats);
@@ -63,8 +66,6 @@ function BadgeTracker() {
 
   if (isPendingVaults || isPendingUser || isPendingEarnedBadges)
     return <ContainerLoader />;
-
-  console.log(earnedBadges[0]?.badges?.icon);
 
   return (
     <div className="flex items-center justify-between gap-3 px-6 py-1 md:flex-col md:px-0">
