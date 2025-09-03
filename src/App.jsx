@@ -6,7 +6,7 @@ import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
@@ -16,6 +16,7 @@ import Vaults from "./pages/Vaults";
 import Settings from "./pages/settings.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
 import { DashboardStatsProvider } from "./contexts/DashboardStatsContext .jsx";
+import Home from "./pages/Home.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,10 +31,11 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<p>Hello</p>} />
+          <Route path="/" element={<Home />} />
 
           <Route element={<AuthLayout />}>
             <Route path="login" element={<Login />} />

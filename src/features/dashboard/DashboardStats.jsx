@@ -29,7 +29,7 @@ function DashboardStats() {
       <StatBlock
         title="Vaults total"
         count={vaultsCount}
-        percentage={emptyVaultsPercentage}
+        percentage={Math.round(emptyVaultsPercentage) || 0}
         detailText="are empty"
         linkTo="/vaults"
         inverseColor

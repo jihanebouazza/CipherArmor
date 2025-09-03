@@ -13,14 +13,6 @@ export async function signup({ fullName, email, password }) {
 
   if (error) throw new Error(error.message);
 
-  await addVault({
-    vault: {
-      name: "Default",
-      description: "Generic vault for miscellaneous accounts.",
-    },
-    user_id: data.user.id,
-  });
-
   return data;
 }
 
@@ -34,6 +26,26 @@ export async function login({ email, password }) {
   if (authError) throw new Error(authError.message);
 
   try {
+    const userId = authData.user.id;
+
+    // 🔹 Ensure default vault exists
+    const { data: vaults, error: vaultsError } = await supabase
+      .from("vaults")
+      .select("id")
+      .eq("user_id", userId);
+
+    if (vaultsError) throw new Error(vaultsError.message);
+
+    if (!vaults || vaults.length === 0) {
+      await addVault({
+        vault: {
+          name: "Default",
+          description: "Generic vault for miscellaneous accounts.",
+        },
+        user_id: userId,
+      });
+    }
+
     const eligibility = await checkEligibility(authData.user.id);
 
     // Auto-reactivate if eligible
