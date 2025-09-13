@@ -1,12 +1,6 @@
-import {
-  HiOutlineBellAlert,
-  HiOutlineBolt,
-  HiOutlineChartPie,
-  HiOutlineLockClosed,
-  HiOutlineShieldCheck,
-} from "react-icons/hi2";
+import { Link } from "react-router";
 import Button from "../../ui/Button";
-import BentoBoxTag from "./BentoBoxTag";
+import { HiOutlineArrowUpRight } from "react-icons/hi2";
 
 function Hero() {
   return (
@@ -42,36 +36,25 @@ function Hero() {
             Growing community of security-conscious people.
           </p>
         </div>
-        <div className="bg-ocean-150 dark:bg-charcoal-600 dark:text-charcoal-100 shadow-ocean-200 dark:shadow-charcoal-600 w-full rounded-3xl p-4 shadow-sm">
-          <h4 className="font-heading text-lg font-semibold">
-            Trusted by users
-          </h4>
-          <p className="text-charcoal-800 dark:text-charcoal-200">
-            Loved for security and simplicity.
-          </p>
+        <div className="bg-ocean-150 dark:bg-charcoal-600 dark:text-charcoal-100 shadow-ocean-200 dark:shadow-charcoal-600 flex w-full flex-col justify-between rounded-3xl p-4 shadow-sm">
           <div>
-            <BentoBoxTag
-              Icon={<HiOutlineChartPie size={16} className="text-ocean-800" />}
-              title="Smart insights"
-            />
-            <BentoBoxTag
-              Icon={
-                <HiOutlineShieldCheck size={16} className="text-ocean-800" />
-              }
-              title="Zero-knowledge"
-            />
-            <BentoBoxTag
-              Icon={
-                <HiOutlineLockClosed size={16} className="text-ocean-800" />
-              }
-              title="Strong Encryption"
-            />
-            {/* <div className="bg-ocean-500 ml-12 flex w-fit items-center gap-1.5 rounded-full px-1.5 py-1.5 text-sm">
-              <HiOutlineBellAlert size={16} className="text-ocean-100" />
-            </div>
-            <div className="bg-butter-500 ml-12 flex w-fit items-center gap-1.5 rounded-full px-1.5 py-1.5 text-sm">
-              <HiOutlineBolt size={16} className="text-ocean-100" />
-            </div> */}
+            <h4 className="font-heading text-lg font-semibold">
+              Trusted by users
+            </h4>
+            <p className="text-charcoal-800 dark:text-charcoal-100 leading-6">
+              Loved for security and simplicity.
+            </p>
+            <p className="text-charcoal-700 dark:text-charcoal-200 pt-0.5 text-sm font-light">
+              Built with privacy at the core — your data, your control.
+            </p>
+          </div>
+          <div className="flex justify-end">
+            <Link
+              to="/signup"
+              className="bg-ocean-500 text-ocean-100 rounded-full p-2"
+            >
+              <HiOutlineArrowUpRight size={16} />
+            </Link>
           </div>
         </div>
       </div>
@@ -86,8 +69,9 @@ function Hero() {
             again.
           </h3>
         </div>
-        <Button extraStyles="w-fit">Create Account</Button>
-        {/* <p className="text-sm font-light text-charcoal-700 dark:text-charcoal-200">Join thousands of users who have upgraded their digital security. Fast, safe, and completely encrypted.</p> */}
+        <Link to="/signup">
+          <Button extraStyles="w-fit">Create Account</Button>
+        </Link>{" "}
       </div>
       <div className="texture shadow-ocean-200 dark:shadow-charcoal-600 relative col-span-4 row-span-5 w-full rounded-3xl p-4 shadow-sm">
         <img
@@ -101,8 +85,24 @@ function Hero() {
           className="absolute bottom-0 left-1/2 h-[calc(100%+150px)] -translate-x-1/2 object-cover dark:hidden"
         />
       </div>
-      <div className="bg-ocean-150 dark:bg-charcoal-600 dark:text-charcoal-100 shadow-ocean-200 dark:shadow-charcoal-600 col-span-4 row-span-3 w-full rounded-3xl p-4 shadow-sm">
-        hello3
+      <div className="bg-ocean-150 dark:bg-charcoal-600 dark:text-charcoal-100 shadow-ocean-200 dark:shadow-charcoal-600 col-span-4 row-span-3 flex w-full flex-col justify-between rounded-3xl p-4 shadow-sm">
+        <img
+          className="dark:outline-charcoal-400 outline-ocean-900 h-12 w-12 rounded-full object-cover outline-1 outline-offset-2"
+          src="user5.jpg"
+          alt="user5"
+        />
+        <p className="font-semibold">
+          {'"'}Finally, a password manager that feels simple and powerful at the
+          same time. I’ve never felt more secure online.{'"'}
+        </p>
+        <div>
+          <p className="">
+            Sarah L.,{" "}
+            <span className="text-charcoal-700 dark:text-charcoal-200 pt-1.5 text-sm font-light">
+              Early User
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
