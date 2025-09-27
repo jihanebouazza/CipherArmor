@@ -4,6 +4,7 @@ import { HiOutlineArrowUpRight } from "react-icons/hi2";
 
 function Hero() {
   return (
+    <div className="flex flex-col h-[calc(100vh-6rem)]">
     <div className="grid h-screen flex-1 grid-cols-8 grid-rows-8 gap-4 px-8 pb-6">
       <div className="col-span-4 row-span-3 flex gap-4">
         <div className="bg-ocean-150 dark:bg-charcoal-600 dark:text-charcoal-100 shadow-ocean-200 dark:shadow-charcoal-600 flex w-full flex-col justify-between rounded-3xl p-4 shadow-sm">
@@ -104,6 +105,7 @@ function Hero() {
           </p>
         </div>
       </div>
+    </div>
     </div>
   );
 }

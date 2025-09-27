@@ -32,7 +32,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

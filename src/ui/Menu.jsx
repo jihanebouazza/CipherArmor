@@ -27,7 +27,7 @@ function Menu({ children }) {
   );
 }
 
-function Toggle({ id }) {
+function Toggle({ id, children }) {
   const { openId, open, close, setPosition } = useContext(MenuContext);
 
   function handleClick(e) {
@@ -44,7 +44,7 @@ function Toggle({ id }) {
 
   return (
     <button className="cursor-pointer" onClick={handleClick}>
-      <HiEllipsisVertical size={20} />
+      {children ?? <HiEllipsisVertical size={20} />}
     </button>
   );
 }

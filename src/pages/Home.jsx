@@ -6,15 +6,13 @@ import SecurityAssuranceSection from "../features/home/SecurityAssuranceSection"
 
 function Home() {
   return (
-    <>
-      <div className="flex h-screen flex-col">
-        <Navbar />
-        <Hero />
-      </div>
+   <div>
+      <Navbar/> {/* sticky, always visible */}
+      <Hero /> {/* will fill remaining screen height */}
       <FeaturesSection />
       <SecurityAssuranceSection />
       <Footer />
-    </>
+    </div>
   );
 }
 
