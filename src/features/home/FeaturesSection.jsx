@@ -8,11 +8,11 @@ import { PiVault } from "react-icons/pi";
 
 function FeaturesSection() {
   return (
-    <div className="px-8 py-6 pt-10">
+    <div className="px-8 py-6 pt-10 2xl:px-25">
       <h2 className="font-heading dark:text-charcoal-100 pb-2 text-2xl leading-none font-bold md:text-[32px] 2xl:text-4xl">
         Everything You Need in a Password Manager
       </h2>
-      <div className="grid grid-cols-4 gap-3 pt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 pt-4">
         <FeatureItem
           Icon={
             <HiOutlineFingerPrint

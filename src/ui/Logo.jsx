@@ -1,6 +1,9 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 function Logo({ textVisible = true }) {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   return (
     <Link to="/" className="flex items-baseline gap-1">
       <svg
@@ -56,7 +59,7 @@ function Logo({ textVisible = true }) {
         </g>
       </svg>
       <p
-        className={`font-heading dark:text-charcoal-100 ${textVisible ? "block" : "hidden"} text-[24px] font-bold 2xl:text-4xl leading-none`}
+        className={`font-heading ${isHome ? "hidden sm:block" : "block"} dark:text-charcoal-100 ${textVisible && !isHome ? "block" : "hidden"} text-[24px] leading-none font-bold 2xl:text-4xl`}
       >
         CipherArmor
       </p>
