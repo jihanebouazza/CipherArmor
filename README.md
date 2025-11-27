@@ -1,5 +1,5 @@
-Technologies:
-Front end React
+## Technologies:
+Front end : React
 with Libraries:
 - React Router
 - Tailwind CSS 
