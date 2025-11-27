@@ -13,15 +13,15 @@ with Libraries:
 - supabase
 
 
-##Features:
+## Features:
 
-###Dashboard & Analytics
+### Dashboard & Analytics
 
 - **Visual insights**: Charts and statistics for your passwords.
 
 - **Achievements & Badges**: Track milestones and reward secure habits.
 
-###Password Management
+### Password Management
 
 - **Add, edit, and remove passwords**: Easily manage all your credentials.
 
@@ -31,7 +31,7 @@ _ **Detailed password info**: Store URL, username, password, vault, time, and st
 
 - **Zero-knowledge encryption**: All passwords are encrypted with a master password known only to the user; the server cannot access your data.
 
-###Vaults
+### Vaults
 
 - **Organize your passwords**: Add, edit, and delete vaults.
 
@@ -39,13 +39,13 @@ _ **Detailed password info**: Store URL, username, password, vault, time, and st
 
 - **Search & filter vaults**: Quickly access the vault you need.
 
-###Account Management
+### Account Management
 
 - **User profile settings**: Edit account information.
 
 - **Account control**: Deactivate or delete your account securely.
 
-###Authentication & Security
+### Authentication & Security
 
 - **Signup & Login**: Secure authentication system.
 
